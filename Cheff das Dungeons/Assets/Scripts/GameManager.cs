@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -6,6 +7,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Persistent Objects")]
     public GameObject[] persistentObjects;
+    public Vector3 firePos;
+    public string sceneName;
 
     private void Awake()
     {
@@ -13,7 +16,6 @@ public class GameManager : MonoBehaviour
         {
             CleanUpAndDestroy();
             return;
-
         }
 
         else 
@@ -42,5 +44,10 @@ public class GameManager : MonoBehaviour
             Destroy(obj);
         }
         Destroy(gameObject);
+    }
+
+    public void Respaw() {
+        persistentObjects[0].transform.position = firePos;
+        SceneManager.LoadScene(sceneName);
     }
 }
