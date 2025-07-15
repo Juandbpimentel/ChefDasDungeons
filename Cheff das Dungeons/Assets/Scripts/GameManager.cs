@@ -5,10 +5,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [Header("Persistent Objects")]
-    public GameObject[] persistentObjects;
     public Vector3 firePos;
     public string sceneName;
+
+    [Header("Persistent Objects")]
+    public GameObject[] persistentObjects;
 
     private void Awake()
     {

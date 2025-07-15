@@ -3,11 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class Checkpoint1 : MonoBehaviour
 {   
-    [SerializeField]
     private GameManager gm;
 
     void OnTriggerEnter2D(Collider2D other) 
         {
+            gm = GameObject.FindWithTag("GM").GetComponent<GameManager>();
             if(other.CompareTag("Player"))
             {
                 gm.firePos = transform.position;

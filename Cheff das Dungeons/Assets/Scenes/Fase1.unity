@@ -130,8 +130,8 @@ GameObject:
   - component: {fileID: 16805183}
   - component: {fileID: 16805186}
   - component: {fileID: 16805185}
-  - component: {fileID: 16805184}
   - component: {fileID: 16805187}
+  - component: {fileID: 16805188}
   m_Layer: 0
   m_Name: Entrance
   m_TagString: Untagged
@@ -154,52 +154,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1129028609}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &16805184
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 16805182}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.010302544, y: -7.5005064}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 2.1173687, y: 1.0909715}
-  m_EdgeRadius: 0
 --- !u!483693784 &16805185
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -402,6 +356,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextSceneName: Fase0
   newPlayerPosition: {x: -0.12, y: 4.96}
+--- !u!19719996 &16805188
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16805182}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1 &114340167
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,6 +406,7 @@ GameObject:
   - component: {fileID: 114340170}
   - component: {fileID: 114340169}
   - component: {fileID: 114340171}
+  - component: {fileID: 114340172}
   m_Layer: 0
   m_Name: Stairs
   m_TagString: Untagged
@@ -671,7 +664,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneName: SafeRoom
-  newPlayerPosition: {x: 0, y: 0}
+  newPlayerPosition: {x: -0.68, y: -6.7}
+--- !u!61 &114340172
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114340167}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.09321773, y: 14.360819}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2.9186752, y: 1.0546417}
+  m_EdgeRadius: 0
 --- !u!1 &122655903
 GameObject:
   m_ObjectHideFlags: 0
@@ -3647,7 +3686,7 @@ GameObject:
   - component: {fileID: 376360327}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3664,6 +3703,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b727711d6ccf746b0d4b890159ecea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firePos: {x: 0, y: 0, z: 0}
+  sceneName: 
   persistentObjects:
   - {fileID: 1300566912}
 --- !u!4 &376360328
@@ -4856,26 +4897,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -1, y: 13, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 23
-      m_TileSpriteIndex: 23
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: 0, y: 13, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 23
-      m_TileSpriteIndex: 23
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 1, y: 13, z: 0}
     second:
       serializedVersion: 2
@@ -5004,7 +5025,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: c24d8d83ec6ed7d4d83ba646ffb32c3f, type: 2}
   - m_RefCount: 4
     m_Data: {fileID: 11400000, guid: 8be19b3aa8484334299ec9802c772527, type: 2}
-  - m_RefCount: 4
+  - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: a17854576d80d934eb156202a41a0fff, type: 2}
   - m_RefCount: 6
     m_Data: {fileID: 11400000, guid: a69452889d45e534f89d00e8f62b2212, type: 2}
@@ -5085,7 +5106,7 @@ Tilemap:
     m_Data: {fileID: 1911298547, guid: 9a79dcf5bfd64a7408a4d08d44ef8748, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: 218248910, guid: 9a79dcf5bfd64a7408a4d08d44ef8748, type: 3}
-  - m_RefCount: 4
+  - m_RefCount: 2
     m_Data: {fileID: 1732326264, guid: 9a79dcf5bfd64a7408a4d08d44ef8748, type: 3}
   - m_RefCount: 6
     m_Data: {fileID: 347200517083694783, guid: 9a79dcf5bfd64a7408a4d08d44ef8748, type: 3}
@@ -5120,7 +5141,7 @@ Tilemap:
   - m_RefCount: 3
     m_Data: {fileID: 1522945250, guid: 9a79dcf5bfd64a7408a4d08d44ef8748, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 110
+  - m_RefCount: 108
     m_Data:
       e00: 1
       e01: 0
@@ -5193,7 +5214,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 118
+  - m_RefCount: 116
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -5321,7 +5342,7 @@ GameObject:
   - component: {fileID: 1300566913}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5376,6 +5397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  gm: {fileID: 376360327}
 --- !u!50 &1300566915
 Rigidbody2D:
   serializedVersion: 5
@@ -5468,7 +5490,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 4334783836991956000, guid: b09ab875b06ce844280684e7d913d896, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
