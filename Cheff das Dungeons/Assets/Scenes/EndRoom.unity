@@ -2185,7 +2185,7 @@ GameObject:
   - component: {fileID: 1652109281}
   - component: {fileID: 1652109280}
   m_Layer: 0
-  m_Name: "Ba\xFA"
+  m_Name: Bau
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

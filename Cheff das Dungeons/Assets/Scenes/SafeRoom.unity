@@ -3544,7 +3544,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 1
 --- !u!114 &1588985449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3571,7 +3571,7 @@ GameObject:
   - component: {fileID: 1868507089}
   - component: {fileID: 1868507093}
   m_Layer: 0
-  m_Name: Entrance
+  m_Name: LastLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3605,7 +3605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneName: Fase1
-  newPlayerPosition: {x: -0.12, y: 4.96}
+  newPlayerPosition: {x: 0.05, y: 11.65}
 --- !u!483693784 &1868507091
 TilemapRenderer:
   m_ObjectHideFlags: 0

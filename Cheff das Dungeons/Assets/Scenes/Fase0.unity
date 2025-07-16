@@ -4426,10 +4426,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b727711d6ccf746b0d4b890159ecea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistentObjects:
-  - {fileID: 1995725963}
   firePos: {x: 0, y: 0, z: 0}
   sceneName: 
+  persistentObjects:
+  - {fileID: 1995725963}
 --- !u!4 &815775558
 Transform:
   m_ObjectHideFlags: 0
@@ -6220,7 +6220,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 1
 --- !u!114 &1638134324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6233,7 +6233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb2469724cc36c46b6e569c46d88b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 815775557}
 --- !u!1 &1995725963
 GameObject:
   m_ObjectHideFlags: 0
