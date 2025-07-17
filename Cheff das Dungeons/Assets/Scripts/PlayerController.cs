@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
     private float speed = 3f;
     private Rigidbody2D rb;
     private Vector2 moveDirection;
+    [SerializeField]
+    private GameManager gm;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,6 +21,11 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         moveDirection = new Vector2(horizontal, vertical);
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            gm.Respaw();
+        }
     }
 
     private void FixedUpdate()

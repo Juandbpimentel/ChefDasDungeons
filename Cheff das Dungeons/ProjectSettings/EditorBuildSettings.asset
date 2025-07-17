@@ -11,6 +11,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Fase1.unity
     guid: 93a338aa72a01c843b6f27478bb30732
+  - enabled: 1
+    path: Assets/Scenes/EndRoom.unity
+    guid: c3c7cc5a2a666534495fc6a36408f6ad
+  - enabled: 1
+    path: Assets/Scenes/SafeRoom.unity
+    guid: 718e178880f1c62418e08a92a871f602
+  - enabled: 1
+    path: Assets/Scenes/Fase3.unity
+    guid: 3ab66a8f7086a9a438a82265791ffcdf
+  - enabled: 1
+    path: Assets/Scenes/SafeRoom2.unity
+    guid: daa59283085aba84fa25a80c06bcf423
+  - enabled: 1
+    path: Assets/Scenes/Fase2.unity
+    guid: 6c8185769b8434048b0439ff31e75fa7
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
