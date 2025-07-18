@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public Vector3 firePos;
+    public Vector3 lastCheckpointPos;
     public string sceneName;
 
     [Header("Persistent Objects")]
@@ -47,8 +47,15 @@ public class GameManager : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void Respaw() {
-        persistentObjects[0].transform.position = firePos;
-        SceneManager.LoadScene(sceneName);
+    public void Respaw()
+    {
+        SceneManager.LoadSceneAsync(sceneName);
+        GameObject player = System.Array.Find(persistentObjects, obj =>
+                obj != null && obj.GetComponent<PlayerController>() != null);
+        if (player != null)
+        {
+            player.transform.position = lastCheckpointPos;
+            return;
+        }
     }
 }
