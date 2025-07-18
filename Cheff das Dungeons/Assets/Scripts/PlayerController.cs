@@ -30,7 +30,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GameManager.Instance.Respaw();
+            //GameManager.Instance.Respaw();
+            removeLife();
         }
     }
 
@@ -42,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
     private void initLifes(int max)
     {
-        for (int i = 0; i <= max; i++)
+        for (int i = 1; i < max; i++)
         {
             //instancia nova imagem
             Image newImage = Instantiate(lifes[^1], lifes[^1].transform.parent);
@@ -53,7 +54,48 @@ public class PlayerController : MonoBehaviour
             newPosition.x += -80; // desloca no eixo X
             newImage.GetComponent<RectTransform>().anchoredPosition = newPosition;
 
-            newImage.name = "life" + i;
+            newImage.name = "" + i;
+        }
+    }
+
+    private void removeLife()
+    {
+        //iterar sobre o array de vidas
+        for (int i = maxLifes - 1; i >= 0; i--)
+        {
+            //se achar uma vida com enabled = true
+            if (lifes[i].enabled == true)
+            {
+                // mudar para false
+                lifes[i].enabled = false;
+
+                // se era a ultima vida
+                if (i == 0)
+                {
+                    // respawnar player
+                    GameManager.Instance.Respaw();
+                    recuperateLife(maxLifes);
+                }
+                //sair
+                return;
+            }
+        }
+    }
+
+    private void recuperateLife(int n)
+    {
+        //iterar sobre o array de vidas
+        for (int i = 0, j = 0; i < maxLifes && j < n; i++)
+        {
+            //se achar vida com enabled = false
+            if (lifes[i].enabled == false)
+            {
+                //mudar para true
+                lifes[i].enabled = true;
+
+                // fazer isso n vezes
+                j++;
+            }
         }
     }
 }
