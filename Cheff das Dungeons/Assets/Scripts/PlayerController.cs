@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using TMPro;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +15,11 @@ public class PlayerController : MonoBehaviour
     private int maxLifes = 5;
     private Rigidbody2D rb;
     private Vector2 moveDirection;
+
+    private int potato = 0;
+
+    [SerializeField]
+    public TextMeshProUGUI potatoText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -33,12 +40,22 @@ public class PlayerController : MonoBehaviour
             //GameManager.Instance.Respaw();
             removeLife();
         }
+        
     }
 
     private void FixedUpdate()
     {
         Vector3 movePosition = (speed * Time.fixedDeltaTime * moveDirection.normalized) + rb.position;
         rb.MovePosition(movePosition);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.CompareTag("Potato"))
+        {
+            potato++;
+            Destroy(other.gameObject);
+            potatoText.text = potato.ToString();
+        }
     }
 
     private void initLifes(int max)
@@ -51,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
             //definir a posicao
             Vector3 newPosition = lifes[^1].GetComponent<RectTransform>().anchoredPosition;
-            newPosition.x += -80; // desloca no eixo X
+            newPosition.x += 80; // desloca no eixo X
             newImage.GetComponent<RectTransform>().anchoredPosition = newPosition;
 
             newImage.name = "" + i;
