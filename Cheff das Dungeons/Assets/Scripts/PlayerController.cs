@@ -16,10 +16,17 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveDirection;
 
-    private int potato = 0;
-
+    private int egg = 0;
     [SerializeField]
-    public TextMeshProUGUI potatoText;
+    public TextMeshProUGUI eggText;
+
+    private int meat = 0;
+    [SerializeField]
+    public TextMeshProUGUI meatText;
+
+    private int slime = 0;
+    [SerializeField]
+    public TextMeshProUGUI slimeText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -49,12 +56,42 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(movePosition);
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("Potato"))
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Egg"))
         {
-            potato++;
+            egg++;
             Destroy(other.gameObject);
-            potatoText.text = potato.ToString();
+            eggText.text = egg.ToString();
+        }
+
+        if (other.CompareTag("Checkpoint"))
+        {
+            other.GetComponent<Checkpoint>().interactText.enabled = true;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Checkpoint"))
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                other.GetComponent<Checkpoint>().burger.enabled = true;
+                other.GetComponent<Checkpoint>().stew.enabled = true;
+                other.GetComponent<Checkpoint>().fried_egg.enabled = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Checkpoint"))
+        {
+            other.GetComponent<Checkpoint>().interactText.enabled = false;
+            other.GetComponent<Checkpoint>().burger.enabled = false;
+            other.GetComponent<Checkpoint>().stew.enabled = false;
+            other.GetComponent<Checkpoint>().fried_egg.enabled = false;
         }
     }
 

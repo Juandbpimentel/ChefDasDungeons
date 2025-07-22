@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ba779afb7fc084a4c8a37360fb67fad8
+guid: 2ae3cbffaf881bd4d8fab8a20114593f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5209360753122014122
-    second: eggs_fried_0
+      213: 8339121831781765824
+    second: dosa1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: eggs_fried_0
+      name: dosa1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 16
-        height: 15
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 65c0d43def1a4b7b0800000000000000
-      internalID: -5209360753122014122
+      spriteID: 0c29e0a9f138ab370800000000000000
+      internalID: 8339121831781765824
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      eggs_fried_0: -5209360753122014122
+      dosa1_0: 8339121831781765824
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
