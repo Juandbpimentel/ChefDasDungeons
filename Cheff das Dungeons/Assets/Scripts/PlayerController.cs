@@ -64,35 +64,6 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
             eggText.text = egg.ToString();
         }
-
-        if (other.CompareTag("Checkpoint"))
-        {
-            other.GetComponent<Checkpoint>().interactText.enabled = true;
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("Checkpoint"))
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                other.GetComponent<Checkpoint>().burger.enabled = true;
-                other.GetComponent<Checkpoint>().stew.enabled = true;
-                other.GetComponent<Checkpoint>().fried_egg.enabled = true;
-            }
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Checkpoint"))
-        {
-            other.GetComponent<Checkpoint>().interactText.enabled = false;
-            other.GetComponent<Checkpoint>().burger.enabled = false;
-            other.GetComponent<Checkpoint>().stew.enabled = false;
-            other.GetComponent<Checkpoint>().fried_egg.enabled = false;
-        }
     }
 
     private void initLifes(int max)
