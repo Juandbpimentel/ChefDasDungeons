@@ -1,18 +1,56 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance;
+
     [SerializeField]
     private float speed = 3f;
+    [SerializeField]
+    private List<Image> lifes;
+    public int maxLifes = 5;
     private Rigidbody2D rb;
     private Vector2 moveDirection;
+
+    public bool isNotCrafting = true;
+
+    //Ingredientes
+    public int egg = 3;
     [SerializeField]
-    private GameManager gm;
+    public TextMeshProUGUI eggText;
+
+    public int meat = 4;
+    [SerializeField]
+    public TextMeshProUGUI meatText;
+
+    public int slime = 3;
+    [SerializeField]
+    public TextMeshProUGUI slimeText;
+
+    //Comidas
+    public int burger = 0;
+    [SerializeField]
+    public TextMeshProUGUI burgerText;
+
+    public int stew = 0;
+    [SerializeField]
+    public TextMeshProUGUI stewText;
+
+    public int fried_egg = 0;
+    [SerializeField]
+    public TextMeshProUGUI fried_eggText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Instance = this;
         rb = GetComponent<Rigidbody2D>();
+        initLifes(maxLifes);
+        updateUIText();
     }
 
     // Update is called once per frame
@@ -22,9 +60,32 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
         moveDirection = new Vector2(horizontal, vertical);
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        //Função de teste para remover vidas (tomar dano)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            gm.Respaw();
+            removeLife();
+        }
+
+        //Impede que o player coma o item quando estiver cozinhando (pois é a mesma tecla)
+        if (isNotCrafting)
+        {
+            //Comer um hamburger
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                eat("burger");
+            }
+
+            //Comer uma sopa
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                eat("stew");
+            }
+
+            //Comer um ovo
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                eat("fried_egg");
+            }
         }
     }
 
@@ -32,5 +93,160 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 movePosition = (speed * Time.fixedDeltaTime * moveDirection.normalized) + rb.position;
         rb.MovePosition(movePosition);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        //Se for um "ovo", adiciona ao contador e destroi
+        if (other.CompareTag("Egg"))
+        {
+            egg++;
+            Destroy(other.gameObject);
+            eggText.text = egg.ToString();
+        }
+
+        //Se for uma "carne", adiciona ao contador e destroi
+        if (other.CompareTag("Meat"))
+        {
+            meat++;
+            Destroy(other.gameObject);
+            meatText.text = meat.ToString();
+        }
+
+        //Se for uma "gosma", adiciona ao contador e destroi
+        if (other.CompareTag("Slime"))
+        {
+            slime++;
+            Destroy(other.gameObject);
+            slimeText.text = slime.ToString();
+        }
+    }
+
+    public void makeBurger()
+    {
+        burger++;
+
+        egg--;
+        slime--;
+        meat--;
+
+        updateUIText();
+    }
+
+    public void makeStew()
+    {
+        stew++;
+
+        slime--;
+        meat--;
+
+        updateUIText();
+    }
+
+    public void makeFried_egg()
+    {
+        fried_egg++;
+
+        egg--;
+
+        updateUIText();
+    }
+
+    private void updateUIText()
+    {
+        meatText.text = meat.ToString();
+        eggText.text = egg.ToString();
+        slimeText.text = slime.ToString();
+
+        stewText.text = stew.ToString();
+        fried_eggText.text = fried_egg.ToString();
+        burgerText.text = burger.ToString();
+    }
+
+    //Cria as imagens da vida (até o máximo definido)
+    private void initLifes(int max)
+    {
+        for (int i = 1; i < max; i++)
+        {
+            //instancia nova imagem
+            Image newImage = Instantiate(lifes[^1], lifes[^1].transform.parent);
+            lifes.Add(newImage);
+
+            //define a posicao
+            Vector3 newPosition = lifes[^1].GetComponent<RectTransform>().anchoredPosition;
+            newPosition.x += 80; // desloca no eixo X para a direita
+            newImage.GetComponent<RectTransform>().anchoredPosition = newPosition;
+
+            newImage.name = "" + i;
+        }
+    }
+
+    //Remove a vida da tela (não destroi o gameObject)
+    private void removeLife()
+    {
+        //iterar sobre o array de vidas
+        for (int i = maxLifes - 1; i >= 0; i--)
+        {
+            //se achar uma vida com enabled = true
+            if (lifes[i].enabled == true)
+            {
+                // mudar para false
+                lifes[i].enabled = false;
+
+                // se era a ultima vida
+                if (i == 0)
+                {
+                    // respawnar player e recuperar todas as vidas
+                    GameManager.Instance.Respaw();
+                    recuperateLife(maxLifes);
+                }
+                //sair
+                return;
+            }
+        }
+    }
+
+    //Ativa x vidas de volta
+    private bool recuperateLife(int n)
+    {
+        bool rec = false;
+        //iterar sobre o array de vidas
+        for (int i = 0, j = 0; i < maxLifes && j < n; i++)
+        {
+            //se achar vida com enabled = false
+            if (lifes[i].enabled == false)
+            {
+                //mudar para true
+                lifes[i].enabled = true;
+
+                // fazer isso n vezes
+                j++;
+
+                //recuperou = true
+                rec = true;
+            }
+        }
+
+        return rec;
+    }
+
+    private void eat(string foodName)
+    {
+        if (foodName == "burger" && burger > 0)
+        {
+            if(recuperateLife(3)) { burger--; }
+        }
+
+        if (foodName == "stew" && stew > 0)
+        {
+            if(recuperateLife(2)) { stew--; }
+        }
+
+        if (foodName == "fried_egg" && fried_egg > 0)
+        {
+            if(recuperateLife(1)) { fried_egg--; }
+        }
+
+        updateUIText();
     }
 }
