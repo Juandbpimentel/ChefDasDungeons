@@ -26,24 +26,25 @@ public class Checkpoint : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 enableDisableFoods();
+                PlayerController.Instance.isNotCrafting = false;
             }
 
             if (burger.isActiveAndEnabled && Input.GetKeyDown(KeyCode.Alpha1))
             {
-                PlayerController.Instance.burger++;
-                PlayerController.Instance.burgerText.text = burger.ToString();
+                PlayerController.Instance.makeBurger();
+                enableDisableFoods();
             }
 
             if (stew.isActiveAndEnabled && Input.GetKeyDown(KeyCode.Alpha2))
             {
-                PlayerController.Instance.stew++;
-                PlayerController.Instance.stewText.text = stew.ToString();
+                PlayerController.Instance.makeStew();
+                enableDisableFoods();
             }
 
             if (fried_egg.isActiveAndEnabled && Input.GetKeyDown(KeyCode.Alpha3))
             {
-                PlayerController.Instance.fried_egg++;
-                PlayerController.Instance.fried_eggText.text = fried_egg.ToString();
+                PlayerController.Instance.makeFried_egg();
+                enableDisableFoods();
             }
         }
     }
@@ -56,6 +57,7 @@ public class Checkpoint : MonoBehaviour
             burger.gameObject.SetActive(false);
             stew.gameObject.SetActive(false);
             fried_egg.gameObject.SetActive(false);
+            PlayerController.Instance.isNotCrafting = true;
         }
     }
 
