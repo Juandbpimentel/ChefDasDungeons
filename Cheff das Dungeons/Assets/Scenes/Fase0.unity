@@ -9328,12 +9328,19 @@ MonoBehaviour:
   lifes:
   - {fileID: 937398400}
   maxLifes: 5
-  egg: 0
+  isNotCrafting: 0
+  egg: 3
   eggText: {fileID: 545540773}
-  meat: 0
-  meatText: {fileID: 0}
-  slime: 0
-  slimeText: {fileID: 0}
+  meat: 3
+  meatText: {fileID: 480387694}
+  slime: 3
+  slimeText: {fileID: 1478071245}
+  burger: 0
+  burgerText: {fileID: 752162956}
+  stew: 0
+  stewText: {fileID: 99802466}
+  fried_egg: 0
+  fried_eggText: {fileID: 1814141622}
 --- !u!50 &1995725968
 Rigidbody2D:
   serializedVersion: 5

@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         Instance = this;
         rb = GetComponent<Rigidbody2D>();
         initLifes(maxLifes);
-        updateUIText;
+        updateUIText();
     }
 
     // Update is called once per frame
