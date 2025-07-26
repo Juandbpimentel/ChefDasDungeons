@@ -6,9 +6,10 @@ TagManager:
   tags:
   - Die
   - GM
-  - Potato
   - Checkpoint
   - Egg
+  - Meat
+  - Slime
   layers:
   - Default
   - TransparentFX

@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
-using Unity.VisualScripting;
 
 public class Checkpoint : MonoBehaviour
 {
@@ -26,13 +25,29 @@ public class Checkpoint : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                burger.gameObject.SetActive(true);
-                stew.gameObject.SetActive(true);
-                fried_egg.gameObject.SetActive(true);
+                enableDisableFoods();
+            }
+
+            if (burger.isActiveAndEnabled && Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                PlayerController.Instance.burger++;
+                PlayerController.Instance.burgerText.text = burger.ToString();
+            }
+
+            if (stew.isActiveAndEnabled && Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                PlayerController.Instance.stew++;
+                PlayerController.Instance.stewText.text = stew.ToString();
+            }
+
+            if (fried_egg.isActiveAndEnabled && Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                PlayerController.Instance.fried_egg++;
+                PlayerController.Instance.fried_eggText.text = fried_egg.ToString();
             }
         }
     }
-            
+
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -41,6 +56,37 @@ public class Checkpoint : MonoBehaviour
             burger.gameObject.SetActive(false);
             stew.gameObject.SetActive(false);
             fried_egg.gameObject.SetActive(false);
+        }
+    }
+
+    //Ativa/Desativa as comidas de acordo com os ingredientes disponíveis
+    private void enableDisableFoods()
+    {
+        if (PlayerController.Instance.egg > 0)
+        {
+            fried_egg.gameObject.SetActive(true);
+        }
+        else
+        {
+            fried_egg.gameObject.SetActive(false);
+        }
+
+        if (PlayerController.Instance.meat > 0 & PlayerController.Instance.slime > 0)
+        {
+            stew.gameObject.SetActive(true);
+        }
+        else
+        {
+            stew.gameObject.SetActive(false);
+        }
+
+        if (PlayerController.Instance.meat > 0 & PlayerController.Instance.slime > 0 & PlayerController.Instance.egg > 0)
+        {
+            burger.gameObject.SetActive(true);
+        }
+        else
+        {
+            burger.gameObject.SetActive(false);
         }
     }
 }

@@ -3,34 +3,49 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance;
+
     [SerializeField]
     private float speed = 3f;
     [SerializeField]
     private List<Image> lifes;
-
-    private int maxLifes = 5;
+    public int maxLifes = 5;
     private Rigidbody2D rb;
     private Vector2 moveDirection;
 
-    private int egg = 0;
+    //Ingredientes
+    public int egg = 0;
     [SerializeField]
     public TextMeshProUGUI eggText;
 
-    private int meat = 0;
+    public int meat = 0;
     [SerializeField]
     public TextMeshProUGUI meatText;
 
-    private int slime = 0;
+    public int slime = 0;
     [SerializeField]
     public TextMeshProUGUI slimeText;
+
+    //Comidas
+    public int burger = 0;
+    [SerializeField]
+    public TextMeshProUGUI burgerText;
+
+    public int stew = 0;
+    [SerializeField]
+    public TextMeshProUGUI stewText;
+
+    public int fried_egg = 0;
+    [SerializeField]
+    public TextMeshProUGUI fried_eggText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Instance = this;
         rb = GetComponent<Rigidbody2D>();
         initLifes(maxLifes);
     }
@@ -42,30 +57,66 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
         moveDirection = new Vector2(horizontal, vertical);
 
+        //Função de teste para remover vidas (tomar dano)
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //GameManager.Instance.Respaw();
             removeLife();
         }
-        
     }
 
     private void FixedUpdate()
     {
         Vector3 movePosition = (speed * Time.fixedDeltaTime * moveDirection.normalized) + rb.position;
         rb.MovePosition(movePosition);
+
+        //Comer um hamburger
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            eat("burger");
+        }
+
+        //Comer uma sopa
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            eat("stew");
+        }
+
+        //Comer um ovo
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            eat("fried_egg");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        //Se for um "ovo", adiciona ao contador e destroi
         if (other.CompareTag("Egg"))
         {
             egg++;
             Destroy(other.gameObject);
             eggText.text = egg.ToString();
         }
+
+        //Se for uma "carne", adiciona ao contador e destroi
+        if (other.CompareTag("Meat"))
+        {
+            meat++;
+            Destroy(other.gameObject);
+            meatText.text = meat.ToString();
+        }
+
+        //Se for uma "gosma", adiciona ao contador e destroi
+        if (other.CompareTag("Slime"))
+        {
+            slime++;
+            Destroy(other.gameObject);
+            slimeText.text = slime.ToString();
+        }
     }
 
+    //Cria as imagens da vida (até o máximo definido)
     private void initLifes(int max)
     {
         for (int i = 1; i < max; i++)
@@ -74,15 +125,16 @@ public class PlayerController : MonoBehaviour
             Image newImage = Instantiate(lifes[^1], lifes[^1].transform.parent);
             lifes.Add(newImage);
 
-            //definir a posicao
+            //define a posicao
             Vector3 newPosition = lifes[^1].GetComponent<RectTransform>().anchoredPosition;
-            newPosition.x += 80; // desloca no eixo X
+            newPosition.x += 80; // desloca no eixo X para a direita
             newImage.GetComponent<RectTransform>().anchoredPosition = newPosition;
 
             newImage.name = "" + i;
         }
     }
 
+    //Remove a vida da tela (não destroi o gameObject)
     private void removeLife()
     {
         //iterar sobre o array de vidas
@@ -97,7 +149,7 @@ public class PlayerController : MonoBehaviour
                 // se era a ultima vida
                 if (i == 0)
                 {
-                    // respawnar player
+                    // respawnar player e recuperar todas as vidas
                     GameManager.Instance.Respaw();
                     recuperateLife(maxLifes);
                 }
@@ -107,6 +159,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //Ativa x vidas de volta
     private void recuperateLife(int n)
     {
         //iterar sobre o array de vidas
@@ -121,6 +174,27 @@ public class PlayerController : MonoBehaviour
                 // fazer isso n vezes
                 j++;
             }
+        }
+    }
+
+    private void eat(string foodName)
+    {
+        if (foodName == "burger")
+        {
+            burger--;
+            recuperateLife(3);
+        }
+
+        if (foodName == "stew")
+        {
+            stew--;
+            recuperateLife(2);
+        }
+        
+        if (foodName == "fried_egg")
+        {
+            fried_egg--;
+            recuperateLife(1);
         }
     }
 }
