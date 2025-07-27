@@ -3856,7 +3856,7 @@ GameObject:
   - component: {fileID: 430900248}
   - component: {fileID: 430900251}
   - component: {fileID: 430900253}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: SlimeMob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3954,12 +3954,11 @@ Transform:
   m_GameObject: {fileID: 430900245}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.59, y: -4.04, z: 0}
+  m_LocalPosition: {x: 0.67, y: -0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1363389737}
-  - {fileID: 1845470250}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &430900251
@@ -6189,7 +6188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1363389737}
   - component: {fileID: 1363389738}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: InteractionRangeTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6353,74 +6352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1845470249
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1845470250}
-  - component: {fileID: 1845470251}
-  m_Layer: 2
-  m_Name: InteractionRangeTrigger (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1845470250
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1845470249}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 430900250}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &1845470251
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1845470249}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 2
 --- !u!1 &1995725963 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9091631265863244445, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
@@ -6469,11 +6400,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3104776067692761843, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.65
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3104776067692761843, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.86
+      value: -6.36
       objectReference: {fileID: 0}
     - target: {fileID: 3104776067692761843, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6604,10 +6535,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Egg
       objectReference: {fileID: 0}
-    - target: {fileID: 7205177180507890860, guid: b9172245aaff37a45a8dcf178a09ce85, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6624,10 +6551,6 @@ PrefabInstance:
     - target: {fileID: 708726310737219502, guid: 2646428042ccd8b43aefa4d701756964, type: 3}
       propertyPath: m_Name
       value: Meat
-      objectReference: {fileID: 0}
-    - target: {fileID: 708726310737219502, guid: 2646428042ccd8b43aefa4d701756964, type: 3}
-      propertyPath: m_Layer
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5304398155008272309, guid: 2646428042ccd8b43aefa4d701756964, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6682,30 +6605,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1821218294351104472, guid: e7e664cbab689fe4e8003655e321afbe, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2022559271825108885, guid: e7e664cbab689fe4e8003655e321afbe, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3363826927430413494, guid: e7e664cbab689fe4e8003655e321afbe, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4578963494577120225, guid: e7e664cbab689fe4e8003655e321afbe, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4941796723310798024, guid: e7e664cbab689fe4e8003655e321afbe, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5451122628222533279, guid: e7e664cbab689fe4e8003655e321afbe, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 5476511332424353047, guid: e7e664cbab689fe4e8003655e321afbe, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.8426027
@@ -6754,22 +6653,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fire
       objectReference: {fileID: 0}
-    - target: {fileID: 7027930157950024815, guid: e7e664cbab689fe4e8003655e321afbe, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7112719190160489119, guid: e7e664cbab689fe4e8003655e321afbe, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7953461260304334452, guid: e7e664cbab689fe4e8003655e321afbe, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9172398372211528535, guid: e7e664cbab689fe4e8003655e321afbe, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6786,10 +6669,6 @@ PrefabInstance:
     - target: {fileID: 2717574569883139326, guid: d774deeacf615fd49ab3d55ef90a280b, type: 3}
       propertyPath: m_Name
       value: Slime
-      objectReference: {fileID: 0}
-    - target: {fileID: 2717574569883139326, guid: d774deeacf615fd49ab3d55ef90a280b, type: 3}
-      propertyPath: m_Layer
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3748547037714422092, guid: d774deeacf615fd49ab3d55ef90a280b, type: 3}
       propertyPath: m_LocalScale.x
