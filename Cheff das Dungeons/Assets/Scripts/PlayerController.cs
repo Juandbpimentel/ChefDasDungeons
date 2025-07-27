@@ -164,6 +164,13 @@ public class PlayerController : MonoBehaviour
             slimeText.text = slime.ToString();
         }
 
+        if (other.CompareTag("Enemy"))
+        {
+            //Se for um inimigo, remove uma vida
+            removeLife();
+            Debug.Log("Player hit by enemy!");
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -317,7 +324,8 @@ public class PlayerController : MonoBehaviour
         if (
             (horizontal > 0 && transform.localScale.x < 0) ||
             (horizontal < 0 && transform.localScale.x > 0)
-        ) {
+        )
+        {
             faceDirection *= -1;
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
