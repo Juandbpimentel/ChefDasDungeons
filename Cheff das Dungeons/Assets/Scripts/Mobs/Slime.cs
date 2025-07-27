@@ -21,28 +21,29 @@ public class Slime : MonoBehaviour
     {
         if (hasLineOfSight)
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(player.transform.position.x, player.transform.position.y), speed * Time.deltaTime);
         }
     }
 
     private void FixedUpdate()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, player.transform.position - transform.position);
+        int layerMask = LayerMask.GetMask(new string[] { "Foreground&Map", "Player" });
+        Vector2 direction = player.transform.position - transform.position;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, Mathf.Infinity, layerMask);
         if (hit.collider == null)
         {
             hasLineOfSight = false;
             return;
         }
         hasLineOfSight = hit.collider.CompareTag("Player");
-        Debug.DrawLine(transform.position, hit.point, hasLineOfSight ? Color.green : Color.red);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
+        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            player = collision.gameObject;
-            // Lógica para atacar o jogador
+            hasLineOfSight = true;
         }
+        else
+        {
+            hasLineOfSight = false;
+        }
+        Debug.DrawLine(transform.position, hit.point, hasLineOfSight ? Color.green : Color.red);
     }
 }
