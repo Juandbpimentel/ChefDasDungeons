@@ -11,6 +11,12 @@ public class GameManager : MonoBehaviour
     [Header("Persistent Objects")]
     public GameObject[] persistentObjects;
 
+    private void Start()
+    {
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Awake()
     {
         if (Instance != null)
@@ -19,7 +25,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        else 
+        else
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -31,7 +37,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (GameObject obj in persistentObjects)
         {
-            if(obj != null)
+            if (obj != null)
             {
                 DontDestroyOnLoad(obj);
             }

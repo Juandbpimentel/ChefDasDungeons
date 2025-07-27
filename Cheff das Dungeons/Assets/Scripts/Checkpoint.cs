@@ -9,6 +9,10 @@ public class Checkpoint : MonoBehaviour
     public Image burger;
     public Image stew;
     public Image fried_egg;
+
+    bool isCrafting = false;
+
+    public TextMeshProUGUI withoutIngredientsText;
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -16,36 +20,7 @@ public class Checkpoint : MonoBehaviour
             GameManager.Instance.lastCheckpointPos = transform.position;
             GameManager.Instance.sceneName = SceneManager.GetActiveScene().name;
             interactText.enabled = true;
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                enableDisableFoods();
-                PlayerController.Instance.isNotCrafting = false;
-            }
-
-            if (burger.isActiveAndEnabled && Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                PlayerController.Instance.makeBurger();
-                enableDisableFoods();
-            }
-
-            if (stew.isActiveAndEnabled && Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                PlayerController.Instance.makeStew();
-                enableDisableFoods();
-            }
-
-            if (fried_egg.isActiveAndEnabled && Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                PlayerController.Instance.makeFried_egg();
-                enableDisableFoods();
-            }
+            other.GetComponent<PlayerController>().inCheckpoint = true;
         }
     }
 
@@ -57,38 +32,23 @@ public class Checkpoint : MonoBehaviour
             burger.gameObject.SetActive(false);
             stew.gameObject.SetActive(false);
             fried_egg.gameObject.SetActive(false);
-            PlayerController.Instance.isNotCrafting = true;
+            withoutIngredientsText.enabled = false;
+            PlayerController.Instance.isCrafting = false;
+            PlayerController.Instance.inCheckpoint = false;
         }
     }
 
     //Ativa/Desativa as comidas de acordo com os ingredientes disponíveis
-    private void enableDisableFoods()
+    public void enableDisableFoods()
     {
-        if (PlayerController.Instance.egg > 0)
-        {
-            fried_egg.gameObject.SetActive(true);
-        }
-        else
-        {
-            fried_egg.gameObject.SetActive(false);
-        }
+        isCrafting = PlayerController.Instance.isCrafting;
+        bool hasMeat = PlayerController.Instance.meat > 0;
+        bool hasSlime = PlayerController.Instance.slime > 0;
+        bool hasEgg = PlayerController.Instance.egg > 0;
 
-        if (PlayerController.Instance.meat > 0 & PlayerController.Instance.slime > 0)
-        {
-            stew.gameObject.SetActive(true);
-        }
-        else
-        {
-            stew.gameObject.SetActive(false);
-        }
-
-        if (PlayerController.Instance.meat > 0 & PlayerController.Instance.slime > 0 & PlayerController.Instance.egg > 0)
-        {
-            burger.gameObject.SetActive(true);
-        }
-        else
-        {
-            burger.gameObject.SetActive(false);
-        }
+        fried_egg.gameObject.SetActive(hasEgg && isCrafting);
+        stew.gameObject.SetActive(hasMeat && hasSlime && isCrafting);
+        burger.gameObject.SetActive(hasMeat && hasSlime && hasEgg && isCrafting);
+        withoutIngredientsText.enabled = !hasMeat && !hasSlime && !hasEgg && isCrafting;
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,7 +17,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveDirection;
 
-    public bool isNotCrafting = true;
+    public bool isCrafting = false;
+
+    public bool inCheckpoint = false;
 
     //Ingredientes
     public int egg = 3;
@@ -47,7 +50,15 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         rb = GetComponent<Rigidbody2D>();
         initLifes(maxLifes);
         updateUIText();
@@ -67,32 +78,68 @@ public class PlayerController : MonoBehaviour
         }
 
         //Impede que o player coma o item quando estiver cozinhando (pois é a mesma tecla)
-        if (isNotCrafting)
+        if (!isCrafting)
         {
             //Comer um hamburger
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                eat("burger");
+                Debug.Log("Comendo um hamburger");
+                eat(FoodEnum.Burger);
             }
 
             //Comer uma sopa
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                eat("stew");
+                Debug.Log("Comendo uma sopa");
+                eat(FoodEnum.Stew);
             }
 
             //Comer um ovo
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                eat("fried_egg");
+                Debug.Log("Comendo um ovo frito");
+                eat(FoodEnum.FriedEgg);
             }
         }
+        if (inCheckpoint)
+        {
+            handleCheckpointInteraction();
+        }
+
     }
 
     private void FixedUpdate()
     {
         Vector3 movePosition = (speed * Time.fixedDeltaTime * moveDirection.normalized) + rb.position;
         rb.MovePosition(movePosition);
+    }
+
+    private void handleCheckpointInteraction()
+    {
+        Checkpoint checkpoint = GameObject.FindWithTag("Checkpoint").GetComponent<Checkpoint>();
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            isCrafting = !isCrafting;
+            checkpoint.enableDisableFoods();
+        }
+
+        if (checkpoint.burger.isActiveAndEnabled && Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            makeBurger();
+            checkpoint.enableDisableFoods();
+        }
+
+        if (checkpoint.stew.isActiveAndEnabled && Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            makeStew();
+            checkpoint.enableDisableFoods();
+        }
+
+        if (checkpoint.fried_egg.isActiveAndEnabled && Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            makeFried_egg();
+            checkpoint.enableDisableFoods();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -119,6 +166,15 @@ public class PlayerController : MonoBehaviour
             slime++;
             Destroy(other.gameObject);
             slimeText.text = slime.ToString();
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Checkpoint"))
+        {
+            isCrafting = false;
         }
     }
 
@@ -230,23 +286,30 @@ public class PlayerController : MonoBehaviour
         return rec;
     }
 
-    private void eat(string foodName)
+    private void eat(FoodEnum food)
     {
-        if (foodName == "burger" && burger > 0)
+        Debug.Log("Comendo: " + food.ToString());
+        if (food == FoodEnum.Burger && burger > 0)
         {
-            if(recuperateLife(3)) { burger--; }
+            if (recuperateLife(3)) { burger--; }
         }
 
-        if (foodName == "stew" && stew > 0)
+        if (food == FoodEnum.Stew && stew > 0)
         {
-            if(recuperateLife(2)) { stew--; }
+            if (recuperateLife(2)) { stew--; }
         }
 
-        if (foodName == "fried_egg" && fried_egg > 0)
+        if (food == FoodEnum.FriedEgg && fried_egg > 0)
         {
-            if(recuperateLife(1)) { fried_egg--; }
+            if (recuperateLife(1)) { fried_egg--; }
         }
 
         updateUIText();
+    }
+    public enum FoodEnum
+    {
+        Burger,
+        Stew,
+        FriedEgg
     }
 }
