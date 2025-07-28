@@ -14,8 +14,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private List<Image> lifes;
     public int maxLifes = 5;
-    private Rigidbody2D rb;
-    private Vector2 moveDirection;
+    public int faceDirection = 1;
+    public Rigidbody2D rb;
+    public Animator animator;
 
     public bool isCrafting = false;
 
@@ -67,10 +68,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        moveDirection = new Vector2(horizontal, vertical);
-
         //Função de teste para remover vidas (tomar dano)
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -110,8 +107,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 movePosition = (speed * Time.fixedDeltaTime * moveDirection.normalized) + rb.position;
-        rb.MovePosition(movePosition);
+        ControlPlayerMoviment();
     }
 
     private void handleCheckpointInteraction()
@@ -311,5 +307,26 @@ public class PlayerController : MonoBehaviour
         Burger,
         Stew,
         FriedEgg
+    }
+
+    private void ControlPlayerMoviment()
+    {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        Vector2 movement = new Vector2(horizontal, vertical).normalized;
+
+        if (
+            (horizontal > 0 && transform.localScale.x < 0) ||
+            (horizontal < 0 && transform.localScale.x > 0)
+        )
+        {
+            faceDirection *= -1;
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+        }
+
+        animator.SetFloat("x", Mathf.Abs(horizontal));
+        animator.SetFloat("y", Mathf.Abs(vertical));
+
+        rb.linearVelocity = movement * speed;
     }
 }
