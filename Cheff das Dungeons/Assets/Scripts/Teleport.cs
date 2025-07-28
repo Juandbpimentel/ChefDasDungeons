@@ -8,12 +8,15 @@ public class Door : MonoBehaviour
     public Vector2 newPlayerPosition;
     private Transform player;
 
-    private void OnTriggerEnter2D(Collider2D collision) {
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Player")) return;
         player = collision.transform;
         NextScene();
     }
 
-    private void NextScene() {
+    private void NextScene()
+    {
         player.position = newPlayerPosition;
         SceneManager.LoadScene(this.nextSceneName);
     }
