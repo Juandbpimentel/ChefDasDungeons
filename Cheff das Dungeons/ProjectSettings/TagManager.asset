@@ -14,16 +14,16 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Foreground&Map
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Items
+  - Player
+  - Interactives
+  - Background&Decorations
+  - Enemy
+  - Misc
+  - Confiners
   - 
   - 
   - 
@@ -46,6 +46,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 2643361897
+    locked: 0
+  - name: Foreground
+    uniqueID: 1934682679
     locked: 0
   m_RenderingLayers:
   - Default

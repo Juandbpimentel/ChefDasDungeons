@@ -15,6 +15,7 @@ public class Checkpoint : MonoBehaviour
     public TextMeshProUGUI withoutIngredientsText;
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Player entered checkpoint");
         if (other.CompareTag("Player"))
         {
             GameManager.Instance.lastCheckpointPos = transform.position;
