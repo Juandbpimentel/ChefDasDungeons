@@ -242,7 +242,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.4}
-  m_Radius: 1.5
+  m_Radius: 2
 --- !u!114 &1068473270726505101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,6 +439,6 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1.4375
-  m_BaseOffset: 0.5
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

@@ -83,12 +83,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -458641133534639524, guid: 3df726eb8ad9f0b44a40abb037036dfe, type: 3}
+  m_Sprite: {fileID: 1151379508798316392, guid: b031b13cac8d8ee4ca2af587c68a57e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 1.15}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -104,7 +104,7 @@ Animator:
   m_GameObject: {fileID: 375715508846254894}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 26f2ebc268138644085d584cb27e43d7, type: 2}
+  m_Controller: {fileID: 9100000, guid: a6d443f51fc555549a43ca41f70aa224, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -253,8 +253,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.4}
-  m_Radius: 5
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 7
 --- !u!114 &1285499040224272922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 5107916602712415040}
   - component: {fileID: 4397339149955448695}
   m_Layer: 10
-  m_Name: AttackArea
+  m_Name: ChargeArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -335,8 +335,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.4}
-  m_Radius: 1.5
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 5
 --- !u!114 &4397339149955448695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,7 +417,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.5}
+  m_Offset: {x: -0.03038472, y: -0.011890292}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -427,7 +427,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.4349376, y: 1.0097086}
   m_EdgeRadius: 0
 --- !u!114 &3749790113768120775
 MonoBehaviour:
