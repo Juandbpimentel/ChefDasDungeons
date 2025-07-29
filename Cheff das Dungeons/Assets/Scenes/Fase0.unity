@@ -5378,7 +5378,6 @@ GameObject:
   - component: {fileID: 604105961}
   - component: {fileID: 604105960}
   m_Layer: 13
-  m_Layer: 13
   m_Name: Navmesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5392,7 +5391,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604105959}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70bd44a44cd62c64fbfc1eea95b24880, type: 3}
   m_Name: 
@@ -5408,7 +5407,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604105959}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e04976799df50f54ba128eff723155a7, type: 3}
   m_Name: 
@@ -5440,7 +5439,6 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604105959}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -8738,7 +8736,6 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0.029340267, y: -0.558218}
-  m_Offset: {x: 0.029340267, y: -0.558218}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -8748,7 +8745,6 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.56901836, y: 1.0088367}
   m_Size: {x: 0.56901836, y: 1.0088367}
   m_EdgeRadius: 0
 --- !u!1001 &75042247312480371
@@ -8893,7 +8889,6 @@ PrefabInstance:
       objectReference: {fileID: 1995725967}
     - target: {fileID: 5625928924396904585, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
       propertyPath: speed
-      value: 3
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5625928924396904585, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
@@ -9683,10 +9678,6 @@ PrefabInstance:
     - target: {fileID: 1316056530115503009, guid: f91c99d345927cf47a5d3aeb92b425f9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3718301209249076304, guid: f91c99d345927cf47a5d3aeb92b425f9, type: 3}
-      propertyPath: m_Radius
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3718301209249076304, guid: f91c99d345927cf47a5d3aeb92b425f9, type: 3}
       propertyPath: m_Radius
