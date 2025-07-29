@@ -5,13 +5,27 @@ public class Slime : MonoBehaviour, ITriggerListener
 {
     public int vidaMaxima = 5;
     public float speed = 1.5f;
+
+    private Animator animator;
     private int vida;
     private GameObject player;
 
     NavMeshAgent agent;
     private bool hasLineOfSight = false;
 
-    private bool playerInInteractionArea = false;
+
+    public float attackCooldown = 0f;
+
+    // Variável para armazenar se o Slime está atacando
+    private bool isAttacking = false;
+
+    private bool isPlayerInInteractionArea = false;
+
+    private bool isPlayerStayInAttackArea = false;
+
+    [Header("Raycast Settings")]
+    [Tooltip("Deslocamento da origem do raycast para ajustar ao centro visual do sprite.")]
+    public Vector2 raycastOriginOffset = new Vector2(0, 0.4f);
 
     // Variável para armazenar o deslocamento do centro do jogador
     private Vector2 playerOffset;
@@ -19,7 +33,11 @@ public class Slime : MonoBehaviour, ITriggerListener
     void Start()
     {
         vida = vidaMaxima;
+
         player = GameObject.FindGameObjectWithTag("Player");
+
+        animator = GetComponent<Animator>();
+
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -46,30 +64,40 @@ public class Slime : MonoBehaviour, ITriggerListener
     void Update()
     {
         // Todo: Implementar lógica de seguir só quando o jogador está dentro da área de interação
-        agent.SetDestination((Vector2)player.transform.position + playerOffset);
-        agent.speed = speed;
     }
 
     private void FixedUpdate()
     {
+        HandleMovement();
+        HandlePlayerLineOfSight();
+        HandleAttack();
+    }
+
+    public void HandlePlayerLineOfSight()
+    {
+        if (player == null) return;
+
         int layerMask = LayerMask.GetMask("Foreground&Map", "Player");
+
+        // Calcula a origem do raycast com o deslocamento
+        Vector2 raycastOrigin = (Vector2)transform.position + raycastOriginOffset;
 
         // Calcula o centro do jogador com base no deslocamento pré-calculado
         Vector2 playerCenter = (Vector2)player.transform.position + playerOffset;
 
         // Calcula a direção do Raycast para o centro do jogador
-        Vector2 direction = (playerCenter - (Vector2)transform.position).normalized;
+        Vector2 direction = (playerCenter - raycastOrigin).normalized;
 
         // Define o tamanho da "grossura" do BoxCast
         Vector2 boxSize = new Vector2(0.5f, 0.5f); // Ajuste os valores conforme necessário
 
         // Realiza o BoxCast
-        RaycastHit2D hit = Physics2D.BoxCast(transform.position, boxSize, 0f, direction, Mathf.Infinity, layerMask);
+        RaycastHit2D hit = Physics2D.BoxCast(raycastOrigin, boxSize, 0f, direction, 5f, layerMask);
 
         if (hit.collider == null)
         {
             hasLineOfSight = false;
-            DrawBox(transform.position, boxSize, direction, 0f, 10f, Color.red);
+            UtilFunctions.DrawBox(raycastOrigin, boxSize, direction, 0f, 5f, Color.red);
             return;
         }
 
@@ -77,67 +105,38 @@ public class Slime : MonoBehaviour, ITriggerListener
         hasLineOfSight = hit.collider.CompareTag("Player");
 
         // Desenha a linha do Raycast no editor
-        DrawBox(transform.position, boxSize, direction, 0f, hit.distance, hasLineOfSight ? Color.green : Color.red);
+        UtilFunctions.DrawBox(raycastOrigin, boxSize, direction, 0f, hit.distance, hasLineOfSight ? Color.green : Color.red);
     }
 
 
-    private void DrawBox(Vector2 origin, Vector2 size, Vector2 direction, float angle, float distance, Color color)
-    {
-        // Calcula os vértices da caixa
-        Vector2 right = new Vector2(direction.y, -direction.x) * size.x / 2;
-        Vector2 up = direction * size.y / 2;
-
-        Vector2 topLeft = origin - right + up;
-        Vector2 topRight = origin + right + up;
-        Vector2 bottomLeft = origin - right - up;
-        Vector2 bottomRight = origin + right - up;
-
-        // Calcula os vértices deslocados pela distância
-        Vector2 topLeftEnd = topLeft + direction * distance;
-        Vector2 topRightEnd = topRight + direction * distance;
-        Vector2 bottomLeftEnd = bottomLeft + direction * distance;
-        Vector2 bottomRightEnd = bottomRight + direction * distance;
-
-        // Desenha as linhas da caixa inicial
-        Debug.DrawLine(topLeft, topRight, color);
-        Debug.DrawLine(topRight, bottomRight, color);
-        Debug.DrawLine(bottomRight, bottomLeft, color);
-        Debug.DrawLine(bottomLeft, topLeft, color);
-
-        // Desenha as linhas da caixa final (após o deslocamento)
-        Debug.DrawLine(topLeftEnd, topRightEnd, color);
-        Debug.DrawLine(topRightEnd, bottomRightEnd, color);
-        Debug.DrawLine(bottomRightEnd, bottomLeftEnd, color);
-        Debug.DrawLine(bottomLeftEnd, topLeftEnd, color);
-
-        // Desenha as linhas conectando os lados da caixa inicial e final
-        Debug.DrawLine(topLeft, topLeftEnd, color);
-        Debug.DrawLine(topRight, topRightEnd, color);
-        Debug.DrawLine(bottomLeft, bottomLeftEnd, color);
-        Debug.DrawLine(bottomRight, bottomRightEnd, color);
-
-        // Desenha a linha central da caixa
-        Vector2 centerStart = origin;
-        Vector2 centerEnd = origin + direction * distance;
-        Debug.DrawLine(centerStart, centerEnd, color);
-    }
 
     public void OnChildTriggerEnter2D(GameObject triggerObject, Collider2D other)
     {
         // Verifica se o objeto que entrou no Trigger é o jogador
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Jogador entrou na área de interação!");
-
             if (triggerObject.name == "InteractionArea")
             {
-                Debug.Log("InteractionArea ativado pelo jogador!");
-                playerInInteractionArea = true;
+                Debug.Log("Jogador entrou na área de Interação!");
+                isPlayerInInteractionArea = true;
                 // Lógica específica para o Trigger 1
             }
-            else if (triggerObject.name == "AttackArea")
+        }
+    }
+
+    public void OnChildTriggerStay2D(GameObject triggerObject, Collider2D other)
+    {
+        // Verifica se o objeto que entrou no Trigger é o jogador
+        if (other.CompareTag("Player"))
+        {
+            if (triggerObject.name == "AttackArea")
             {
-                Debug.Log("AttackArea ativado pelo jogador!");
+                if (!isPlayerStayInAttackArea)
+                {
+                    Debug.Log("Jogador ficou na área de Ataque!");
+                    isPlayerStayInAttackArea = true;
+                }
+                // Debug.Log("AttackArea ativado pelo jogador!");
                 // Lógica específica para o Trigger 2
             }
         }
@@ -153,14 +152,122 @@ public class Slime : MonoBehaviour, ITriggerListener
             if (triggerObject.name == "InteractionArea")
             {
                 Debug.Log("InteractionArea desativado pelo jogador!");
-                playerInInteractionArea = false;
+                isPlayerInInteractionArea = false;
                 // Lógica específica para o Trigger 1
             }
             else if (triggerObject.name == "AttackArea")
             {
                 Debug.Log("AttackArea desativado pelo jogador!");
                 // Lógica específica para o Trigger 2
+                isPlayerStayInAttackArea = false;
             }
         }
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Slime colidiu com o jogador!");
+            // Lógica de dano ou interação com o jogador
+        }
+    }
+
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Slime saiu da colisão com o jogador!");
+            // Lógica para quando o jogador sai da colisão
+        }
+    }
+
+    private void HandleMovement()
+    {
+
+        if (isPlayerInInteractionArea)
+        {
+            if (isPlayerStayInAttackArea)
+            {
+                if (attackCooldown >= 0 && isAttacking)
+                {
+                    // Se o Slime está atacando ou o cooldown acabou, não se move
+                    Debug.Log("Slime está na área de ataque e está no meio do ataque. attackCooldown: " + attackCooldown + "| isAttacking: " + isAttacking);
+                    agent.ResetPath();
+                    return;
+                }
+                else
+                {
+                    Debug.Log("Slime está na área de ataque, mas está com o ataque em cooldown e não está atacando. attackCooldown: " + attackCooldown + "| isAttacking: " + isAttacking);
+                    agent.SetDestination((Vector2)player.transform.position + playerOffset);
+                    agent.speed = speed;
+                }
+            }
+            else
+            {
+                if (!isAttacking)
+                {
+                    Debug.Log("Slime não está na área de ataque, mas não está atacando. attackCooldown: " + attackCooldown + "| isAttacking: " + isAttacking);
+                    agent.SetDestination((Vector2)player.transform.position + playerOffset);
+                    agent.speed = speed;
+                }
+                else
+                {
+                    // Se o Slime está atacando, não se move
+                    Debug.Log("Slime não está na área de ataque, mas está atacando. attackCooldown: " + attackCooldown + "| isAttacking: " + isAttacking);
+                    agent.ResetPath();
+                }
+            }
+
+        }
+        else
+        {
+            Debug.Log("Slime não está na área de interação, parando o movimento. attackCooldown: " + attackCooldown + "| isAttacking: " + isAttacking);
+            agent.ResetPath();
+        }
+
+    }
+
+    private void HandleAttack()
+    {
+        if (isPlayerStayInAttackArea && hasLineOfSight && !isAttacking)
+        {
+            // Inicia o ataque
+            isAttacking = true;
+            Debug.Log("Slime está atacando o jogador!");
+
+            // Aqui você pode adicionar a lógica de ataque, como causar dano ao jogador
+            // Exemplo: player.GetComponent<PlayerHealth>().TakeDamage(1);
+
+            // Reseta o cooldown do ataque
+            // Defina o tempo de cooldown desejado
+        }
+        // verificar se o animator terminou a animação de ataque
+        if (animator != null)
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+            {
+                attackCooldown = 2.5f;
+            }
+        }
+        if (attackCooldown > 0f)
+        {
+            isAttacking = false;
+            attackCooldown -= Time.deltaTime;
+        }
+        else
+        {
+            attackCooldown = 0f;
+        }
+    }
+    // Slime está normal seguindo o player
+    // Slime não atacando chega na área de ataque e se prepara pra atacar
+
+    private void OnDrawGizmosSelected()
+    {
+        // Desenha um Gizmo para visualizar a origem do Raycast no Editor
+        Gizmos.color = Color.yellow;
+        Vector2 raycastOrigin = (Vector2)transform.position + raycastOriginOffset;
+        Gizmos.DrawWireSphere(raycastOrigin, 0.1f);
     }
 }

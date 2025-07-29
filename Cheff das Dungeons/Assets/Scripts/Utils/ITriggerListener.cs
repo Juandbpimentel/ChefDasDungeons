@@ -9,5 +9,7 @@ public interface ITriggerListener
     void OnChildTriggerEnter2D(GameObject triggerObject, Collider2D other);
 
     void OnChildTriggerExit2D(GameObject triggerObject, Collider2D other);
+
+    void OnChildTriggerStay2D(GameObject triggerObject, Collider2D other);
 }
 

@@ -22,6 +22,12 @@ public class Custom2DTrigger : MonoBehaviour
         parentListener?.OnChildTriggerEnter2D(this.gameObject, collision);
     }
 
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        // Se encontrou um "ouvinte", avisa sobre a permanência
+        parentListener?.OnChildTriggerStay2D(this.gameObject, collision);
+    }
+
     void OnTriggerExit2D(Collider2D collision)
     {
         // Se encontrou um "ouvinte", avisa sobre a saída
