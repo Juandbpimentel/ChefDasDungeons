@@ -1582,10 +1582,10 @@ TextureImporter:
       name: slime_dying_5
       rect:
         serializedVersion: 2
-        x: 135
+        x: 132
         y: 8
-        width: 9
-        height: 6
+        width: 14
+        height: 14
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1604,10 +1604,10 @@ TextureImporter:
       name: slime_dying_6
       rect:
         serializedVersion: 2
-        x: 149
+        x: 144
         y: 9
-        width: 4
-        height: 4
+        width: 14
+        height: 14
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
