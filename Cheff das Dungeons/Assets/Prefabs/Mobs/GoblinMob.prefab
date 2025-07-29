@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 815036893611334763}
   - component: {fileID: 6379147190632374965}
   m_Layer: 10
-  m_Name: AttackArea
+  m_Name: FearArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.4}
+  m_Offset: {x: 0, y: 0}
   m_Radius: 1.5
 --- !u!114 &6379147190632374965
 MonoBehaviour:
@@ -165,12 +165,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -458641133534639524, guid: 3df726eb8ad9f0b44a40abb037036dfe, type: 3}
+  m_Sprite: {fileID: -1783020656395652030, guid: 3037b799e94fb0e48b89883128ded506, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9, y: 1.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -186,7 +186,7 @@ Animator:
   m_GameObject: {fileID: 1074733835279746213}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 26f2ebc268138644085d584cb27e43d7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0dc921db1e0775543af43fc868e418c2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -265,7 +265,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1.4375
-  m_BaseOffset: 0.5
+  m_BaseOffset: 0.58
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!1 &3177126864999203873
@@ -335,7 +335,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.5}
+  m_Offset: {x: 0.0017136931, y: -0.06683302}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -345,7 +345,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.42802566, y: 0.9691534}
   m_EdgeRadius: 0
 --- !u!114 &2398461662588418779
 MonoBehaviour:
@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 7039117963028452402}
   - component: {fileID: 7700732888774946110}
   m_Layer: 10
-  m_Name: InteractionArea
+  m_Name: AttackArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -427,8 +427,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.4}
-  m_Radius: 5
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 7
 --- !u!114 &7700732888774946110
 MonoBehaviour:
   m_ObjectHideFlags: 0

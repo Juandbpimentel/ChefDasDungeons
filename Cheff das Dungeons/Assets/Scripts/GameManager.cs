@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Instance = this;
+        sceneName = SceneManager.GetActiveScene().name;
         DontDestroyOnLoad(gameObject);
     }
 
