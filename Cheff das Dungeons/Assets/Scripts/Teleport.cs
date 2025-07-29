@@ -18,6 +18,15 @@ public class Door : MonoBehaviour
     private void NextScene()
     {
         player.position = newPlayerPosition;
+        // primeiro, apaga a cena atual
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.UnloadSceneAsync(currentScene);
+        // depois, carrega a próxima cena
+        if (string.IsNullOrEmpty(nextSceneName))
+        {
+            Debug.LogError("Next scene name is not set.");
+            return;
+        }
         SceneManager.LoadScene(this.nextSceneName);
     }
 }
