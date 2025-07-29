@@ -5498,7 +5498,15 @@ PrefabInstance:
     - target: {fileID: 452622944825877035, guid: 6c7b3db831024384bbb320075e4bb207, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 6120725322271357936, guid: f97816b0b6054d94a86e83962cf2d251, type: 3}
+      objectReference: {fileID: -1783020656395652030, guid: 3037b799e94fb0e48b89883128ded506, type: 3}
+    - target: {fileID: 570631670457421552, guid: 6c7b3db831024384bbb320075e4bb207, type: 3}
+      propertyPath: m_Name
+      value: FearArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 815036893611334763, guid: 6c7b3db831024384bbb320075e4bb207, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1074733835279746213, guid: 6c7b3db831024384bbb320075e4bb207, type: 3}
       propertyPath: m_Name
       value: GoblinMob
@@ -5514,6 +5522,38 @@ PrefabInstance:
     - target: {fileID: 3705329765167584095, guid: 6c7b3db831024384bbb320075e4bb207, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4647795005765097952, guid: 6c7b3db831024384bbb320075e4bb207, type: 3}
+      propertyPath: m_Name
+      value: AttackArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 5452291559768668881, guid: 6c7b3db831024384bbb320075e4bb207, type: 3}
+      propertyPath: m_Size.x
+      value: 0.42802566
+      objectReference: {fileID: 0}
+    - target: {fileID: 5452291559768668881, guid: 6c7b3db831024384bbb320075e4bb207, type: 3}
+      propertyPath: m_Size.y
+      value: 0.9691534
+      objectReference: {fileID: 0}
+    - target: {fileID: 5452291559768668881, guid: 6c7b3db831024384bbb320075e4bb207, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.0017136931
+      objectReference: {fileID: 0}
+    - target: {fileID: 5452291559768668881, guid: 6c7b3db831024384bbb320075e4bb207, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.06683302
+      objectReference: {fileID: 0}
+    - target: {fileID: 7039117963028452402, guid: 6c7b3db831024384bbb320075e4bb207, type: 3}
+      propertyPath: m_Radius
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7039117963028452402, guid: 6c7b3db831024384bbb320075e4bb207, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7222267045898341813, guid: 6c7b3db831024384bbb320075e4bb207, type: 3}
+      propertyPath: m_BaseOffset
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 8239989845162247758, guid: 6c7b3db831024384bbb320075e4bb207, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8062,6 +8102,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: JavaliMob
       objectReference: {fileID: 0}
+    - target: {fileID: 5107916602712415040, guid: 105afef4c968467429a9a8510ae6494b, type: 3}
+      propertyPath: m_Radius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5107916602712415040, guid: 105afef4c968467429a9a8510ae6494b, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5249321692845422626, guid: 105afef4c968467429a9a8510ae6494b, type: 3}
+      propertyPath: m_Name
+      value: ChargeArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 6065032588102917679, guid: 105afef4c968467429a9a8510ae6494b, type: 3}
+      propertyPath: m_Size.x
+      value: 1.4349376
+      objectReference: {fileID: 0}
+    - target: {fileID: 6065032588102917679, guid: 105afef4c968467429a9a8510ae6494b, type: 3}
+      propertyPath: m_Size.y
+      value: 1.0097086
+      objectReference: {fileID: 0}
+    - target: {fileID: 6065032588102917679, guid: 105afef4c968467429a9a8510ae6494b, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.03038472
+      objectReference: {fileID: 0}
+    - target: {fileID: 6065032588102917679, guid: 105afef4c968467429a9a8510ae6494b, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.011890292
+      objectReference: {fileID: 0}
+    - target: {fileID: 7183446985952471218, guid: 105afef4c968467429a9a8510ae6494b, type: 3}
+      propertyPath: m_BaseOffset
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7405604222869225731, guid: 105afef4c968467429a9a8510ae6494b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.98
@@ -8104,7 +8176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7511795268012166269, guid: 105afef4c968467429a9a8510ae6494b, type: 3}
       propertyPath: m_FlipX
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7511795268012166269, guid: 105afef4c968467429a9a8510ae6494b, type: 3}
       propertyPath: m_Size.x
@@ -8122,6 +8194,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: a6d443f51fc555549a43ca41f70aa224, type: 2}
+    - target: {fileID: 9162745857271144123, guid: 105afef4c968467429a9a8510ae6494b, type: 3}
+      propertyPath: m_Radius
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9162745857271144123, guid: 105afef4c968467429a9a8510ae6494b, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9538,6 +9618,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 765507922736946329, guid: f91c99d345927cf47a5d3aeb92b425f9, type: 3}
+      propertyPath: m_BaseOffset
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1316056530115503009, guid: f91c99d345927cf47a5d3aeb92b425f9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.36
