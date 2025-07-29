@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 3f12f5ded9e5b1d408d8fe202d5b1eb2
+guid: d050f1b44fb777f489232c0a5ed87ab9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4579995763778260910
-    second: dust_particles_01_0
-  - first:
-      213: -1168218012597344523
-    second: dust_particles_01_1
+      213: -4346244404228752641
+    second: Arrow_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -77,7 +74,7 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 4
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -116,35 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dust_particles_01_0
+      name: Arrow_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 2
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 250f3336e169070c0800000000000000
-      internalID: -4579995763778260910
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dust_particles_01_1
-      rect:
-        serializedVersion: 2
-        x: 14
-        y: 2
-        width: 8
-        height: 8
+        x: 0
+        y: 0
+        width: 176
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,30 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5f62ce238e7a9cfe0800000000000000
-      internalID: -1168218012597344523
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dust_particles_01_2
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 2
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3845a647246ea4d4fa290f6006c4a8af
-      internalID: 1915736278
+      spriteID: ffa7ae2edb90fa3c0800000000000000
+      internalID: -4346244404228752641
       vertices: []
       indices: 
       edges: []
@@ -185,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 924db569a921d8949941c0d2ea288fc3
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -195,9 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dust_particles_01_0: -4579995763778260910
-      dust_particles_01_1: -1168218012597344523
-      dust_particles_01_2: 1915736278
+      Arrow_0: -4346244404228752641
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

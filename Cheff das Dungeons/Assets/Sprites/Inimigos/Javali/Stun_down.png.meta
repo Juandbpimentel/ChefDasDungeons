@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: 3f12f5ded9e5b1d408d8fe202d5b1eb2
+guid: 2befdda7c1abfec419e6484b295192af
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4579995763778260910
-    second: dust_particles_01_0
+      213: 4924078711272284072
+    second: Stun_down_0
   - first:
-      213: -1168218012597344523
-    second: dust_particles_01_1
+      213: -7086590605067391860
+    second: Stun_down_1
+  - first:
+      213: -4433614931132419462
+    second: Stun_down_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,35 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dust_particles_01_0
+      name: Stun_down_0
       rect:
         serializedVersion: 2
         x: 2
-        y: 2
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 250f3336e169070c0800000000000000
-      internalID: -4579995763778260910
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dust_particles_01_1
-      rect:
-        serializedVersion: 2
-        x: 14
-        y: 2
-        width: 8
-        height: 8
+        y: 3
+        width: 27
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,30 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5f62ce238e7a9cfe0800000000000000
-      internalID: -1168218012597344523
+      spriteID: 8af927fbf77d55440800000000000000
+      internalID: 4924078711272284072
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dust_particles_01_2
+      name: Stun_down_1
       rect:
         serializedVersion: 2
-        x: 26
-        y: 2
-        width: 8
-        height: 8
+        x: 34
+        y: 3
+        width: 27
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 3845a647246ea4d4fa290f6006c4a8af
-      internalID: 1915736278
+      spriteID: c8c665c146f57ad90800000000000000
+      internalID: -7086590605067391860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stun_down_2
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 3
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a72fbfed5b2a872c0800000000000000
+      internalID: -4433614931132419462
       vertices: []
       indices: 
       edges: []
@@ -185,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 924db569a921d8949941c0d2ea288fc3
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -195,9 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dust_particles_01_0: -4579995763778260910
-      dust_particles_01_1: -1168218012597344523
-      dust_particles_01_2: 1915736278
+      Stun_down_0: 4924078711272284072
+      Stun_down_1: -7086590605067391860
+      Stun_down_2: -4433614931132419462
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

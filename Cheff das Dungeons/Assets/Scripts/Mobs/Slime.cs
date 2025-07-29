@@ -331,7 +331,7 @@ public class Slime : MonoBehaviour, ITriggerListener
         Gizmos.DrawWireSphere(raycastOrigin, 0.1f);
     }
 
-    private void levarDano()
+    public void levarDano()
     {
         // Lógica para levar dano ao slime
         vida--;

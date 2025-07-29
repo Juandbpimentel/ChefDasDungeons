@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: 3f12f5ded9e5b1d408d8fe202d5b1eb2
+guid: f4b2508cd5e48c54dae81273802b879f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4579995763778260910
-    second: dust_particles_01_0
+      213: 8118776209084830249
+    second: Moviment_Atack_0
   - first:
-      213: -1168218012597344523
-    second: dust_particles_01_1
+      213: 7604562348955336839
+    second: Moviment_Atack_1
+  - first:
+      213: 2247198731137381482
+    second: Moviment_Atack_2
+  - first:
+      213: 8469684975148529674
+    second: Moviment_Atack_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -27,7 +33,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -116,13 +122,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dust_particles_01_0
+      name: Moviment_Atack_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 2
-        width: 8
-        height: 8
+        x: 4
+        y: 6
+        width: 24
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,52 +137,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 250f3336e169070c0800000000000000
-      internalID: -4579995763778260910
+      spriteID: 922d46172ffaba070800000000000000
+      internalID: 8118776209084830249
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dust_particles_01_1
+      name: Moviment_Atack_1
       rect:
         serializedVersion: 2
-        x: 14
-        y: 2
-        width: 8
-        height: 8
+        x: 36
+        y: 6
+        width: 24
+        height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5f62ce238e7a9cfe0800000000000000
-      internalID: -1168218012597344523
+      spriteID: 7800bc96a25d88960800000000000000
+      internalID: 7604562348955336839
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dust_particles_01_2
+      name: Moviment_Atack_2
       rect:
         serializedVersion: 2
-        x: 26
-        y: 2
-        width: 8
-        height: 8
+        x: 68
+        y: 6
+        width: 24
+        height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 3845a647246ea4d4fa290f6006c4a8af
-      internalID: 1915736278
+      spriteID: a64f62df657af2f10800000000000000
+      internalID: 2247198731137381482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Moviment_Atack_3
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 6
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a08f03f4c9d5a8570800000000000000
+      internalID: 8469684975148529674
       vertices: []
       indices: 
       edges: []
@@ -185,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 924db569a921d8949941c0d2ea288fc3
+    spriteID: 3a6a52058859aea4e94b0f020278eba7
     internalID: 0
     vertices: []
     indices: 
@@ -195,9 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dust_particles_01_0: -4579995763778260910
-      dust_particles_01_1: -1168218012597344523
-      dust_particles_01_2: 1915736278
+      Moviment_Atack_0: 8118776209084830249
+      Moviment_Atack_1: 7604562348955336839
+      Moviment_Atack_2: 2247198731137381482
+      Moviment_Atack_3: 8469684975148529674
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

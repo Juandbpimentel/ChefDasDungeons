@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: 3f12f5ded9e5b1d408d8fe202d5b1eb2
+guid: 0050c5275bef2344e88ffe0471b86872
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4579995763778260910
-    second: dust_particles_01_0
+      213: 8996954213526809483
+    second: Atack_top_0
   - first:
-      213: -1168218012597344523
-    second: dust_particles_01_1
+      213: -2375726141043415480
+    second: Atack_top_1
+  - first:
+      213: -3177328844636360896
+    second: Atack_top_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,35 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dust_particles_01_0
+      name: Atack_top_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 2
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 250f3336e169070c0800000000000000
-      internalID: -4579995763778260910
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dust_particles_01_1
-      rect:
-        serializedVersion: 2
-        x: 14
-        y: 2
-        width: 8
-        height: 8
+        x: 9
+        y: 3
+        width: 15
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,30 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5f62ce238e7a9cfe0800000000000000
-      internalID: -1168218012597344523
+      spriteID: b8b28b5703a9bdc70800000000000000
+      internalID: 8996954213526809483
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dust_particles_01_2
+      name: Atack_top_1
       rect:
         serializedVersion: 2
-        x: 26
-        y: 2
-        width: 8
-        height: 8
+        x: 41
+        y: 3
+        width: 15
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 3845a647246ea4d4fa290f6006c4a8af
-      internalID: 1915736278
+      spriteID: 8466f7f69a9b70fd0800000000000000
+      internalID: -2375726141043415480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Atack_top_2
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 3
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04fe8d0004cd7e3d0800000000000000
+      internalID: -3177328844636360896
       vertices: []
       indices: 
       edges: []
@@ -185,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 924db569a921d8949941c0d2ea288fc3
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -195,9 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dust_particles_01_0: -4579995763778260910
-      dust_particles_01_1: -1168218012597344523
-      dust_particles_01_2: 1915736278
+      Atack_top_0: 8996954213526809483
+      Atack_top_1: -2375726141043415480
+      Atack_top_2: -3177328844636360896
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
