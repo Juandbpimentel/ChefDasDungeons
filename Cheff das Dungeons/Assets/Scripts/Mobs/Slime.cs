@@ -192,9 +192,11 @@ public class Slime : MonoBehaviour, ITriggerListener
                 {
                     return;
                 }
-                Debug.Log("Slime hitbox triggered with player!");
-                levarDano();
-                // Lógica específica para o Trigger 2
+
+                if (other is BoxCollider2D)
+                {
+                    player.GetComponent<PlayerController>().removeLife();
+                }
             }
             if (triggerObject.name == "AttackArea")
             {
