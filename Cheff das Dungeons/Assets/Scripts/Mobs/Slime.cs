@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -5,30 +6,37 @@ public class Slime : MonoBehaviour, ITriggerListener
 {
     public int vidaMaxima = 5;
     public float speed = 1.5f;
-
-    private Animator animator;
-    private int vida;
-    private GameObject player;
-
-    NavMeshAgent agent;
-    private bool hasLineOfSight = false;
-
-
-    public float attackCooldown = 0f;
-
-    // Variável para armazenar se o Slime está atacando
-    private bool isAttacking = false;
-
-    private bool isPlayerInInteractionArea = false;
-
-    private bool isPlayerStayInAttackArea = false;
-
+    public float maxAttackCooldown = 2.5f;
+    public float attackForce = 5f;
     [Header("Raycast Settings")]
     [Tooltip("Deslocamento da origem do raycast para ajustar ao centro visual do sprite.")]
     public Vector2 raycastOriginOffset = new Vector2(0, 0.4f);
 
-    // Variável para armazenar o deslocamento do centro do jogador
-    private Vector2 playerOffset;
+    Animator animator;
+    GameObject player;
+    NavMeshAgent agent;
+    Rigidbody2D rb;
+    SpriteRenderer spriteRenderer;
+    Color originalColor;
+    Vector2 playerOffset;
+
+    int vida;
+    public float attackCooldown = 0f;
+    private Vector2 attackDirection;
+    private float flashRedTimer = 0f;
+    private float flashRedDuration = 0.15f;
+
+    bool hasLineOfSight = false;
+    public bool isAttacking = false;
+    public bool haveMakeAttack = false;
+    private bool isDying = false;
+    public bool haveDied = false;
+
+    private bool isWalking = false;
+
+    private bool isPlayerInInteractionArea = false;
+
+    private bool isPlayerStayInAttackArea = false;
 
     void Start()
     {
@@ -38,13 +46,16 @@ public class Slime : MonoBehaviour, ITriggerListener
 
         animator = GetComponent<Animator>();
 
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
+
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
 
         if (player == null)
         {
-            Debug.LogError("Player not found in the scene. Please ensure there is a GameObject with the 'Player' tag.");
             return;
         }
 
@@ -52,7 +63,6 @@ public class Slime : MonoBehaviour, ITriggerListener
         Collider2D playerCollider = player.GetComponentInChildren<BoxCollider2D>();
         if (playerCollider == null)
         {
-            Debug.LogError("O Hitbox do jogador não possui um Collider2D!");
             return;
         }
 
@@ -63,14 +73,69 @@ public class Slime : MonoBehaviour, ITriggerListener
 
     void Update()
     {
-        // Todo: Implementar lógica de seguir só quando o jogador está dentro da área de interação
+        if (attackCooldown > 0f && !isAttacking)
+        {
+            attackCooldown -= Time.deltaTime;
+        }
+        if (isAttacking && haveMakeAttack)
+        {
+            isAttacking = false;
+            haveMakeAttack = false;
+            OnAttackAnimationEnd();
+        }
+
+        if (flashRedTimer > 0f)
+        {
+            flashRedTimer -= Time.deltaTime;
+            if (flashRedTimer <= 0f && spriteRenderer != null)
+            {
+                spriteRenderer.color = originalColor;
+            }
+        }
+
+        if (haveDied)
+        { 
+            Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate()
     {
-        HandleMovement();
+        if (isAttacking)
+        {
+            // Durante o ataque, o slime avança em linha reta com o dobro da velocidade.
+            // A velocidade é zerada no final da animação pelo evento OnAttackAnimationEnd.
+            rb.linearVelocity = attackDirection * (speed * 2);
+        }
+        else
+        {
+            // Movimento normal é controlado pelo NavMeshAgent apenas quando não está atacando.
+            HandleMovement();
+        }
+
         HandlePlayerLineOfSight();
         HandleAttack();
+        HandleSlimeAnimation();
+    }
+
+    private void HandleSlimeAnimation()
+    {
+        SlimeState state = SlimeState.Idle;
+
+        if (isDying)
+        {
+            state = SlimeState.Dying;
+        }
+        else if (isAttacking)
+        {
+            state = SlimeState.Attacking;
+        }
+        else if (isWalking)
+        {
+            state = SlimeState.Walking;
+        }
+
+        animator.SetFloat("state", (float)state);
     }
 
     public void HandlePlayerLineOfSight()
@@ -117,9 +182,18 @@ public class Slime : MonoBehaviour, ITriggerListener
         {
             if (triggerObject.name == "InteractionArea")
             {
-                Debug.Log("Jogador entrou na área de Interação!");
                 isPlayerInInteractionArea = true;
                 // Lógica específica para o Trigger 1
+            }
+            if (triggerObject.name == "HitboxArea")
+            {
+                if (other is CapsuleCollider2D)
+                {
+                    return;
+                }
+                Debug.Log("Slime hitbox triggered with player!");
+                levarDano();
+                // Lógica específica para o Trigger 2
             }
         }
     }
@@ -133,11 +207,8 @@ public class Slime : MonoBehaviour, ITriggerListener
             {
                 if (!isPlayerStayInAttackArea)
                 {
-                    Debug.Log("Jogador ficou na área de Ataque!");
                     isPlayerStayInAttackArea = true;
                 }
-                // Debug.Log("AttackArea ativado pelo jogador!");
-                // Lógica específica para o Trigger 2
             }
         }
     }
@@ -147,17 +218,14 @@ public class Slime : MonoBehaviour, ITriggerListener
         // Verifica se o objeto que saiu do Trigger é o jogador
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Jogador saiu da área de interação!");
 
             if (triggerObject.name == "InteractionArea")
             {
-                Debug.Log("InteractionArea desativado pelo jogador!");
                 isPlayerInInteractionArea = false;
                 // Lógica específica para o Trigger 1
             }
             else if (triggerObject.name == "AttackArea")
             {
-                Debug.Log("AttackArea desativado pelo jogador!");
                 // Lógica específica para o Trigger 2
                 isPlayerStayInAttackArea = false;
             }
@@ -168,8 +236,8 @@ public class Slime : MonoBehaviour, ITriggerListener
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Slime colidiu com o jogador!");
             // Lógica de dano ou interação com o jogador
+            Debug.Log("Slime colidiu com o jogador!");
         }
     }
 
@@ -177,97 +245,115 @@ public class Slime : MonoBehaviour, ITriggerListener
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Slime saiu da colisão com o jogador!");
             // Lógica para quando o jogador sai da colisão
+            Debug.Log("Slime deixou de colidir com o jogador!");
         }
     }
 
     private void HandleMovement()
     {
+        // Usar a flag 'isAttacking' é mais seguro e legível
+        if (isAttacking || isDying)
+        {
+            agent.ResetPath(); // Garante que ele pare enquanto ataca
+            isWalking = false;
+            return;
+        }
 
         if (isPlayerInInteractionArea)
         {
-            if (isPlayerStayInAttackArea)
-            {
-                if (attackCooldown >= 0 && isAttacking)
-                {
-                    // Se o Slime está atacando ou o cooldown acabou, não se move
-                    Debug.Log("Slime está na área de ataque e está no meio do ataque. attackCooldown: " + attackCooldown + "| isAttacking: " + isAttacking);
-                    agent.ResetPath();
-                    return;
-                }
-                else
-                {
-                    Debug.Log("Slime está na área de ataque, mas está com o ataque em cooldown e não está atacando. attackCooldown: " + attackCooldown + "| isAttacking: " + isAttacking);
-                    agent.SetDestination((Vector2)player.transform.position + playerOffset);
-                    agent.speed = speed;
-                }
-            }
-            else
-            {
-                if (!isAttacking)
-                {
-                    Debug.Log("Slime não está na área de ataque, mas não está atacando. attackCooldown: " + attackCooldown + "| isAttacking: " + isAttacking);
-                    agent.SetDestination((Vector2)player.transform.position + playerOffset);
-                    agent.speed = speed;
-                }
-                else
-                {
-                    // Se o Slime está atacando, não se move
-                    Debug.Log("Slime não está na área de ataque, mas está atacando. attackCooldown: " + attackCooldown + "| isAttacking: " + isAttacking);
-                    agent.ResetPath();
-                }
-            }
-
+            agent.SetDestination((Vector2)player.transform.position + playerOffset);
+            agent.speed = speed;
+            isWalking = true;
         }
         else
         {
-            Debug.Log("Slime não está na área de interação, parando o movimento. attackCooldown: " + attackCooldown + "| isAttacking: " + isAttacking);
             agent.ResetPath();
+            isWalking = false;
         }
-
+        // Atualiza a animação de movimento
+        if (isWalking && agent.velocity.magnitude > 0.1f)
+        {
+            transform.localScale = new Vector3(Mathf.Sign(agent.velocity.x), 1, 1);
+        }
     }
 
     private void HandleAttack()
     {
-        if (isPlayerStayInAttackArea && hasLineOfSight && !isAttacking)
+        // Condições para iniciar um novo ataque
+        if (isPlayerStayInAttackArea && hasLineOfSight && !isAttacking && attackCooldown <= 0)
         {
-            // Inicia o ataque
+            // Inicia o estado de ataque
             isAttacking = true;
-            Debug.Log("Slime está atacando o jogador!");
+            haveMakeAttack = false; // Garante que o ataque só será feito uma vez
+            attackCooldown = maxAttackCooldown; // Reinicia o cooldown
 
-            // Aqui você pode adicionar a lógica de ataque, como causar dano ao jogador
-            // Exemplo: player.GetComponent<PlayerHealth>().TakeDamage(1);
+            // Para o NavMeshAgent para que o movimento do ataque funcione sem interferência
+            agent.ResetPath();
+            isWalking = false; // Garante que a animação de andar pare
 
-            // Reseta o cooldown do ataque
-            // Defina o tempo de cooldown desejado
-        }
-        // verificar se o animator terminou a animação de ataque
-        if (animator != null)
-        {
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
-            {
-                attackCooldown = 2.5f;
-            }
-        }
-        if (attackCooldown > 0f)
-        {
-            isAttacking = false;
-            attackCooldown -= Time.deltaTime;
-        }
-        else
-        {
-            attackCooldown = 0f;
+            // Armazena a direção do ataque para o movimento em linha reta
+            attackDirection = ((Vector2)player.transform.position + playerOffset - (Vector2)transform.position).normalized;
+
+            // Vira o slime para a direção do ataque
+            transform.localScale = new Vector3(Mathf.Sign(attackDirection.x), 1, 1);
+
+            // A lógica de movimento agora é tratada no FixedUpdate
         }
     }
     // Slime está normal seguindo o player
     // Slime não atacando chega na área de ataque e se prepara pra atacar
+    // Esta função será chamada pelo Animation Event no final da animação de ataque
+    public void OnAttackAnimationEnd()
+    {
+        // Zera a velocidade do Rigidbody2D para parar o movimento do impulso
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
 
+        // Garante que o NavMeshAgent também pare, caso ele tente se mover
+        if (agent != null && agent.isOnNavMesh)
+        {
+            agent.ResetPath();
+        }
+
+        animator.StopPlayback(); // Para a animação de ataque
+
+        // Libera o slime para se mover ou atacar novamente
+        isAttacking = false;
+    }
     private void OnDrawGizmosSelected()
     {
         // Desenha um Gizmo para visualizar a origem do Raycast no Editor
         Gizmos.color = Color.yellow;
         Vector2 raycastOrigin = (Vector2)transform.position + raycastOriginOffset;
         Gizmos.DrawWireSphere(raycastOrigin, 0.1f);
+    }
+
+    private void levarDano()
+    {
+        // Lógica para levar dano ao slime
+        vida--;
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = Color.red;
+            flashRedTimer = flashRedDuration;
+        }
+
+        if (vida <= 0)
+        {
+            isDying = true;
+            // Lógica de morte do slime
+        }
+    }
+
+
+    public enum SlimeState
+    {
+        Idle,
+        Walking,
+        Attacking,
+        Dying
     }
 }
