@@ -12,8 +12,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float speed = 3f;
     [SerializeField]
-    private List<Image> lifes;
     public int maxLifes = 5;
+    public int currentLife;
     public int faceDirection = 1;
     public Rigidbody2D rb;
     public Animator animator;
@@ -72,6 +72,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             removeLife();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            // ATTACK
         }
 
         //Impede que o player coma o item quando estiver cozinhando (pois é a mesma tecla)
@@ -163,7 +168,6 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
             slimeText.text = slime.ToString();
         }
-
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -218,68 +222,35 @@ public class PlayerController : MonoBehaviour
     //Cria as imagens da vida (até o máximo definido)
     private void initLifes(int max)
     {
-        for (int i = 1; i < max; i++)
-        {
-            //instancia nova imagem
-            Image newImage = Instantiate(lifes[^1], lifes[^1].transform.parent);
-            lifes.Add(newImage);
-
-            //define a posicao
-            Vector3 newPosition = lifes[^1].GetComponent<RectTransform>().anchoredPosition;
-            newPosition.x += 80; // desloca no eixo X para a direita
-            newImage.GetComponent<RectTransform>().anchoredPosition = newPosition;
-
-            newImage.name = "" + i;
-        }
+        currentLife = max;
     }
 
-    //Remove a vida da tela (não destroi o gameObject)
-    private void removeLife()
+    public void removeLife()
     {
-        //iterar sobre o array de vidas
-        for (int i = maxLifes - 1; i >= 0; i--)
+        if (currentLife <= maxLifes && currentLife > 0)
         {
-            //se achar uma vida com enabled = true
-            if (lifes[i].enabled == true)
-            {
-                // mudar para false
-                lifes[i].enabled = false;
+            currentLife -= 1;
+        }
 
-                // se era a ultima vida
-                if (i == 0)
-                {
-                    // respawnar player e recuperar todas as vidas
-                    GameManager.Instance.Respaw();
-                    recuperateLife(maxLifes);
-                }
-                //sair
-                return;
-            }
+        if (currentLife == 0)
+        {
+            GameManager.Instance.Respaw();
+            recuperateLife(maxLifes);
         }
     }
 
-    //Ativa x vidas de volta
     private bool recuperateLife(int n)
     {
-        bool rec = false;
-        //iterar sobre o array de vidas
-        for (int i = 0, j = 0; i < maxLifes && j < n; i++)
+        if (n > 0)
         {
-            //se achar vida com enabled = false
-            if (lifes[i].enabled == false)
-            {
-                //mudar para true
-                lifes[i].enabled = true;
-
-                // fazer isso n vezes
-                j++;
-
-                //recuperou = true
-                rec = true;
-            }
+            currentLife = n;
+        }
+        else
+        {
+            currentLife = maxLifes;
         }
 
-        return rec;
+        return true;
     }
 
     private void eat(FoodEnum food)
@@ -308,7 +279,6 @@ public class PlayerController : MonoBehaviour
         Stew,
         FriedEgg
     }
-
     private void ControlPlayerMoviment()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
