@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1012645184053217106}
   - component: {fileID: 6074970576704012693}
   - component: {fileID: 7967234563595332872}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: egg_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 7013045282078207615}
   - component: {fileID: 5756516277377253955}
   - component: {fileID: 7766387952803215456}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 7315917359550842294}
   - component: {fileID: 7307050951835540390}
   - component: {fileID: 895919505236762565}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: burger_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 6978256842117922210}
   - component: {fileID: 4895761756608709076}
   - component: {fileID: 3057181326672457594}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: interact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -527,7 +527,7 @@ GameObject:
   - component: {fileID: 2692465238725073456}
   - component: {fileID: 7994700670824980373}
   - component: {fileID: 5439163585738654515}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: sem_ingredientes_label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -663,7 +663,7 @@ GameObject:
   - component: {fileID: 5857335347691931564}
   - component: {fileID: 6981332371716034184}
   - component: {fileID: 3582963466270123766}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: stew
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -741,7 +741,7 @@ GameObject:
   - component: {fileID: 4150497686296894270}
   - component: {fileID: 1518301189937775565}
   - component: {fileID: 2673540434075138602}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fire
   m_TagString: Checkpoint
   m_Icon: {fileID: 0}
@@ -903,7 +903,6 @@ MonoBehaviour:
   burger: {fileID: 2178497069538852328}
   stew: {fileID: 3582963466270123766}
   fried_egg: {fileID: 3166627736046399927}
-  isCrafting: 0
   withoutIngredientsText: {fileID: 5439163585738654515}
 --- !u!1 &7112719190160489119
 GameObject:
@@ -916,7 +915,7 @@ GameObject:
   - component: {fileID: 4117395071422826956}
   - component: {fileID: 7009050761583014525}
   - component: {fileID: 2178497069538852328}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: burger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -992,7 +991,7 @@ GameObject:
   - component: {fileID: 6832080003413091649}
   - component: {fileID: 6667432946545936778}
   - component: {fileID: 3166627736046399927}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: fried_egg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1068,7 +1067,7 @@ GameObject:
   - component: {fileID: 2502080764869489541}
   - component: {fileID: 6754693240381197821}
   - component: {fileID: 4367430089475283083}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: stew_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
