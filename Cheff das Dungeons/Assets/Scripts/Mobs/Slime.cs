@@ -36,7 +36,7 @@ public class Slime : MonoBehaviour, ITriggerListener
 
     private bool isPlayerInInteractionArea = false;
 
-    private bool isPlayerStayInAttackArea = false;
+    private bool isPlayerEnteredInAttackArea = false;
 
     void Start()
     {
@@ -94,7 +94,7 @@ public class Slime : MonoBehaviour, ITriggerListener
         }
 
         if (haveDied)
-        { 
+        {
             Destroy(gameObject);
         }
     }
@@ -105,7 +105,7 @@ public class Slime : MonoBehaviour, ITriggerListener
         {
             // Durante o ataque, o slime avança em linha reta com o dobro da velocidade.
             // A velocidade é zerada no final da animação pelo evento OnAttackAnimationEnd.
-            rb.linearVelocity = attackDirection * (speed * 2);
+            transform.position += (Vector3)(attackDirection * (speed * 2) * Time.fixedDeltaTime);
         }
         else
         {
@@ -185,6 +185,7 @@ public class Slime : MonoBehaviour, ITriggerListener
                 isPlayerInInteractionArea = true;
                 // Lógica específica para o Trigger 1
             }
+            // Todo: Remover depois isso aqui quando for terminar a integração entre player e mobs
             if (triggerObject.name == "HitboxArea")
             {
                 if (other is CapsuleCollider2D)
@@ -195,6 +196,13 @@ public class Slime : MonoBehaviour, ITriggerListener
                 levarDano();
                 // Lógica específica para o Trigger 2
             }
+            if (triggerObject.name == "AttackArea")
+            {
+                if (!isPlayerEnteredInAttackArea)
+                {
+                    isPlayerEnteredInAttackArea = true;
+                }
+            }
         }
     }
 
@@ -203,13 +211,6 @@ public class Slime : MonoBehaviour, ITriggerListener
         // Verifica se o objeto que entrou no Trigger é o jogador
         if (other.CompareTag("Player"))
         {
-            if (triggerObject.name == "AttackArea")
-            {
-                if (!isPlayerStayInAttackArea)
-                {
-                    isPlayerStayInAttackArea = true;
-                }
-            }
         }
     }
 
@@ -227,7 +228,7 @@ public class Slime : MonoBehaviour, ITriggerListener
             else if (triggerObject.name == "AttackArea")
             {
                 // Lógica específica para o Trigger 2
-                isPlayerStayInAttackArea = false;
+                isPlayerEnteredInAttackArea = false;
             }
         }
     }
@@ -281,7 +282,7 @@ public class Slime : MonoBehaviour, ITriggerListener
     private void HandleAttack()
     {
         // Condições para iniciar um novo ataque
-        if (isPlayerStayInAttackArea && hasLineOfSight && !isAttacking && attackCooldown <= 0)
+        if (isPlayerEnteredInAttackArea && hasLineOfSight && !isAttacking && attackCooldown <= 0)
         {
             // Inicia o estado de ataque
             isAttacking = true;
