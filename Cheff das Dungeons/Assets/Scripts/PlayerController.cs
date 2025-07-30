@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private TrailRenderer tr;
 
+    private bool canTakeDamage = true;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -272,11 +273,14 @@ public class PlayerController : MonoBehaviour
 
     public void removeLife()
     {
-        if (currentLife <= maxLifes && currentLife > 0)
+        if (currentLife <= maxLifes && currentLife > 0 && canTakeDamage)
         {
             currentLife -= 1;
             spriteRenderer.color = Color.red;
             flashRedTimer = flashRedDuration;
+
+            canTakeDamage = false;
+            StartCoroutine(TakeDamage());
         }
 
         if (currentLife == 0)
@@ -284,6 +288,12 @@ public class PlayerController : MonoBehaviour
             isDying = true;
             animator.SetBool("isDying", isDying);
         }
+    }
+
+    IEnumerator TakeDamage()
+    {
+        yield return new WaitForSeconds(0.25f);
+        canTakeDamage = true;
     }
 
     public void DyingReset()
