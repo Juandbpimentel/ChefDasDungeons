@@ -260,18 +260,18 @@ public class PlayerController : MonoBehaviour
 
     public void removeLife()
     {
-        // if (currentLife <= maxLifes && currentLife > 0)
-        // {
-        //     currentLife -= 1;
-        //     spriteRenderer.color = Color.red;
-        //     flashRedTimer = flashRedDuration;
-        // }
+        if (currentLife <= maxLifes && currentLife > 0)
+        {
+            currentLife -= 1;
+            spriteRenderer.color = Color.red;
+            flashRedTimer = flashRedDuration;
+        }
 
-        // if (currentLife == 0)
-        // {
-        //     GameManager.Instance.Respaw();
-        //     recuperateLife(maxLifes);
-        // }
+        if (currentLife == 0)
+        {
+            GameManager.Instance.Respaw();
+            recuperateLife(maxLifes);
+        }
     }
 
     private bool recuperateLife(int n)
