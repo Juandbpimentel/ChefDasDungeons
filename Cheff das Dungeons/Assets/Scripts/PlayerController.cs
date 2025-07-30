@@ -4,6 +4,7 @@ using UnityEngine.Rendering;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +13,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float speed = 3f;
     [SerializeField]
+
+    public Transform attackPoint;
+    public float weaponRange = 1f;
+    public LayerMask enemyLayer;
+    public int damage = 1;
+
+    private bool isKnockedback;
+    public float cooldownAttack = 0.8f;
+    private float timerAttack;
     public int maxLifes = 5;
     public int currentLife;
     public int faceDirection = 1;
@@ -48,9 +58,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     public TextMeshProUGUI fried_eggText;
 
+    private float flashRedTimer = 0f;
+    private float flashRedDuration = 0.15f;
+    SpriteRenderer spriteRenderer;
+    Color originalColor;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
+
         if (Instance == null)
         {
             Instance = this;
@@ -68,6 +86,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (timerAttack > 0)
+        {
+            timerAttack -= Time.deltaTime;
+        }
         //Função de teste para remover vidas (tomar dano)
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -76,7 +98,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            // ATTACK
+            Attack();
         }
 
         //Impede que o player coma o item quando estiver cozinhando (pois é a mesma tecla)
@@ -108,11 +130,22 @@ public class PlayerController : MonoBehaviour
             handleCheckpointInteraction();
         }
 
+        if (flashRedTimer > 0f)
+        {
+            flashRedTimer -= Time.deltaTime;
+            if (flashRedTimer <= 0f && spriteRenderer != null)
+            {
+                spriteRenderer.color = originalColor;
+            }
+        }
     }
 
     private void FixedUpdate()
     {
-        ControlPlayerMoviment();
+        if (isKnockedback == false)
+        {
+            ControlPlayerMoviment();
+        }
     }
 
     private void handleCheckpointInteraction()
@@ -230,6 +263,8 @@ public class PlayerController : MonoBehaviour
         if (currentLife <= maxLifes && currentLife > 0)
         {
             currentLife -= 1;
+            spriteRenderer.color = Color.red;
+            flashRedTimer = flashRedDuration;
         }
 
         if (currentLife == 0)
@@ -298,5 +333,51 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("y", Mathf.Abs(vertical));
 
         rb.linearVelocity = movement * speed;
+    }
+
+    public void Knockback(Transform enemy, float force, float stunTime)
+    {
+        isKnockedback = true;
+        Vector2 direction = (transform.position - enemy.position).normalized;
+        rb.linearVelocity = direction * force;
+        StartCoroutine(KnockbackCounter(stunTime));
+    }
+
+    public void Attack()
+    {
+        if (timerAttack <= 0)
+        {
+            animator.SetBool("isAttacking", true);
+
+            timerAttack = cooldownAttack;
+        }
+    }
+
+    public void DealDamage()
+    {
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, enemyLayer);
+
+        if (enemies.Length > 0)
+        {
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                if (enemies[i] is BoxCollider2D)
+                {
+                    enemies[i].GetComponentInParent<Slime>().levarDano(damage);
+                }
+            }
+        }
+    }
+
+    public void FinishAttacking()
+    {
+        animator.SetBool("isAttacking", false);
+    }
+
+    IEnumerator KnockbackCounter(float stunTime)
+    {
+        yield return new WaitForSeconds(stunTime);
+        rb.linearVelocity = Vector2.zero;
+        isKnockedback = false;
     }
 }
