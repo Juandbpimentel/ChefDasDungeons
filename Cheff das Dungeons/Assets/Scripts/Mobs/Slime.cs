@@ -55,9 +55,8 @@ public class Slime : MonoBehaviour, ITriggerListener, IEnemy
 
     void Start()
     {
+        StartCoroutine(FindPlayerAfterSceneLoad());
         vida = vidaMaxima;
-
-        player = GameObject.FindGameObjectWithTag("Player");
 
         animator = GetComponent<Animator>();
 
@@ -69,21 +68,27 @@ public class Slime : MonoBehaviour, ITriggerListener, IEnemy
         agent.updateRotation = false;
         agent.updateUpAxis = false;
 
-        if (player == null)
-        {
-            return;
-        }
 
-        // Obtém o Collider2D do nó filho
+    }
+
+    private IEnumerator FindPlayerAfterSceneLoad()
+    {
+        // Aguarda até o player existir na cena
+        while (GameObject.FindGameObjectWithTag("Player") == null)
+            yield return null;
+
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        // Aguarda até o player estar na posição correta (opcional, mas ajuda)
+        yield return new WaitForEndOfFrame();
+
+        // Recalcula o offset do player
         Collider2D playerCollider = player.GetComponentInChildren<BoxCollider2D>();
-        if (playerCollider == null)
+        if (playerCollider != null)
         {
-            return;
+            playerOffset = (Vector2)playerCollider.bounds.center - (Vector2)player.transform.position;
+            playerOffset.y -= 0.2f;
         }
-
-        // Calcula o deslocamento do centro do Hitbox em relação à posição do jogador
-        playerOffset = (Vector2)playerCollider.bounds.center - (Vector2)player.transform.position;
-        playerOffset.y -= 0.2f;
     }
 
     void Update()

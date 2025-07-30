@@ -303,6 +303,7 @@ public class PlayerController : MonoBehaviour
         {
             isDying = true;
             animator.SetBool("isDying", isDying);
+            animator.SetBool("isAttacking", false);
         }
     }
 
