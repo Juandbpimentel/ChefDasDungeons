@@ -1,13 +1,11 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Arqueiro : MonoBehaviour, ITriggerListener
+public class Arqueiro : MonoBehaviour, ITriggerListener, IEnemy
 {
     public int vidaMaxima = 3;
     public float speed = 1.5f;
-    public float maxAttackCooldown = 2.5f;
-    public float attackForce = 5f;
-    public float KnockbackForce = 2f;
     public float stunTime = 0.1f;
     [Header("Raycast Settings")]
     [Tooltip("Deslocamento da origem do raycast para ajustar ao centro visual do sprite.")]
@@ -22,22 +20,37 @@ public class Arqueiro : MonoBehaviour, ITriggerListener
     Vector2 playerOffset;
 
     public int vida;
-    public float attackCooldown = 0f;
-    private Vector2 attackDirection;
+    [SerializeField] private GameObject arrowPrefab;
+    private float attackCooldown = 0f;
+    [Header("Attack Settings")]
+    [Tooltip("Tempo de recarga entre ataques.")]
+    public float attackRate = 1f;
+    [Tooltip("Tempo máximo de recarga entre ataques.")]
+    public float maxAttackCooldown = 2.5f;
+    [Tooltip("Força do empurrão ao atingir o jogador.")]
+    public float KnockbackForce = 2f;
+    [SerializeField] private float attackRange = 10f;
     private float flashRedTimer = 0f;
     private float flashRedDuration = 0.15f;
 
     bool hasLineOfSight = false;
-    public bool isAttacking = false;
-    public bool haveMakeAttack = false;
     private bool isDying = false;
     public bool haveDied = false;
 
     private bool isWalking = false;
-
-    private bool isPlayerInInteractionArea = false;
-
+    private bool isPlayerInFearArea = false;
     private bool isPlayerEnteredInAttackArea = false;
+    private bool isKnockedback = false;
+    private bool isAttacking = false;
+    private bool haveMakeAttack = false;
+
+    [Header("Drops")]
+    public GameObject slimeDropPrefab = null;
+    public GameObject meatDropPrefab = null;
+    public GameObject eggDropPrefab = null;
+    public GameObject burguerDropPrefab = null;
+    public GameObject stewDropPrefab = null;
+    public GameObject friedEggDropPrefab = null;
 
     void Start()
     {
@@ -60,14 +73,12 @@ public class Arqueiro : MonoBehaviour, ITriggerListener
             return;
         }
 
-        // Obtém o Collider2D do nó filho
         Collider2D playerCollider = player.GetComponentInChildren<BoxCollider2D>();
         if (playerCollider == null)
         {
             return;
         }
 
-        // Calcula o deslocamento do centro do Hitbox em relação à posição do jogador
         playerOffset = (Vector2)playerCollider.bounds.center - (Vector2)player.transform.position;
         playerOffset.y -= 0.2f;
     }
@@ -75,9 +86,8 @@ public class Arqueiro : MonoBehaviour, ITriggerListener
     void Update()
     {
         if (attackCooldown > 0f && !isAttacking)
-        {
             attackCooldown -= Time.deltaTime;
-        }
+
         if (isAttacking && haveMakeAttack)
         {
             isAttacking = false;
@@ -96,44 +106,43 @@ public class Arqueiro : MonoBehaviour, ITriggerListener
 
         if (haveDied)
         {
+            generateDrop();
             Destroy(gameObject);
+        }
+
+        // Só ataca se não estiver atacando
+        if (hasLineOfSight && isPlayerEnteredInAttackArea && attackCooldown <= 0f && !isDying && !isAttacking)
+        {
+            isAttacking = true;
+            haveMakeAttack = false;
+            attackCooldown = maxAttackCooldown;
+            AtirarNoPlayer();
+            // O Animation Event deve chamar OnAttackAnimationEnd() ao final da animação
         }
     }
 
     private void FixedUpdate()
     {
-        if (isAttacking)
-        {
-            // Durante o ataque, o slime avança em linha reta com o dobro da velocidade.
-            // A velocidade é zerada no final da animação pelo evento OnAttackAnimationEnd.
-            transform.position += (Vector3)(attackDirection * (speed * 2) * Time.fixedDeltaTime);
-        }
-        else
-        {
-            // Movimento normal é controlado pelo NavMeshAgent apenas quando não está atacando.
-            HandleMovement();
-        }
-
+        HandleMovement();
         HandlePlayerLineOfSight();
-        HandleAttack();
-        HandleSlimeAnimation();
+        HandleArcherAnimation();
     }
 
-    private void HandleSlimeAnimation()
+    private void HandleArcherAnimation()
     {
-        SlimeState state = SlimeState.Idle;
+        ArcherState state = ArcherState.Idle;
 
         if (isDying)
         {
-            state = SlimeState.Dying;
+            state = ArcherState.Dying;
         }
         else if (isAttacking)
         {
-            state = SlimeState.Attacking;
+            state = ArcherState.Attacking;
         }
         else if (isWalking)
         {
-            state = SlimeState.Walking;
+            state = ArcherState.Walking;
         }
 
         animator.SetFloat("state", (float)state);
@@ -145,91 +154,54 @@ public class Arqueiro : MonoBehaviour, ITriggerListener
 
         int layerMask = LayerMask.GetMask("Foreground&Map", "Player");
 
-        // Calcula a origem do raycast com o deslocamento
         Vector2 raycastOrigin = (Vector2)transform.position + raycastOriginOffset;
-
-        // Calcula o centro do jogador com base no deslocamento pré-calculado
         Vector2 playerCenter = (Vector2)player.transform.position + playerOffset;
-
-        // Calcula a direção do Raycast para o centro do jogador
         Vector2 direction = (playerCenter - raycastOrigin).normalized;
+        Vector2 boxSize = new Vector2(0.5f, 0.5f);
 
-        // Define o tamanho da "grossura" do BoxCast
-        Vector2 boxSize = new Vector2(0.5f, 0.5f); // Ajuste os valores conforme necessário
-
-        // Realiza o BoxCast
-        RaycastHit2D hit = Physics2D.BoxCast(raycastOrigin, boxSize, 0f, direction, 5f, layerMask);
+        RaycastHit2D hit = Physics2D.BoxCast(raycastOrigin, boxSize, 0f, direction, attackRange, layerMask);
 
         if (hit.collider == null)
         {
             hasLineOfSight = false;
-            UtilFunctions.DrawBox(raycastOrigin, boxSize, direction, 0f, 5f, Color.red);
+            UtilFunctions.DrawBox(raycastOrigin, boxSize, direction, 0f, attackRange, Color.red);
             return;
         }
 
-        // Verifica se o Raycast atingiu o jogador
         hasLineOfSight = hit.collider.CompareTag("Player");
-
-        // Desenha a linha do Raycast no editor
         UtilFunctions.DrawBox(raycastOrigin, boxSize, direction, 0f, hit.distance, hasLineOfSight ? Color.green : Color.red);
     }
 
     public void OnChildTriggerEnter2D(GameObject triggerObject, Collider2D other)
     {
-        // Verifica se o objeto que entrou no Trigger é o jogador
         if (other.CompareTag("Player"))
         {
-            if (triggerObject.name == "InteractionArea")
+            if (triggerObject.name == "FearArea")
             {
-                isPlayerInInteractionArea = true;
-                // Lógica específica para o Trigger 1
-            }
-            // Todo: Remover depois isso aqui quando for terminar a integração entre player e mobs
-            if (triggerObject.name == "HitboxArea")
-            {
-                if (other is CapsuleCollider2D)
-                {
-                    return;
-                }
-
-                if (other is BoxCollider2D)
-                {
-                    player.GetComponent<PlayerController>().removeLife();
-                    player.GetComponent<PlayerController>().Knockback(transform, KnockbackForce, stunTime);
-                }
+                isPlayerInFearArea = true;
             }
             if (triggerObject.name == "AttackArea")
             {
-                if (!isPlayerEnteredInAttackArea)
-                {
-                    isPlayerEnteredInAttackArea = true;
-                }
+                isPlayerEnteredInAttackArea = true;
             }
         }
     }
 
     public void OnChildTriggerStay2D(GameObject triggerObject, Collider2D other)
     {
-        // Verifica se o objeto que entrou no Trigger é o jogador
-        if (other.CompareTag("Player"))
-        {
-        }
+        // Não é necessário lógica extra aqui para FearArea
     }
 
     public void OnChildTriggerExit2D(GameObject triggerObject, Collider2D other)
     {
-        // Verifica se o objeto que saiu do Trigger é o jogador
         if (other.CompareTag("Player"))
         {
-
-            if (triggerObject.name == "InteractionArea")
+            if (triggerObject.name == "FearArea")
             {
-                isPlayerInInteractionArea = false;
-                // Lógica específica para o Trigger 1
+                isPlayerInFearArea = false;
             }
             else if (triggerObject.name == "AttackArea")
             {
-                // Lógica específica para o Trigger 2
                 isPlayerEnteredInAttackArea = false;
             }
         }
@@ -239,8 +211,7 @@ public class Arqueiro : MonoBehaviour, ITriggerListener
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            // Lógica de dano ou interação com o jogador
-            Debug.Log("Slime colidiu com o jogador!");
+            Debug.Log("Arqueiro colidiu com o jogador!");
         }
     }
 
@@ -248,24 +219,32 @@ public class Arqueiro : MonoBehaviour, ITriggerListener
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            // Lógica para quando o jogador sai da colisão
-            Debug.Log("Slime deixou de colidir com o jogador!");
+            Debug.Log("Arqueiro deixou de colidir com o jogador!");
         }
     }
 
     private void HandleMovement()
     {
-        // Usar a flag 'isAttacking' é mais seguro e legível
-        if (isAttacking || isDying)
+        if (isDying)
         {
-            agent.ResetPath(); // Garante que ele pare enquanto ataca
+            agent.ResetPath();
             isWalking = false;
             return;
         }
 
-        if (isPlayerInInteractionArea)
+        if (isKnockedback)
         {
-            agent.SetDestination((Vector2)player.transform.position + playerOffset);
+            agent.ResetPath();
+            isWalking = false;
+            return;
+        }
+
+        if (isPlayerInFearArea)
+        {
+            // Foge do player: calcula direção oposta ao player e move para longe
+            Vector2 fleeDirection = ((Vector2)transform.position - ((Vector2)player.transform.position + playerOffset)).normalized;
+            Vector2 fleeTarget = (Vector2)transform.position + fleeDirection * 5f; // 5 unidades para longe
+            agent.SetDestination(fleeTarget);
             agent.speed = speed;
             isWalking = true;
         }
@@ -274,61 +253,48 @@ public class Arqueiro : MonoBehaviour, ITriggerListener
             agent.ResetPath();
             isWalking = false;
         }
-        // Atualiza a animação de movimento
+
         if (isWalking && agent.velocity.magnitude > 0.1f)
         {
             transform.localScale = new Vector3(Mathf.Sign(agent.velocity.x), 1, 1);
         }
     }
 
-    private void HandleAttack()
+    private void AtirarNoPlayer()
     {
-        // Condições para iniciar um novo ataque
-        if (isPlayerEnteredInAttackArea && hasLineOfSight && !isAttacking && attackCooldown <= 0)
-        {
-            // Inicia o estado de ataque
-            isAttacking = true;
-            haveMakeAttack = false; // Garante que o ataque só será feito uma vez
-            attackCooldown = maxAttackCooldown; // Reinicia o cooldown
+        if (arrowPrefab == null || player == null) return;
 
-            // Para o NavMeshAgent para que o movimento do ataque funcione sem interferência
-            agent.ResetPath();
-            isWalking = false; // Garante que a animação de andar pare
+        Vector3 center = rb.worldCenterOfMass;
+        Vector3 playerCenter = player.transform.position + (Vector3)playerOffset;
+        Vector2 direction = (playerCenter - center).normalized;
+        Vector3 spawnPos = center + (Vector3)(direction * 2f);
 
-            // Armazena a direção do ataque para o movimento em linha reta
-            attackDirection = ((Vector2)player.transform.position + playerOffset - (Vector2)transform.position).normalized;
+        GameObject projectile = Instantiate(arrowPrefab);
+        projectile.transform.position = spawnPos;
 
-            // Vira o slime para a direção do ataque
-            transform.localScale = new Vector3(Mathf.Sign(attackDirection.x), 1, 1);
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        projectile.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-            // A lógica de movimento agora é tratada no FixedUpdate
-        }
+        projectile.GetComponent<Rigidbody2D>().linearVelocity = direction * 10f;
     }
-    // Slime está normal seguindo o player
-    // Slime não atacando chega na área de ataque e se prepara pra atacar
-    // Esta função será chamada pelo Animation Event no final da animação de ataque
+
     public void OnAttackAnimationEnd()
     {
-        // Zera a velocidade do Rigidbody2D para parar o movimento do impulso
+        isAttacking = false;
+        haveMakeAttack = false;
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
         }
-
-        // Garante que o NavMeshAgent também pare, caso ele tente se mover
         if (agent != null && agent.isOnNavMesh)
         {
             agent.ResetPath();
         }
-
-        animator.StopPlayback(); // Para a animação de ataque
-
-        // Libera o slime para se mover ou atacar novamente
-        isAttacking = false;
+        animator.StopPlayback();
     }
+
     private void OnDrawGizmosSelected()
     {
-        // Desenha um Gizmo para visualizar a origem do Raycast no Editor
         Gizmos.color = Color.yellow;
         Vector2 raycastOrigin = (Vector2)transform.position + raycastOriginOffset;
         Gizmos.DrawWireSphere(raycastOrigin, 0.1f);
@@ -336,7 +302,6 @@ public class Arqueiro : MonoBehaviour, ITriggerListener
 
     public void levarDano(int dano)
     {
-        // Lógica para levar dano ao slime
         if (dano > 0)
         {
             Debug.Log("AIAI" + dano);
@@ -356,11 +321,55 @@ public class Arqueiro : MonoBehaviour, ITriggerListener
         if (vida <= 0)
         {
             isDying = true;
-
         }
     }
 
-    public enum SlimeState
+    public void GetKnockedback(Transform playerTransform, float knockedbackForce, float stunTime)
+    {
+        isKnockedback = true;
+        Vector2 direction = (transform.position - playerTransform.position).normalized;
+        rb.linearVelocity = direction * knockedbackForce;
+        StartCoroutine(StunTimer(stunTime));
+    }
+
+    private IEnumerator StunTimer(float stunTime)
+    {
+        yield return new WaitForSeconds(stunTime);
+        rb.linearVelocity = Vector2.zero;
+        isKnockedback = false;
+    }
+
+    public void generateDrop()
+    {
+        System.Random rand = new();
+        int dropChance = rand.Next(0, 100);
+        if (dropChance < 55) // 0-54
+        {
+            Debug.Log("Slime dropou um ovo!");
+            Instantiate(eggDropPrefab, transform.position, Quaternion.identity);
+        }
+        else if (dropChance >= 55 && dropChance <= 56) // 55-56
+        {
+            Debug.Log("Slime dropou um ovo frito!");
+            Instantiate(friedEggDropPrefab, transform.position, Quaternion.identity);
+        }
+        else if (dropChance >= 57 && dropChance < 65) // 57-64
+        {
+            Debug.Log("Slime dropou um ensopado de carne!");
+            Instantiate(stewDropPrefab, transform.position, Quaternion.identity);
+        }
+        else if (dropChance >= 65 && dropChance <= 70) // 65-70
+        {
+            Debug.Log("Slime dropou um hamburguer!");
+            Instantiate(burguerDropPrefab, transform.position, Quaternion.identity);
+        }
+        else if (dropChance > 70 && dropChance < 100) // 71-99
+        {
+            Debug.Log("Slime não dropou nada.");
+        }
+    }
+
+    public enum ArcherState
     {
         Idle,
         Walking,

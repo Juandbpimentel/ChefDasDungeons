@@ -191,28 +191,48 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         //Se for um "ovo", adiciona ao contador e destroi
-        if (other.CompareTag("Egg"))
-        {
-            egg++;
-            Destroy(other.gameObject);
-            eggText.text = egg.ToString();
-        }
+        string tag = other.tag;
+        if (handleFoodDrop(tag, other)) return;
+    }
 
-        //Se for uma "carne", adiciona ao contador e destroi
-        if (other.CompareTag("Meat"))
+    private bool handleFoodDrop(string tag, Collider2D other)
+    {
+        switch (tag)
         {
-            meat++;
-            Destroy(other.gameObject);
-            meatText.text = meat.ToString();
+            case "Egg":
+                egg++;
+                Destroy(other.gameObject);
+                eggText.text = egg.ToString();
+                return true;
+            case "Meat":
+                meat++;
+                Destroy(other.gameObject);
+                meatText.text = meat.ToString();
+                return true;
+            case "Slime":
+                slime++;
+                Destroy(other.gameObject);
+                slimeText.text = slime.ToString();
+                return true;
+            case "Burguer":
+                burger++;
+                Destroy(other.gameObject);
+                burgerText.text = burger.ToString();
+                return true;
+            case "Stew":
+                stew++;
+                Destroy(other.gameObject);
+                stewText.text = stew.ToString();
+                return true;
+            case "FriedEgg":
+                fried_egg++;
+                Destroy(other.gameObject);
+                fried_eggText.text = fried_egg.ToString();
+                return true;
+            default:
+                break;
         }
-
-        //Se for uma "gosma", adiciona ao contador e destroi
-        if (other.CompareTag("Slime"))
-        {
-            slime++;
-            Destroy(other.gameObject);
-            slimeText.text = slime.ToString();
-        }
+        return false;
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -384,11 +404,8 @@ public class PlayerController : MonoBehaviour
         {
             for (int i = 0; i < enemies.Length; i++)
             {
-                if (enemies[i] is BoxCollider2D)
-                {
-                    enemies[i].GetComponentInParent<Slime>().levarDano(damage);
-                    enemies[i].GetComponentInParent<Slime>().GetKnockedback(transform, knockedbackForce, stunTime: 1f);
-                }
+                enemies[i].GetComponentInParent<IEnemy>().levarDano(damage);
+                enemies[i].GetComponentInParent<IEnemy>().GetKnockedback(transform, knockedbackForce, stunTime: 1f);
             }
         }
     }

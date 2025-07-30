@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Slime : MonoBehaviour, ITriggerListener
+public class Slime : MonoBehaviour, ITriggerListener, IEnemy
 {
     public int vidaMaxima = 3;
     public float speed = 1.5f;
@@ -44,6 +44,14 @@ public class Slime : MonoBehaviour, ITriggerListener
     private bool isPlayerInInteractionArea = false;
 
     private bool isPlayerEnteredInAttackArea = false;
+
+    [Header("Drops")]
+    public GameObject slimeDropPrefab = null;
+    public GameObject meatDropPrefab = null;
+    public GameObject eggDropPrefab = null;
+    public GameObject burguerDropPrefab = null;
+    public GameObject stewDropPrefab = null;
+    public GameObject friedEggDropPrefab = null;
 
     void Start()
     {
@@ -149,7 +157,7 @@ public class Slime : MonoBehaviour, ITriggerListener
     {
         if (player == null) return;
 
-        int layerMask = LayerMask.GetMask("Foreground&Map", "Player");
+        int layerMask = LayerMask.GetMask("Foreground/MapColliders", "Player");
 
         // Calcula a origem do raycast com o deslocamento
         Vector2 raycastOrigin = (Vector2)transform.position + raycastOriginOffset;
@@ -365,7 +373,52 @@ public class Slime : MonoBehaviour, ITriggerListener
         if (vida <= 0)
         {
             isDying = true;
+            haveDied = true;
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.color = originalColor; // Restaura a cor original ao morrer
+            }
+            if (agent != null)
+            {
+                agent.ResetPath(); // Para o agente de navegação ao morrer
+            }
+            if (rb != null)
+            {
+                rb.isKinematic = true; // Desativa a física para evitar movimento após a morte
+            }
+            Debug.Log("Slime morreu!");
+            generateDrop(); // Chama o método para gerar o drop
+            Destroy(gameObject, 2f); // Destroi o objeto após 2 segundos para permitir a animação de morte
+        }
+    }
 
+    public void generateDrop()
+    {
+        System.Random rand = new();
+        int dropChance = rand.Next(0, 100);
+        if (dropChance < 55) // 0-54
+        {
+            Debug.Log("Slime dropou uma garrafa de carne!");
+            Instantiate(meatDropPrefab, transform.position, Quaternion.identity);
+        }
+        else if (dropChance >= 55 && dropChance <= 56) // 55-56
+        {
+            Debug.Log("Slime dropou um ovo frito!");
+            Instantiate(friedEggDropPrefab, transform.position, Quaternion.identity);
+        }
+        else if (dropChance >= 57 && dropChance < 65) // 57-64
+        {
+            Debug.Log("Slime dropou um ensopado de carne!");
+            Instantiate(stewDropPrefab, transform.position, Quaternion.identity);
+        }
+        else if (dropChance >= 65 && dropChance <= 70) // 65-70
+        {
+            Debug.Log("Slime dropou um hamburguer!");
+            Instantiate(burguerDropPrefab, transform.position, Quaternion.identity);
+        }
+        else if (dropChance > 70 && dropChance < 100) // 71-99
+        {
+            Debug.Log("Slime não dropou nada.");
         }
     }
 
@@ -382,7 +435,7 @@ public class Slime : MonoBehaviour, ITriggerListener
         yield return new WaitForSeconds(stunTime);
         rb.linearVelocity = Vector2.zero;
         isKnockedback = false;
-    } 
+    }
     public enum SlimeState
     {
         Idle,

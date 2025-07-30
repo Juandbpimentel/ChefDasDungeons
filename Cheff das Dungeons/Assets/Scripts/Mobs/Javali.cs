@@ -1,7 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Javali : MonoBehaviour, ITriggerListener
+public class Javali : MonoBehaviour, ITriggerListener, IEnemy
 {
     public int vidaMaxima = 3;
     public float speed = 1.5f;
@@ -38,6 +39,15 @@ public class Javali : MonoBehaviour, ITriggerListener
     private bool isPlayerInInteractionArea = false;
 
     private bool isPlayerEnteredInAttackArea = false;
+    private bool isKnockedback = false;
+
+    [Header("Drops")]
+    public GameObject slimeDropPrefab = null;
+    public GameObject meatDropPrefab = null;
+    public GameObject eggDropPrefab = null;
+    public GameObject burguerDropPrefab = null;
+    public GameObject stewDropPrefab = null;
+    public GameObject friedEggDropPrefab = null;
 
     void Start()
     {
@@ -116,24 +126,24 @@ public class Javali : MonoBehaviour, ITriggerListener
 
         HandlePlayerLineOfSight();
         HandleAttack();
-        HandleSlimeAnimation();
+        HandleJavaliAnimation();
     }
 
-    private void HandleSlimeAnimation()
+    private void HandleJavaliAnimation()
     {
-        SlimeState state = SlimeState.Idle;
+        JavaliState state = JavaliState.Idle;
 
         if (isDying)
         {
-            state = SlimeState.Dying;
+            state = JavaliState.Dying;
         }
         else if (isAttacking)
         {
-            state = SlimeState.Attacking;
+            state = JavaliState.Attacking;
         }
         else if (isWalking)
         {
-            state = SlimeState.Walking;
+            state = JavaliState.Walking;
         }
 
         animator.SetFloat("state", (float)state);
@@ -360,7 +370,56 @@ public class Javali : MonoBehaviour, ITriggerListener
         }
     }
 
-    public enum SlimeState
+    public void GetKnockedback(Transform playerTransform, float knockedbackForce, float stunTime)
+    {
+        if (rb != null)
+        {
+            Vector2 knockbackDirection = (transform.position - playerTransform.position).normalized;
+            rb.AddForce(knockbackDirection * knockedbackForce, ForceMode2D.Impulse);
+        }
+
+        // Inicia o tempo de atordoamento
+        StartCoroutine(StunTimer(stunTime));
+    }
+
+    IEnumerator StunTimer(float stunTime)
+    {
+        yield return new WaitForSeconds(stunTime);
+        rb.linearVelocity = Vector2.zero;
+        isKnockedback = false;
+    }
+
+    public void generateDrop()
+    {
+        System.Random rand = new();
+        int dropChance = rand.Next(0, 100);
+        if (dropChance < 55) // 0-54
+        {
+            Debug.Log("O Javali dropou uma carne!");
+            Instantiate(eggDropPrefab, transform.position, Quaternion.identity);
+        }
+        else if (dropChance >= 55 && dropChance <= 56) // 55-56
+        {
+            Debug.Log("O Javali dropou um ovo frito!");
+            Instantiate(friedEggDropPrefab, transform.position, Quaternion.identity);
+        }
+        else if (dropChance >= 57 && dropChance < 65) // 57-64
+        {
+            Debug.Log("O Javali dropou um ensopado de carne!");
+            Instantiate(stewDropPrefab, transform.position, Quaternion.identity);
+        }
+        else if (dropChance >= 65 && dropChance <= 70) // 65-70
+        {
+            Debug.Log("O Javali dropou um hamburguer!");
+            Instantiate(burguerDropPrefab, transform.position, Quaternion.identity);
+        }
+        else if (dropChance > 70 && dropChance < 100) // 71-99
+        {
+            Debug.Log("O Javali não dropou nada.");
+        }
+    }
+
+    public enum JavaliState
     {
         Idle,
         Walking,
