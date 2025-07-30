@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
         Instance = this;
         sceneName = SceneManager.GetActiveScene().name;
         DontDestroyOnLoad(gameObject);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        persistentObjects = new GameObject[] { player };
     }
 
     private void Awake()

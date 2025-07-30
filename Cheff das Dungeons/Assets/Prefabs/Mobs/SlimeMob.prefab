@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2336163112391501881}
   - component: {fileID: 1398822192790372509}
   - component: {fileID: 8943510309532017191}
-  m_Layer: 10
+  m_Layer: 22
   m_Name: InteractionArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 6983015437692551745}
   - component: {fileID: 284900516225303723}
   - component: {fileID: 3755577550674921706}
-  m_Layer: 10
+  m_Layer: 23
   m_Name: HitboxArea
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 804899353124940522}
   - component: {fileID: 3718301209249076304}
   - component: {fileID: 1068473270726505101}
-  m_Layer: 10
+  m_Layer: 22
   m_Name: AttackArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 6988111585100727236}
   - component: {fileID: 948603289660823912}
   - component: {fileID: 765507922736946329}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: SlimeMob
   m_TagString: Enemy
   m_Icon: {fileID: 0}
