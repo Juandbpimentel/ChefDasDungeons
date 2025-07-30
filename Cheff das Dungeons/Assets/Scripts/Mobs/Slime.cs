@@ -1,13 +1,16 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Slime : MonoBehaviour, ITriggerListener
 {
-    public int vidaMaxima = 5;
+    public int vidaMaxima = 3;
     public float speed = 1.5f;
     public float maxAttackCooldown = 2.5f;
     public float attackForce = 5f;
+    public float KnockbackForce = 2f;
+    public float stunTime = 0.1f;
     [Header("Raycast Settings")]
     [Tooltip("Deslocamento da origem do raycast para ajustar ao centro visual do sprite.")]
     public Vector2 raycastOriginOffset = new Vector2(0, 0.4f);
@@ -20,7 +23,7 @@ public class Slime : MonoBehaviour, ITriggerListener
     Color originalColor;
     Vector2 playerOffset;
 
-    int vida;
+    public int vida;
     public float attackCooldown = 0f;
     private Vector2 attackDirection;
     private float flashRedTimer = 0f;
@@ -173,8 +176,6 @@ public class Slime : MonoBehaviour, ITriggerListener
         UtilFunctions.DrawBox(raycastOrigin, boxSize, direction, 0f, hit.distance, hasLineOfSight ? Color.green : Color.red);
     }
 
-
-
     public void OnChildTriggerEnter2D(GameObject triggerObject, Collider2D other)
     {
         // Verifica se o objeto que entrou no Trigger é o jogador
@@ -196,6 +197,7 @@ public class Slime : MonoBehaviour, ITriggerListener
                 if (other is BoxCollider2D)
                 {
                     player.GetComponent<PlayerController>().removeLife();
+                    player.GetComponent<PlayerController>().Knockback(transform, KnockbackForce, stunTime);
                 }
             }
             if (triggerObject.name == "AttackArea")
@@ -334,10 +336,19 @@ public class Slime : MonoBehaviour, ITriggerListener
         Gizmos.DrawWireSphere(raycastOrigin, 0.1f);
     }
 
-    public void levarDano()
+    public void levarDano(int dano)
     {
         // Lógica para levar dano ao slime
-        vida--;
+        if (dano > 0)
+        {
+            Debug.Log("AIAI" + dano);
+            vida -= dano;
+        }
+        else
+        {
+            vida -= 1;
+        }
+
         if (spriteRenderer != null)
         {
             spriteRenderer.color = Color.red;
@@ -347,10 +358,9 @@ public class Slime : MonoBehaviour, ITriggerListener
         if (vida <= 0)
         {
             isDying = true;
-            // Lógica de morte do slime
+               
         }
     }
-
 
     public enum SlimeState
     {
