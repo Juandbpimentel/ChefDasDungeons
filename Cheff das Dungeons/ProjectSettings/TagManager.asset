@@ -11,32 +11,34 @@ TagManager:
   - Meat
   - Slime
   - Enemy
+  - Projetile
+  - Confiner
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Foreground&Map
+  - Player
   - Water
   - UI
-  - Items
-  - Player
-  - Interactives
-  - Background&Decorations
-  - Enemy
-  - Misc
-  - Confiners
-  - PathFinding
+  - Foreground/Interactives
+  - Foreground/InteractivesWithCollision
+  - Foreground/MapColliders
+  - Background/Decorations
+  - Background/Superior
+  - Background/Ground
+  - Traps/Water
+  - Traps/Holes
+  - Traps/Spikes
+  - UI/Confiners
+  - Enemy/Mobs
   - Projetile
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - GameControllers/PathFinding
+  - Misc
+  - GameControllers/StateManagers
+  - Items
+  - Enemy/AreaDetectors
+  - Enemy/Hitbox
+  - GameControllers/Grids
   - 
   - 
   - 

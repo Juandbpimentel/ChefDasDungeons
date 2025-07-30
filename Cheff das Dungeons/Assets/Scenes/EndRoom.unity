@@ -1979,7 +1979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneName: Fase2
-  newPlayerPosition: {x: -0.12, y: 4.96}
+  newPlayerPosition: {x: 0, y: 0}
 --- !u!483693784 &1868507091
 TilemapRenderer:
   m_ObjectHideFlags: 0
