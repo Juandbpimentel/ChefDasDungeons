@@ -8,6 +8,8 @@ public class Slime : MonoBehaviour, ITriggerListener
     public float speed = 1.5f;
     public float maxAttackCooldown = 2.5f;
     public float attackForce = 5f;
+    public float KnockbackForce = 2f;
+    public float stunTime = 0.1f;
     [Header("Raycast Settings")]
     [Tooltip("Deslocamento da origem do raycast para ajustar ao centro visual do sprite.")]
     public Vector2 raycastOriginOffset = new Vector2(0, 0.4f);
@@ -173,8 +175,6 @@ public class Slime : MonoBehaviour, ITriggerListener
         UtilFunctions.DrawBox(raycastOrigin, boxSize, direction, 0f, hit.distance, hasLineOfSight ? Color.green : Color.red);
     }
 
-
-
     public void OnChildTriggerEnter2D(GameObject triggerObject, Collider2D other)
     {
         // Verifica se o objeto que entrou no Trigger é o jogador
@@ -196,6 +196,7 @@ public class Slime : MonoBehaviour, ITriggerListener
                 if (other is BoxCollider2D)
                 {
                     player.GetComponent<PlayerController>().removeLife();
+                    player.GetComponent<PlayerController>().Knockback(transform, KnockbackForce, stunTime);
                 }
             }
             if (triggerObject.name == "AttackArea")
@@ -350,7 +351,6 @@ public class Slime : MonoBehaviour, ITriggerListener
             // Lógica de morte do slime
         }
     }
-
 
     public enum SlimeState
     {

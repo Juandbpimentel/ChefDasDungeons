@@ -4,6 +4,7 @@ using UnityEngine.Rendering;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float speed = 3f;
     [SerializeField]
+
+    private bool isKnockedback;
+    public float cooldownAttack = 0.8f;
+    private float timerAttack;
     public int maxLifes = 5;
     public int currentLife;
     public int faceDirection = 1;
@@ -68,6 +73,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (timerAttack > 0)
+        {
+            timerAttack -= Time.deltaTime;
+        }
         //Função de teste para remover vidas (tomar dano)
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -76,7 +85,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            // ATTACK
+            Attack();
         }
 
         //Impede que o player coma o item quando estiver cozinhando (pois é a mesma tecla)
@@ -112,7 +121,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        ControlPlayerMoviment();
+        if (isKnockedback == false)
+        {
+            ControlPlayerMoviment();
+        }
     }
 
     private void handleCheckpointInteraction()
@@ -298,5 +310,34 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("y", Mathf.Abs(vertical));
 
         rb.linearVelocity = movement * speed;
+    }
+
+    public void Knockback(Transform enemy, float force, float stunTime)
+    {
+        isKnockedback = true;
+        Vector2 direction = (transform.position - enemy.position).normalized;
+        rb.linearVelocity = direction * force;
+        StartCoroutine(KnockbackCounter(stunTime));
+    }
+
+    public void Attack()
+    {
+        if (timerAttack <= 0)
+        {
+            animator.SetBool("isAttacking", true);
+            timerAttack = cooldownAttack;
+        }
+    }
+
+    public void FinishAttacking()
+    {
+        animator.SetBool("isAttacking", false);
+    }
+
+    IEnumerator KnockbackCounter(float stunTime)
+    {
+        yield return new WaitForSeconds(stunTime);
+        rb.linearVelocity = Vector2.zero;
+        isKnockedback = false;
     }
 }
