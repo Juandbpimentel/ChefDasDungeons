@@ -1,3 +1,8 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -34,6 +39,7 @@ public class Slime : MonoBehaviour, ITriggerListener
     public bool haveDied = false;
 
     private bool isWalking = false;
+    private bool isKnockedback = false;
 
     private bool isPlayerInInteractionArea = false;
 
@@ -255,29 +261,32 @@ public class Slime : MonoBehaviour, ITriggerListener
 
     private void HandleMovement()
     {
-        // Usar a flag 'isAttacking' é mais seguro e legível
-        if (isAttacking || isDying)
+        if (!isKnockedback)
         {
-            agent.ResetPath(); // Garante que ele pare enquanto ataca
-            isWalking = false;
-            return;
-        }
+            // Usar a flag 'isAttacking' é mais seguro e legível
+            if (isAttacking || isDying)
+            {
+                agent.ResetPath(); // Garante que ele pare enquanto ataca
+                isWalking = false;
+                return;
+            }
 
-        if (isPlayerInInteractionArea)
-        {
-            agent.SetDestination((Vector2)player.transform.position + playerOffset);
-            agent.speed = speed;
-            isWalking = true;
-        }
-        else
-        {
-            agent.ResetPath();
-            isWalking = false;
-        }
-        // Atualiza a animação de movimento
-        if (isWalking && agent.velocity.magnitude > 0.1f)
-        {
-            transform.localScale = new Vector3(Mathf.Sign(agent.velocity.x), 1, 1);
+            if (isPlayerInInteractionArea)
+            {
+                agent.SetDestination((Vector2)player.transform.position + playerOffset);
+                agent.speed = speed;
+                isWalking = true;
+            }
+            else
+            {
+                agent.ResetPath();
+                isWalking = false;
+            }
+            // Atualiza a animação de movimento
+            if (isWalking && agent.velocity.magnitude > 0.1f)
+            {
+                transform.localScale = new Vector3(Mathf.Sign(agent.velocity.x), 1, 1);
+            }
         }
     }
 
@@ -360,6 +369,20 @@ public class Slime : MonoBehaviour, ITriggerListener
         }
     }
 
+    public void GetKnockedback(Transform playerTransform, float knockedbackForce, float stunTime)
+    {
+        isKnockedback = true;
+        Vector2 direction = (transform.position - playerTransform.position).normalized;
+        rb.linearVelocity = direction * knockedbackForce;
+        StartCoroutine(StunTimer(stunTime));
+    }
+
+    IEnumerator StunTimer(float stunTime)
+    {
+        yield return new WaitForSeconds(stunTime);
+        rb.linearVelocity = Vector2.zero;
+        isKnockedback = false;
+    } 
     public enum SlimeState
     {
         Idle,
