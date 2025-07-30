@@ -338,7 +338,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: -458641133534639524, guid: 3df726eb8ad9f0b44a40abb037036dfe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -423,6 +423,12 @@ MonoBehaviour:
   isAttacking: 0
   haveMakeAttack: 0
   haveDied: 0
+  slimeDropPrefab: {fileID: 2717574569883139326, guid: d774deeacf615fd49ab3d55ef90a280b, type: 3}
+  meatDropPrefab: {fileID: 708726310737219502, guid: 2646428042ccd8b43aefa4d701756964, type: 3}
+  eggDropPrefab: {fileID: 7205177180507890860, guid: b9172245aaff37a45a8dcf178a09ce85, type: 3}
+  burguerDropPrefab: {fileID: 2717574569883139326, guid: 2f1699e64bd8a514cb8685b100121b93, type: 3}
+  stewDropPrefab: {fileID: 2717574569883139326, guid: ff40e275680272d4388a50286cb39200, type: 3}
+  friedEggDropPrefab: {fileID: 2717574569883139326, guid: 0429d78561cb8a242accffe91a9b73f4, type: 3}
 --- !u!195 &765507922736946329
 NavMeshAgent:
   m_ObjectHideFlags: 0

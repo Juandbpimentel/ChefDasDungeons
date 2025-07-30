@@ -70,6 +70,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private TrailRenderer tr;
 
+    private bool inSign = false;
+
+    public bool isTeleporting = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -101,6 +105,14 @@ public class PlayerController : MonoBehaviour
         if (inCheckpoint)
         {
             handleCheckpointInteraction();
+        }
+
+        if (inSign)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                GameManager.Instance.Respaw();
+            }
         }
 
         if (flashRedTimer > 0f)
@@ -317,9 +329,13 @@ public class PlayerController : MonoBehaviour
 
     private bool recuperateLife(int n)
     {
-        if (n > 0)
+        if (n + currentLife > maxLifes)
         {
-            currentLife = n;
+            currentLife = maxLifes;
+        }
+        else if (n + currentLife > 0)
+        {
+            currentLife += n;
         }
         else
         {
@@ -331,6 +347,11 @@ public class PlayerController : MonoBehaviour
 
     private void eat(FoodEnum food)
     {
+        if (currentLife == maxLifes)
+        {
+            Debug.Log("Player já está com a vida cheia!");
+            return;
+        }
         Debug.Log("Comendo: " + food.ToString());
         if (food == FoodEnum.Burger && burger > 0)
         {

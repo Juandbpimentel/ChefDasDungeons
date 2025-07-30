@@ -9,9 +9,19 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Player")) return;
+        if (!collision.CompareTag("Player") || PlayerController.Instance.isTeleporting) return;
+        PlayerController.Instance.isTeleporting = true;
         NextScene();
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            PlayerController.Instance.isTeleporting = false;
+        }
+    }
+
 
     private void NextScene()
     {
