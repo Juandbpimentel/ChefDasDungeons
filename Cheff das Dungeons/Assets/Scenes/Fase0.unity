@@ -9391,6 +9391,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 262437788943633577, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 262437788943633577, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
       propertyPath: 'lifes.Array.data[0]'
       value: 
       objectReference: {fileID: 3647598897284874395}
@@ -9412,11 +9416,11 @@ PrefabInstance:
       objectReference: {fileID: 1074806243}
     - target: {fileID: 365826460076131253, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.59
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 365826460076131253, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.84
+      value: -0.73
       objectReference: {fileID: 0}
     - target: {fileID: 1338983968048545784, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
       propertyPath: m_Controller
