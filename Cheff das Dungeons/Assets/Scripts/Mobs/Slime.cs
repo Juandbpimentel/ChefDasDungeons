@@ -1,10 +1,11 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Slime : MonoBehaviour, ITriggerListener
 {
-    public int vidaMaxima = 5;
+    public int vidaMaxima = 3;
     public float speed = 1.5f;
     public float maxAttackCooldown = 2.5f;
     public float attackForce = 5f;
@@ -22,7 +23,7 @@ public class Slime : MonoBehaviour, ITriggerListener
     Color originalColor;
     Vector2 playerOffset;
 
-    int vida;
+    public int vida;
     public float attackCooldown = 0f;
     private Vector2 attackDirection;
     private float flashRedTimer = 0f;
@@ -335,10 +336,19 @@ public class Slime : MonoBehaviour, ITriggerListener
         Gizmos.DrawWireSphere(raycastOrigin, 0.1f);
     }
 
-    public void levarDano()
+    public void levarDano(int dano)
     {
         // Lógica para levar dano ao slime
-        vida--;
+        if (dano > 0)
+        {
+            Debug.Log("AIAI" + dano);
+            vida -= dano;
+        }
+        else
+        {
+            vida -= 1;
+        }
+
         if (spriteRenderer != null)
         {
             spriteRenderer.color = Color.red;
@@ -348,7 +358,7 @@ public class Slime : MonoBehaviour, ITriggerListener
         if (vida <= 0)
         {
             isDying = true;
-            // Lógica de morte do slime
+               
         }
     }
 

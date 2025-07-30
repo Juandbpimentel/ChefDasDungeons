@@ -14,6 +14,11 @@ public class PlayerController : MonoBehaviour
     private float speed = 3f;
     [SerializeField]
 
+    public Transform attackPoint;
+    public float weaponRange = 1f;
+    public LayerMask enemyLayer;
+    public int damage = 1;
+
     private bool isKnockedback;
     public float cooldownAttack = 0.8f;
     private float timerAttack;
@@ -53,9 +58,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     public TextMeshProUGUI fried_eggText;
 
+    private float flashRedTimer = 0f;
+    private float flashRedDuration = 0.15f;
+    SpriteRenderer spriteRenderer;
+    Color originalColor;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
+
         if (Instance == null)
         {
             Instance = this;
@@ -117,6 +130,14 @@ public class PlayerController : MonoBehaviour
             handleCheckpointInteraction();
         }
 
+        if (flashRedTimer > 0f)
+        {
+            flashRedTimer -= Time.deltaTime;
+            if (flashRedTimer <= 0f && spriteRenderer != null)
+            {
+                spriteRenderer.color = originalColor;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -239,16 +260,18 @@ public class PlayerController : MonoBehaviour
 
     public void removeLife()
     {
-        if (currentLife <= maxLifes && currentLife > 0)
-        {
-            currentLife -= 1;
-        }
+        // if (currentLife <= maxLifes && currentLife > 0)
+        // {
+        //     currentLife -= 1;
+        //     spriteRenderer.color = Color.red;
+        //     flashRedTimer = flashRedDuration;
+        // }
 
-        if (currentLife == 0)
-        {
-            GameManager.Instance.Respaw();
-            recuperateLife(maxLifes);
-        }
+        // if (currentLife == 0)
+        // {
+        //     GameManager.Instance.Respaw();
+        //     recuperateLife(maxLifes);
+        // }
     }
 
     private bool recuperateLife(int n)
@@ -325,7 +348,24 @@ public class PlayerController : MonoBehaviour
         if (timerAttack <= 0)
         {
             animator.SetBool("isAttacking", true);
+
             timerAttack = cooldownAttack;
+        }
+    }
+
+    public void DealDamage()
+    {
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, enemyLayer);
+
+        if (enemies.Length > 0)
+        {
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                if (enemies[i] is BoxCollider2D)
+                {
+                    enemies[i].GetComponentInParent<Slime>().levarDano(damage);
+                }
+            }
         }
     }
 
