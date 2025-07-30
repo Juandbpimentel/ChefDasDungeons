@@ -13,6 +13,9 @@ TagManager:
   - Enemy
   - Projetile
   - Confiner
+  - Burguer
+  - Stew
+  - FriedEgg
   layers:
   - Default
   - TransparentFX
