@@ -608,7 +608,7 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -17433,7 +17433,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FG_Cellar_763
+      name: 3Spike_UP_prata_0
       rect:
         serializedVersion: 2
         x: 0
@@ -17455,7 +17455,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FG_Cellar_764
+      name: 3Spike_UP_prata_1
       rect:
         serializedVersion: 2
         x: 16
@@ -17477,7 +17477,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FG_Cellar_765
+      name: 3Spike_UP_prata_2
       rect:
         serializedVersion: 2
         x: 32
@@ -17499,7 +17499,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FG_Cellar_766
+      name: 3Spike_UP_prata_3
       rect:
         serializedVersion: 2
         x: 48
@@ -17983,7 +17983,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FG_Cellar_788
+      name: 3Spike_DOWN_prata_0
       rect:
         serializedVersion: 2
         x: 0
@@ -18005,7 +18005,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FG_Cellar_789
+      name: 3Spike_DOWN_prata_1
       rect:
         serializedVersion: 2
         x: 16
@@ -18027,7 +18027,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FG_Cellar_790
+      name: 3Spike_DOWN_prata_2
       rect:
         serializedVersion: 2
         x: 32
@@ -18049,7 +18049,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FG_Cellar_791
+      name: 3Spike_DOWN_prata_3
       rect:
         serializedVersion: 2
         x: 48
@@ -18744,6 +18744,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      3Spike_DOWN_prata_0: 1409171860
+      3Spike_DOWN_prata_1: 40224579
+      3Spike_DOWN_prata_2: 1671888570
+      3Spike_DOWN_prata_3: -1977109399
+      3Spike_UP_prata_0: -1201808122
+      3Spike_UP_prata_1: 1400136840
+      3Spike_UP_prata_2: 133761706
+      3Spike_UP_prata_3: -518139281
       FG_Cellar_0: -2180751876690139523
       FG_Cellar_1: -7538277157246231209
       FG_Cellar_10: 1900485224116325332
@@ -19482,10 +19490,6 @@ TextureImporter:
       FG_Cellar_760: -1789793629
       FG_Cellar_761: 670466672
       FG_Cellar_762: 740162759
-      FG_Cellar_763: -1201808122
-      FG_Cellar_764: 1400136840
-      FG_Cellar_765: 133761706
-      FG_Cellar_766: -518139281
       FG_Cellar_767: 993110935
       FG_Cellar_768: -1687373519
       FG_Cellar_769: 471796391
@@ -19509,11 +19513,7 @@ TextureImporter:
       FG_Cellar_785: -121280779
       FG_Cellar_786: -831451451
       FG_Cellar_787: -2082226756
-      FG_Cellar_788: 1409171860
-      FG_Cellar_789: 40224579
       FG_Cellar_79: 4110425508172286329
-      FG_Cellar_790: 1671888570
-      FG_Cellar_791: -1977109399
       FG_Cellar_792: 109895873
       FG_Cellar_793: -53073329
       FG_Cellar_794: 1572934798
