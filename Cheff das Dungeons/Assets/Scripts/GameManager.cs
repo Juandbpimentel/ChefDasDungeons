@@ -11,23 +11,26 @@ public class GameManager : MonoBehaviour
     [Header("Persistent Objects")]
     public GameObject[] persistentObjects;
 
-    private void Start()
+    [SerializeField] private GameObject playerPrefab;
+
+    private void OnEnable()
     {
-        Instance = this;
-        sceneName = SceneManager.GetActiveScene().name;
-        DontDestroyOnLoad(gameObject);
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        persistentObjects = new GameObject[] { player };
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
-            CleanUpAndDestroy();
+            // Apenas destrua o novo GameManager, NÃO os objetos persistentes!
+            Destroy(gameObject);
             return;
         }
-
         else
         {
             Instance = this;
@@ -47,13 +50,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void CleanUpAndDestroy()
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        foreach (GameObject obj in persistentObjects)
+        sceneName = SceneManager.GetActiveScene().name;
+        // Se não existe player, crie um novo
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null && playerPrefab != null)
         {
-            Destroy(obj);
+            player = Instantiate(playerPrefab, lastCheckpointPos, Quaternion.identity);
+            DontDestroyOnLoad(player);
         }
-        Destroy(gameObject);
+        else if (player != null)
+        {
+            // Move o player para a cena ativa, se quiser que ele apareça na hierarquia da cena
+            DontDestroyOnLoad(player);
+            player.transform.position = lastCheckpointPos;
+        }
     }
 
     public void Respaw()
