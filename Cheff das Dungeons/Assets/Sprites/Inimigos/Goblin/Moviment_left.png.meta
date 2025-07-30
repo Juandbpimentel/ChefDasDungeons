@@ -122,10 +122,10 @@ TextureImporter:
       name: Moviment_left_0
       rect:
         serializedVersion: 2
-        x: 9
+        x: 7
         y: 5
-        width: 15
-        height: 24
+        width: 19
+        height: 26
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,10 +144,10 @@ TextureImporter:
       name: Moviment_left_1
       rect:
         serializedVersion: 2
-        x: 40
+        x: 38
         y: 5
-        width: 15
-        height: 24
+        width: 19
+        height: 26
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,10 +166,10 @@ TextureImporter:
       name: Moviment_left_2
       rect:
         serializedVersion: 2
-        x: 72
+        x: 70
         y: 4
-        width: 15
-        height: 24
+        width: 19
+        height: 26
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
