@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneName: EndRoom
-  newPlayerPosition: {x: 0, y: -5}
+  newPlayerPosition: {x: 0, y: -6}
 --- !u!483693784 &124199212
 TilemapRenderer:
   m_ObjectHideFlags: 0
