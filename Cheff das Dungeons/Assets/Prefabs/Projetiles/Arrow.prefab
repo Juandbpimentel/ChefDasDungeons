@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 7308462285705074839}
   - component: {fileID: 2258489292655651796}
   - component: {fileID: 7691967556895828263}
-  m_Layer: 14
+  m_Layer: 17
   m_Name: Arrow
-  m_TagString: Untagged
+  m_TagString: Projetile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

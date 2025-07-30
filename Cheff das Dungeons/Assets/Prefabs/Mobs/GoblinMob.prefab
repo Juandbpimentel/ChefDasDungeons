@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 471341609576478592}
   - component: {fileID: 815036893611334763}
   - component: {fileID: 6379147190632374965}
-  m_Layer: 10
+  m_Layer: 22
   m_Name: FearArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 7683595789333422636}
   - component: {fileID: 6390300914264063154}
   - component: {fileID: 7222267045898341813}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: GoblinMob
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 1153415457459019456}
   - component: {fileID: 5452291559768668881}
   - component: {fileID: 2398461662588418779}
-  m_Layer: 10
+  m_Layer: 23
   m_Name: HitboxArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,7 +371,7 @@ GameObject:
   - component: {fileID: 8237596465131291597}
   - component: {fileID: 7039117963028452402}
   - component: {fileID: 7700732888774946110}
-  m_Layer: 10
+  m_Layer: 22
   m_Name: AttackArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
