@@ -659,7 +659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneName: SafeRoom2
-  newPlayerPosition: {x: 0.68, y: -6.7}
+  newPlayerPosition: {x: 0, y: 0}
 --- !u!483693784 &626600986
 TilemapRenderer:
   m_ObjectHideFlags: 0
