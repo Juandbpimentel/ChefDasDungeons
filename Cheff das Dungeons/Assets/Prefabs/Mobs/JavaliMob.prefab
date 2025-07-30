@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4145271953740231944}
   - component: {fileID: 7310860382091835463}
   - component: {fileID: 7183446985952471218}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: JavaliMob
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 6506515742941754331}
   - component: {fileID: 9162745857271144123}
   - component: {fileID: 1285499040224272922}
-  m_Layer: 10
+  m_Layer: 22
   m_Name: InteractionArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 6064086494837732005}
   - component: {fileID: 5107916602712415040}
   - component: {fileID: 4397339149955448695}
-  m_Layer: 10
+  m_Layer: 22
   m_Name: ChargeArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 6729929227927484069}
   - component: {fileID: 6065032588102917679}
   - component: {fileID: 3749790113768120775}
-  m_Layer: 10
+  m_Layer: 23
   m_Name: HitboxArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
