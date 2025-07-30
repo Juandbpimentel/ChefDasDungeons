@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
                 Dashing();
             }
 
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.J))
             {
                 Attack();
             }

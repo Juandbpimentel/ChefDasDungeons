@@ -9,7 +9,7 @@ public class Arqueiro : MonoBehaviour, ITriggerListener, IEnemy
     public float stunTime = 0.1f;
     [Header("Raycast Settings")]
     [Tooltip("Deslocamento da origem do raycast para ajustar ao centro visual do sprite.")]
-    public Vector2 raycastOriginOffset = new Vector2(0, 0.4f);
+    public Vector2 raycastOriginOffset = new Vector2(0, -1f);
 
     Animator animator;
     GameObject player;

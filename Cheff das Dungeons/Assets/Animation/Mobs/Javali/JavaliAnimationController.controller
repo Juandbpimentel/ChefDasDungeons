@@ -213,7 +213,7 @@ BlendTree:
   m_Name: Attacking
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: b6db332bf146f8b4dbaa234d3b4df50f, type: 2}
+    m_Motion: {fileID: 7400000, guid: 2caec16e37f23334c9e218c58d36945d, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -221,7 +221,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 2caec16e37f23334c9e218c58d36945d, type: 2}
+    m_Motion: {fileID: 7400000, guid: b6db332bf146f8b4dbaa234d3b4df50f, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -244,7 +244,7 @@ BlendTree:
   m_Name: Stunned
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 4ec9fe3a482e9864b9cff318e91da860, type: 2}
+    m_Motion: {fileID: 7400000, guid: c927f60bb9516464bb1a88fbff1b0b33, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -252,7 +252,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: c927f60bb9516464bb1a88fbff1b0b33, type: 2}
+    m_Motion: {fileID: 7400000, guid: 4ec9fe3a482e9864b9cff318e91da860, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -275,7 +275,7 @@ BlendTree:
   m_Name: Walking
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 9ac643288003780469e5297b3d3f49ba, type: 2}
+    m_Motion: {fileID: 7400000, guid: c1c97df6ccc448e41885724d274d4e4b, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -283,7 +283,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: c1c97df6ccc448e41885724d274d4e4b, type: 2}
+    m_Motion: {fileID: 7400000, guid: 9ac643288003780469e5297b3d3f49ba, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -294,6 +294,6 @@ BlendTree:
   m_BlendParameterY: Blend
   m_MinThreshold: 0
   m_MaxThreshold: 1
-  m_UseAutomaticThresholds: 1
+  m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
