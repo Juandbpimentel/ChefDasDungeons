@@ -293,7 +293,7 @@ Animator:
   m_GameObject: {fileID: 9091631265863244445}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 916d61aa849bcbd49a4c516c05a59dbc, type: 2}
+  m_Controller: {fileID: 9100000, guid: e946cc96fa57cab46ae7ee34b282a860, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -330,7 +330,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &5625928924396904585
 MonoBehaviour:
@@ -357,20 +357,20 @@ MonoBehaviour:
   maxLifes: 5
   currentLife: 0
   faceDirection: 1
-  rb: {fileID: 0}
-  animator: {fileID: 0}
+  rb: {fileID: 9029518243228443472}
+  animator: {fileID: 1338983968048545784}
   isCrafting: 0
   inCheckpoint: 0
   egg: 3
-  eggText: {fileID: 0}
+  eggText: {fileID: 4061684897268977829}
   meat: 3
-  meatText: {fileID: 0}
+  meatText: {fileID: 3101581720155742709}
   slime: 3
-  slimeText: {fileID: 0}
+  slimeText: {fileID: 4244700324501582046}
   burger: 0
-  burgerText: {fileID: 0}
+  burgerText: {fileID: 7446739878030392841}
   stew: 0
-  stewText: {fileID: 0}
+  stewText: {fileID: 1233079925829092373}
   fried_egg: 0
   fried_eggText: {fileID: 0}
   dashingPower: 3
