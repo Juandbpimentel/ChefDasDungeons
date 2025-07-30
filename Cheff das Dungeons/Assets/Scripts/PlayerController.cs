@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     public float weaponRange = 1f;
     public LayerMask enemyLayer;
     public int damage = 1;
+    public float knockedbackForce = 2f;
+    public bool isDying = false;
 
     private bool isKnockedback;
     public float cooldownAttack = 0.8f;
@@ -63,6 +65,11 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Color originalColor;
 
+    private bool isDashing = false;
+    [SerializeField] private float dashingPower = 3f;
+
+    [SerializeField] private TrailRenderer tr;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -90,41 +97,7 @@ public class PlayerController : MonoBehaviour
         {
             timerAttack -= Time.deltaTime;
         }
-        //Função de teste para remover vidas (tomar dano)
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            removeLife();
-        }
 
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Attack();
-        }
-
-        //Impede que o player coma o item quando estiver cozinhando (pois é a mesma tecla)
-        if (!isCrafting)
-        {
-            //Comer um hamburger
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                Debug.Log("Comendo um hamburger");
-                eat(FoodEnum.Burger);
-            }
-
-            //Comer uma sopa
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                Debug.Log("Comendo uma sopa");
-                eat(FoodEnum.Stew);
-            }
-
-            //Comer um ovo
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                Debug.Log("Comendo um ovo frito");
-                eat(FoodEnum.FriedEgg);
-            }
-        }
         if (inCheckpoint)
         {
             handleCheckpointInteraction();
@@ -138,11 +111,50 @@ public class PlayerController : MonoBehaviour
                 spriteRenderer.color = originalColor;
             }
         }
+
+        if (isDying == false || isDashing == false)
+        {
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Dashing();
+            }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                Attack();
+            }
+
+            //Impede que o player coma o item quando estiver cozinhando (pois é a mesma tecla)
+            if (!isCrafting)
+            {
+                //Comer um hamburger
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    Debug.Log("Comendo um hamburger");
+                    eat(FoodEnum.Burger);
+                }
+
+                //Comer uma sopa
+                if (Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    Debug.Log("Comendo uma sopa");
+                    eat(FoodEnum.Stew);
+                }
+
+                //Comer um ovo
+                if (Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    Debug.Log("Comendo um ovo frito");
+                    eat(FoodEnum.FriedEgg);
+                }
+            }
+        }
     }
 
     private void FixedUpdate()
     {
-        if (isKnockedback == false)
+        if (isKnockedback == false && isDying == false)
         {
             ControlPlayerMoviment();
         }
@@ -269,9 +281,17 @@ public class PlayerController : MonoBehaviour
 
         if (currentLife == 0)
         {
-            GameManager.Instance.Respaw();
-            recuperateLife(maxLifes);
+            isDying = true;
+            animator.SetBool("isDying", isDying);
         }
+    }
+
+    public void DyingReset()
+    {
+        isDying = false;
+        animator.SetBool("isDying", isDying);
+        GameManager.Instance.Respaw();
+        recuperateLife(maxLifes);
     }
 
     private bool recuperateLife(int n)
@@ -337,10 +357,13 @@ public class PlayerController : MonoBehaviour
 
     public void Knockback(Transform enemy, float force, float stunTime)
     {
-        isKnockedback = true;
-        Vector2 direction = (transform.position - enemy.position).normalized;
-        rb.linearVelocity = direction * force;
-        StartCoroutine(KnockbackCounter(stunTime));
+        if (isDying == false)
+        {
+            isKnockedback = true;
+            Vector2 direction = (transform.position - enemy.position).normalized;
+            rb.linearVelocity = direction * force;
+            StartCoroutine(KnockbackCounter(stunTime));
+        }
     }
 
     public void Attack()
@@ -364,6 +387,7 @@ public class PlayerController : MonoBehaviour
                 if (enemies[i] is BoxCollider2D)
                 {
                     enemies[i].GetComponentInParent<Slime>().levarDano(damage);
+                    enemies[i].GetComponentInParent<Slime>().GetKnockedback(transform, knockedbackForce, stunTime: 1f);
                 }
             }
         }
@@ -379,5 +403,26 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(stunTime);
         rb.linearVelocity = Vector2.zero;
         isKnockedback = false;
+    }
+
+    private IEnumerator Dash()
+    {
+        yield return new WaitForSeconds(0.2f);
+        speed /= dashingPower;
+        tr.emitting = false;
+
+        yield return new WaitForSeconds(0.5f);
+        isDashing = false;
+    }
+
+    private void Dashing()
+    {
+        if (!isDashing)
+        {
+            isDashing = true;
+            speed *= dashingPower;
+            tr.emitting = true;
+            StartCoroutine(Dash());
+        }
     }
 }
