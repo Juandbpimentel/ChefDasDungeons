@@ -8375,14 +8375,6 @@ PrefabInstance:
       propertyPath: 'persistentObjects.Array.data[1]'
       value: 
       objectReference: {fileID: 169083233}
-    - target: {fileID: 2452629758099148596, guid: 26f47f3e0e8c7c14782242c22fdd4853, type: 3}
-      propertyPath: 'persistentObjects.Array.data[2]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2452629758099148596, guid: 26f47f3e0e8c7c14782242c22fdd4853, type: 3}
-      propertyPath: 'persistentObjects.Array.data[3]'
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4921050129656967433, guid: 26f47f3e0e8c7c14782242c22fdd4853, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -8504,6 +8496,10 @@ PrefabInstance:
     - target: {fileID: 3416019906943615338, guid: 44ae5f052867d814e9a31e26296bd827, type: 3}
       propertyPath: m_TagString
       value: Projetile
+      objectReference: {fileID: 0}
+    - target: {fileID: 7308462285705074839, guid: 44ae5f052867d814e9a31e26296bd827, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
