@@ -260,13 +260,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vidaMaxima: 3
-  speed: 1.5
+  speed: 1
   stunTime: 0.1
   raycastOriginOffset: {x: 0, y: 0.4}
   vida: 0
   arrowPrefab: {fileID: 3416019906943615338, guid: 44ae5f052867d814e9a31e26296bd827, type: 3}
-  attackRate: 10
-  maxAttackCooldown: 10
+  attackRate: 4
+  maxAttackCooldown: 4
   KnockbackForce: 5
   attackRange: 10
   haveDied: 0

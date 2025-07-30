@@ -24,13 +24,10 @@ public class Javali : MonoBehaviour, ITriggerListener, IEnemy
 
     public int vida;
     public float attackCooldown = 0f;
-    private Vector2 attackDirection;
     private float flashRedTimer = 0f;
     private float flashRedDuration = 0.15f;
 
     bool hasLineOfSight = false;
-    public bool isAttacking = false;
-    public bool haveMakeAttack = false;
     private bool isDying = false;
     public bool haveDied = false;
 
@@ -40,6 +37,16 @@ public class Javali : MonoBehaviour, ITriggerListener, IEnemy
 
     private bool isPlayerEnteredInAttackArea = false;
     private bool isKnockedback = false;
+
+    // Charge logic
+    private bool isCharging = false;
+    private Vector2 chargeDirection;
+    private float chargeSpeedMultiplier = 3f;
+    private float chargeDuration = 1.5f;
+    private float chargeTimer = 0f;
+    private bool isStunned = false;
+    private float stunDuration = 1.0f;
+    private float stunTimer = 0f;
 
     [Header("Drops")]
     public GameObject slimeDropPrefab = null;
@@ -88,15 +95,9 @@ public class Javali : MonoBehaviour, ITriggerListener, IEnemy
 
     void Update()
     {
-        if (attackCooldown > 0f && !isAttacking)
+        if (attackCooldown > 0f && !isCharging)
         {
             attackCooldown -= Time.deltaTime;
-        }
-        if (isAttacking && haveMakeAttack)
-        {
-            isAttacking = false;
-            haveMakeAttack = false;
-            OnAttackAnimationEnd();
         }
 
         if (flashRedTimer > 0f)
@@ -116,17 +117,29 @@ public class Javali : MonoBehaviour, ITriggerListener, IEnemy
 
     private void FixedUpdate()
     {
-        if (isAttacking)
+        if (isStunned)
         {
-            // Durante o ataque, o slime avança em linha reta com o dobro da velocidade.
-            // A velocidade é zerada no final da animação pelo evento OnAttackAnimationEnd.
-            transform.position += (Vector3)(attackDirection * (speed * 2) * Time.fixedDeltaTime);
+            stunTimer -= Time.fixedDeltaTime;
+            if (stunTimer <= 0f)
+            {
+                isStunned = false;
+            }
+            return;
         }
-        else
+
+        if (isCharging)
         {
-            // Movimento normal é controlado pelo NavMeshAgent apenas quando não está atacando.
-            HandleMovement();
+            chargeTimer -= Time.fixedDeltaTime;
+            transform.position += (Vector3)(chargeDirection * speed * chargeSpeedMultiplier * Time.fixedDeltaTime);
+            if (chargeTimer <= 0f)
+            {
+                StopChargeAndStun();
+            }
+            return;
         }
+
+        // Movimento normal é controlado pelo NavMeshAgent apenas quando não está em charge.
+        HandleMovement();
 
         HandlePlayerLineOfSight();
         HandleAttack();
@@ -141,9 +154,13 @@ public class Javali : MonoBehaviour, ITriggerListener, IEnemy
         {
             state = JavaliState.Dying;
         }
-        else if (isAttacking)
+        else if (isStunned)
         {
-            state = JavaliState.Attacking;
+            state = JavaliState.Sttuned;
+        }
+        else if (isCharging)
+        {
+            state = JavaliState.Charging;
         }
         else if (isWalking)
         {
@@ -219,6 +236,11 @@ public class Javali : MonoBehaviour, ITriggerListener, IEnemy
                     isPlayerEnteredInAttackArea = true;
                 }
             }
+            // CHARGE LOGIC - tanto para ChargeArea quanto para AttackArea
+            if ((triggerObject.name == "ChargeArea" || triggerObject.name == "AttackArea") && !isCharging && !isStunned && hasLineOfSight)
+            {
+                StartCharge();
+            }
         }
     }
 
@@ -251,10 +273,18 @@ public class Javali : MonoBehaviour, ITriggerListener, IEnemy
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
+        if (isCharging && !isStunned)
+        {
+            // Se colidir com parede (Layer do mapa)
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Foreground&Map") || collision.gameObject.CompareTag("Wall"))
+            {
+                StopChargeAndStun();
+            }
+        }
         if (collision.gameObject.CompareTag("Player"))
         {
             // Lógica de dano ou interação com o jogador
-            Debug.Log("Slime colidiu com o jogador!");
+            Debug.Log("Javali colidiu com o jogador!");
         }
     }
 
@@ -269,10 +299,10 @@ public class Javali : MonoBehaviour, ITriggerListener, IEnemy
 
     private void HandleMovement()
     {
-        // Usar a flag 'isAttacking' é mais seguro e legível
-        if (isAttacking || isDying)
+        // Usar a flag 'isCharging' é mais seguro e legível
+        if (isDying || isCharging || isStunned)
         {
-            agent.ResetPath(); // Garante que ele pare enquanto ataca
+            agent.ResetPath(); // Garante que ele pare enquanto em charge/stun
             isWalking = false;
             return;
         }
@@ -297,49 +327,14 @@ public class Javali : MonoBehaviour, ITriggerListener, IEnemy
 
     private void HandleAttack()
     {
-        // Condições para iniciar um novo ataque
-        if (isPlayerEnteredInAttackArea && hasLineOfSight && !isAttacking && attackCooldown <= 0)
+        // Condições para iniciar um novo charge/ataque
+        if (isPlayerEnteredInAttackArea && hasLineOfSight && !isCharging && !isStunned && attackCooldown <= 0)
         {
-            // Inicia o estado de ataque
-            isAttacking = true;
-            haveMakeAttack = false; // Garante que o ataque só será feito uma vez
+            StartCharge();
             attackCooldown = maxAttackCooldown; // Reinicia o cooldown
-
-            // Para o NavMeshAgent para que o movimento do ataque funcione sem interferência
-            agent.ResetPath();
-            isWalking = false; // Garante que a animação de andar pare
-
-            // Armazena a direção do ataque para o movimento em linha reta
-            attackDirection = ((Vector2)player.transform.position + playerOffset - (Vector2)transform.position).normalized;
-
-            // Vira o slime para a direção do ataque
-            transform.localScale = new Vector3(Mathf.Sign(attackDirection.x), 1, 1);
-
-            // A lógica de movimento agora é tratada no FixedUpdate
         }
     }
-    // Slime está normal seguindo o player
-    // Slime não atacando chega na área de ataque e se prepara pra atacar
-    // Esta função será chamada pelo Animation Event no final da animação de ataque
-    public void OnAttackAnimationEnd()
-    {
-        // Zera a velocidade do Rigidbody2D para parar o movimento do impulso
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector2.zero;
-        }
 
-        // Garante que o NavMeshAgent também pare, caso ele tente se mover
-        if (agent != null && agent.isOnNavMesh)
-        {
-            agent.ResetPath();
-        }
-
-        animator.StopPlayback(); // Para a animação de ataque
-
-        // Libera o slime para se mover ou atacar novamente
-        isAttacking = false;
-    }
     private void OnDrawGizmosSelected()
     {
         // Desenha um Gizmo para visualizar a origem do Raycast no Editor
@@ -393,6 +388,28 @@ public class Javali : MonoBehaviour, ITriggerListener, IEnemy
         isKnockedback = false;
     }
 
+    private void StartCharge()
+    {
+        isCharging = true;
+        chargeTimer = chargeDuration;
+        // Direção do charge é a direção do player no momento do início
+        chargeDirection = ((Vector2)player.transform.position - (Vector2)transform.position).normalized;
+        // Vira o javali para a direção do charge
+        transform.localScale = new Vector3(Mathf.Sign(chargeDirection.x), 1, 1);
+        // Para o NavMeshAgent
+        if (agent != null && agent.isOnNavMesh) agent.ResetPath();
+    }
+
+    private void StopChargeAndStun()
+    {
+        isCharging = false;
+        isStunned = true;
+        stunTimer = stunDuration;
+        // Para o movimento
+        if (rb != null) rb.linearVelocity = Vector2.zero;
+        if (agent != null && agent.isOnNavMesh) agent.ResetPath();
+    }
+
     public void generateDrop()
     {
         System.Random rand = new();
@@ -427,7 +444,8 @@ public class Javali : MonoBehaviour, ITriggerListener, IEnemy
     {
         Idle,
         Walking,
-        Attacking,
+        Charging,
+        Sttuned,
         Dying
     }
 }

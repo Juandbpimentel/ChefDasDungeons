@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vidaMaxima: 5
-  speed: 1.5
+  speed: 0.5
   maxAttackCooldown: 2.5
   attackForce: 1
   KnockbackForce: 2

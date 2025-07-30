@@ -4810,10 +4810,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 262437788943633577, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
-      propertyPath: maxLifes
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 262437788943633577, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
       propertyPath: 'lifes.Array.data[0]'
       value: 
       objectReference: {fileID: 405145191}
@@ -4833,10 +4829,6 @@ PrefabInstance:
       propertyPath: 'lifes.Array.data[4]'
       value: 
       objectReference: {fileID: 405145187}
-    - target: {fileID: 1421619198253977403, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.7
-      objectReference: {fileID: 0}
     - target: {fileID: 3104776067692761843, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.01
@@ -4877,30 +4869,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5595470346625812298, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5625928924396904585, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
-      propertyPath: tr
-      value: 
-      objectReference: {fileID: 194143918}
-    - target: {fileID: 5625928924396904585, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
-      propertyPath: egg
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5625928924396904585, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
-      propertyPath: meat
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5625928924396904585, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
-      propertyPath: slime
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5625928924396904585, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
-      propertyPath: speed
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 5625928924396904585, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
       propertyPath: eggText
       value: 
@@ -4922,24 +4890,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 405145182}
     - target: {fileID: 5625928924396904585, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
-      propertyPath: attackPoint
-      value: 
-      objectReference: {fileID: 194143919}
-    - target: {fileID: 5625928924396904585, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
       propertyPath: fried_eggText
       value: 
       objectReference: {fileID: 405145181}
     - target: {fileID: 5625928924396904585, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
-      propertyPath: enemyLayer.m_Bits
-      value: 8388608
+      propertyPath: cooldownAttack
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 9091631265863244445, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 9091631265863244445, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
-      propertyPath: m_Layer
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4949,16 +4909,6 @@ PrefabInstance:
 --- !u!4 &194143917 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3104776067692761843, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
-  m_PrefabInstance: {fileID: 194143916}
-  m_PrefabAsset: {fileID: 0}
---- !u!96 &194143918 stripped
-TrailRenderer:
-  m_CorrespondingSourceObject: {fileID: 5595470346625812298, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
-  m_PrefabInstance: {fileID: 194143916}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &194143919 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 365826460076131253, guid: 0e5fa927bfec3144eb80a9b5a5338e1e, type: 3}
   m_PrefabInstance: {fileID: 194143916}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &398954269
