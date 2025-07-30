@@ -65,6 +65,11 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Color originalColor;
 
+    private bool isDashing = false;
+    [SerializeField] private float dashingPower = 3f;
+
+    [SerializeField] private TrailRenderer tr;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -88,17 +93,31 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isDying == false)
+        if (timerAttack > 0)
         {
-            if (timerAttack > 0)
+            timerAttack -= Time.deltaTime;
+        }
+
+        if (inCheckpoint)
+        {
+            handleCheckpointInteraction();
+        }
+
+        if (flashRedTimer > 0f)
+        {
+            flashRedTimer -= Time.deltaTime;
+            if (flashRedTimer <= 0f && spriteRenderer != null)
             {
-                timerAttack -= Time.deltaTime;
+                spriteRenderer.color = originalColor;
             }
-            //Função de teste para remover vidas (tomar dano)
+        }
+
+        if (isDying == false || isDashing == false)
+        {
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                // removeLife();
-                // DASH
+                Dashing();
             }
 
             if (Input.GetKeyDown(KeyCode.F))
@@ -128,19 +147,6 @@ public class PlayerController : MonoBehaviour
                 {
                     Debug.Log("Comendo um ovo frito");
                     eat(FoodEnum.FriedEgg);
-                }
-            }
-            if (inCheckpoint)
-            {
-                handleCheckpointInteraction();
-            }
-
-            if (flashRedTimer > 0f)
-            {
-                flashRedTimer -= Time.deltaTime;
-                if (flashRedTimer <= 0f && spriteRenderer != null)
-                {
-                    spriteRenderer.color = originalColor;
                 }
             }
         }
@@ -381,7 +387,7 @@ public class PlayerController : MonoBehaviour
                 if (enemies[i] is BoxCollider2D)
                 {
                     enemies[i].GetComponentInParent<Slime>().levarDano(damage);
-                    enemies[i].GetComponentInParent<Slime>().GetKnockedback(transform, knockedbackForce, stunTime:1f);
+                    enemies[i].GetComponentInParent<Slime>().GetKnockedback(transform, knockedbackForce, stunTime: 1f);
                 }
             }
         }
@@ -397,5 +403,26 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(stunTime);
         rb.linearVelocity = Vector2.zero;
         isKnockedback = false;
+    }
+
+    private IEnumerator Dash()
+    {
+        yield return new WaitForSeconds(0.2f);
+        speed /= dashingPower;
+        tr.emitting = false;
+
+        yield return new WaitForSeconds(0.5f);
+        isDashing = false;
+    }
+
+    private void Dashing()
+    {
+        if (!isDashing)
+        {
+            isDashing = true;
+            speed *= dashingPower;
+            tr.emitting = true;
+            StartCoroutine(Dash());
+        }
     }
 }
