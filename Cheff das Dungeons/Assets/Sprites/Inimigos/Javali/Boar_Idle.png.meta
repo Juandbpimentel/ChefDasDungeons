@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 292ac06d631408947bd0b1e0426b66f6
+guid: 365f4f75e39244d4485e039023529a47
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1471524882927548253
-    second: Stun_left_0
+      213: 5955512598667797552
+    second: Boar_Idle_0
   - first:
-      213: 1304303490334721934
-    second: Stun_left_1
+      213: 3644317419517918800
+    second: Boar_Idle_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,45 +116,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Stun_left_0
+      name: Boar_Idle_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 3
-        width: 32
+        x: 7
+        y: 2
+        width: 17
         height: 28
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3a884fa5ae7149be0800000000000000
-      internalID: -1471524882927548253
+      spriteID: 03425f2a72b36a250800000000000000
+      internalID: 5955512598667797552
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stun_left_1
+      name: Boar_Idle_1
       rect:
         serializedVersion: 2
-        x: 31
-        y: 3
-        width: 32
-        height: 28
+        x: 39
+        y: 2
+        width: 17
+        height: 27
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e8704bc2d11d91210800000000000000
-      internalID: 1304303490334721934
+      spriteID: 05e32277267339230800000000000000
+      internalID: 3644317419517918800
       vertices: []
       indices: 
       edges: []
@@ -163,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2e53a11444e03ff49839ddacd61e0450
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -173,8 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Stun_left_0: -1471524882927548253
-      Stun_left_1: 1304303490334721934
+      Boar_Idle_0: 5955512598667797552
+      Boar_Idle_1: 3644317419517918800
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 292ac06d631408947bd0b1e0426b66f6
+guid: f8df1e01f45ee0c4c97e34982f9c407c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1471524882927548253
-    second: Stun_left_0
+      213: 9130647759989690307
+    second: Goblin_Idle_0
   - first:
-      213: 1304303490334721934
-    second: Stun_left_1
+      213: 1368956883174936208
+    second: Goblin_Idle_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -77,7 +77,7 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 4
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -116,45 +116,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Stun_left_0
+      name: Goblin_Idle_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 3
-        width: 32
-        height: 28
+        x: 6
+        y: 5
+        width: 19
+        height: 26
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3a884fa5ae7149be0800000000000000
-      internalID: -1471524882927548253
+      spriteID: 3cfc66fe2c396be70800000000000000
+      internalID: 9130647759989690307
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stun_left_1
+      name: Goblin_Idle_1
       rect:
         serializedVersion: 2
-        x: 31
-        y: 3
-        width: 32
-        height: 28
+        x: 38
+        y: 5
+        width: 19
+        height: 25
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e8704bc2d11d91210800000000000000
-      internalID: 1304303490334721934
+      spriteID: 09ec77e38038ff210800000000000000
+      internalID: 1368956883174936208
       vertices: []
       indices: 
       edges: []
@@ -163,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2e53a11444e03ff49839ddacd61e0450
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -173,8 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Stun_left_0: -1471524882927548253
-      Stun_left_1: 1304303490334721934
+      Goblin_Idle_0: 9130647759989690307
+      Goblin_Idle_1: 1368956883174936208
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

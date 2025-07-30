@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -358,7 +356,7 @@ public class Slime : MonoBehaviour, ITriggerListener
         if (vida <= 0)
         {
             isDying = true;
-               
+
         }
     }
 
