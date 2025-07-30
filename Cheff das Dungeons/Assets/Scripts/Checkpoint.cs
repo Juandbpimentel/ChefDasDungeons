@@ -50,6 +50,6 @@ public class Checkpoint : MonoBehaviour
         fried_egg.gameObject.SetActive(hasEgg && isCrafting);
         stew.gameObject.SetActive(hasMeat && hasSlime && isCrafting);
         burger.gameObject.SetActive(hasMeat && hasSlime && hasEgg && isCrafting);
-        withoutIngredientsText.enabled = !hasMeat && !hasSlime && !hasEgg && isCrafting;
+        withoutIngredientsText.enabled = !hasSlime && !hasEgg && isCrafting;
     }
 }

@@ -30,7 +30,7 @@ public class Projetile : MonoBehaviour
             // Por exemplo, causar dano ou destruir o projetil
             Destroy(gameObject);
         }
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Foreground&Map"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Foreground/MapColliders"))
         {
             // Aqui você pode adicionar a lógica para o que acontece quando o projetil atinge um inimigo
             Debug.Log("Projetil atingiu o mapa!");

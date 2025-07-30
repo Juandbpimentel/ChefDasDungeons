@@ -5151,7 +5151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneName: Fase1
-  newPlayerPosition: {x: 0, y: 0}
+  newPlayerPosition: {x: 0, y: -5}
 --- !u!114 &545008318
 MonoBehaviour:
   m_ObjectHideFlags: 0

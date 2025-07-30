@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 5001473853989885463}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.07, y: -1.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -57,7 +57,7 @@ Transform:
   m_GameObject: {fileID: 7375718861489785382}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -107,7 +107,7 @@ TrailRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 2
   m_Time: 0.5
   m_PreviewTimeScale: 1
   m_Parameters:
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 5149313098698385634}
   - component: {fileID: 982690761258742384}
   - component: {fileID: 262437788943633577}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -344,12 +344,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168dfbab1cdd92d41b2878021ee97a27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  attackPoint: {fileID: 0}
+  speed: 5
+  attackPoint: {fileID: 365826460076131253}
   weaponRange: 1
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8388608
   damage: 1
   knockedbackForce: 1
   isDying: 0
@@ -361,20 +361,21 @@ MonoBehaviour:
   animator: {fileID: 1338983968048545784}
   isCrafting: 0
   inCheckpoint: 0
-  egg: 3
-  eggText: {fileID: 4061684897268977829}
-  meat: 3
-  meatText: {fileID: 3101581720155742709}
-  slime: 3
-  slimeText: {fileID: 4244700324501582046}
+  egg: 0
+  eggText: {fileID: 0}
+  meat: 0
+  meatText: {fileID: 0}
+  slime: 0
+  slimeText: {fileID: 0}
   burger: 0
-  burgerText: {fileID: 7446739878030392841}
+  burgerText: {fileID: 0}
   stew: 0
-  stewText: {fileID: 1233079925829092373}
+  stewText: {fileID: 0}
   fried_egg: 0
   fried_eggText: {fileID: 0}
   dashingPower: 3
-  tr: {fileID: 0}
+  tr: {fileID: 5595470346625812298}
+  isTeleporting: 0
 --- !u!70 &5149313098698385634
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -470,7 +471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e770e09cf07cbd1408d73515b8971ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLifes: 0
+  maxLifes: 5
   currentLife: 0
   lifeIconFull: {fileID: 4606908045521496030, guid: 7211921c90aae0a44a83eff47ff499f2, type: 3}
   lifeIconEmpty: {fileID: -705465144167411356, guid: 1a6887df01f7b0943a05fb0f96324742, type: 3}
