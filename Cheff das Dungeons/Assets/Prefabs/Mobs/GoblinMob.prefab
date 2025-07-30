@@ -67,7 +67,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.15}
   m_Radius: 1.5
 --- !u!114 &6379147190632374965
 MonoBehaviour:
@@ -94,8 +94,8 @@ GameObject:
   - component: {fileID: 452622944825877035}
   - component: {fileID: 3705329765167584095}
   - component: {fileID: 7683595789333422636}
-  - component: {fileID: 6390300914264063154}
   - component: {fileID: 7222267045898341813}
+  - component: {fileID: 6778667667623240354}
   m_Layer: 16
   m_Name: GoblinMob
   m_TagString: Enemy
@@ -164,13 +164,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: -1783020656395652030, guid: 3037b799e94fb0e48b89883128ded506, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 0.9, y: 1.2}
+  m_Size: {x: 0.9, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -225,27 +225,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &6390300914264063154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1074733835279746213}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e26c6073ff3d0c4dadf642ffc1f748b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vidaMaxima: 5
-  speed: 1.5
-  maxAttackCooldown: 2.5
-  attackForce: 1
-  raycastOriginOffset: {x: 0, y: 0.4}
-  attackCooldown: 0
-  isAttacking: 0
-  haveMakeAttack: 0
-  haveDied: 0
 --- !u!195 &7222267045898341813
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -268,6 +247,35 @@ NavMeshAgent:
   m_BaseOffset: 0.58
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &6778667667623240354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074733835279746213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58794384817846f48b00901eaa446f94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vidaMaxima: 3
+  speed: 1.5
+  stunTime: 0.1
+  raycastOriginOffset: {x: 0, y: 0.4}
+  vida: 0
+  arrowPrefab: {fileID: 3416019906943615338, guid: 44ae5f052867d814e9a31e26296bd827, type: 3}
+  attackRate: 10
+  maxAttackCooldown: 10
+  KnockbackForce: 5
+  attackRange: 10
+  haveDied: 0
+  slimeDropPrefab: {fileID: 2717574569883139326, guid: d774deeacf615fd49ab3d55ef90a280b, type: 3}
+  meatDropPrefab: {fileID: 708726310737219502, guid: 2646428042ccd8b43aefa4d701756964, type: 3}
+  eggDropPrefab: {fileID: 7205177180507890860, guid: b9172245aaff37a45a8dcf178a09ce85, type: 3}
+  burguerDropPrefab: {fileID: 2717574569883139326, guid: 2f1699e64bd8a514cb8685b100121b93, type: 3}
+  stewDropPrefab: {fileID: 2717574569883139326, guid: ff40e275680272d4388a50286cb39200, type: 3}
+  friedEggDropPrefab: {fileID: 2717574569883139326, guid: 0429d78561cb8a242accffe91a9b73f4, type: 3}
 --- !u!1 &3177126864999203873
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +343,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0017136931, y: -0.06683302}
+  m_Offset: {x: 0, y: -0.11}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -345,7 +353,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.42802566, y: 0.9691534}
+  m_Size: {x: 0.52, y: 0.7}
   m_EdgeRadius: 0
 --- !u!114 &2398461662588418779
 MonoBehaviour:
@@ -427,8 +435,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 7
+  m_Offset: {x: 0, y: -0.15}
+  m_Radius: 10
 --- !u!114 &7700732888774946110
 MonoBehaviour:
   m_ObjectHideFlags: 0

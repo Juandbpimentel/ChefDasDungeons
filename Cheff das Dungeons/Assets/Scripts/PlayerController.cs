@@ -70,6 +70,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private TrailRenderer tr;
 
+    private bool inSign = false;
+
+    public bool isTeleporting = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -103,6 +107,14 @@ public class PlayerController : MonoBehaviour
             handleCheckpointInteraction();
         }
 
+        if (inSign)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                GameManager.Instance.Respaw();
+            }
+        }
+
         if (flashRedTimer > 0f)
         {
             flashRedTimer -= Time.deltaTime;
@@ -120,7 +132,7 @@ public class PlayerController : MonoBehaviour
                 Dashing();
             }
 
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.J))
             {
                 Attack();
             }
@@ -191,28 +203,48 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         //Se for um "ovo", adiciona ao contador e destroi
-        if (other.CompareTag("Egg"))
-        {
-            egg++;
-            Destroy(other.gameObject);
-            eggText.text = egg.ToString();
-        }
+        string tag = other.tag;
+        if (handleFoodDrop(tag, other)) return;
+    }
 
-        //Se for uma "carne", adiciona ao contador e destroi
-        if (other.CompareTag("Meat"))
+    private bool handleFoodDrop(string tag, Collider2D other)
+    {
+        switch (tag)
         {
-            meat++;
-            Destroy(other.gameObject);
-            meatText.text = meat.ToString();
+            case "Egg":
+                egg++;
+                Destroy(other.gameObject);
+                eggText.text = egg.ToString();
+                return true;
+            case "Meat":
+                meat++;
+                Destroy(other.gameObject);
+                meatText.text = meat.ToString();
+                return true;
+            case "Slime":
+                slime++;
+                Destroy(other.gameObject);
+                slimeText.text = slime.ToString();
+                return true;
+            case "Burguer":
+                burger++;
+                Destroy(other.gameObject);
+                burgerText.text = burger.ToString();
+                return true;
+            case "Stew":
+                stew++;
+                Destroy(other.gameObject);
+                stewText.text = stew.ToString();
+                return true;
+            case "FriedEgg":
+                fried_egg++;
+                Destroy(other.gameObject);
+                fried_eggText.text = fried_egg.ToString();
+                return true;
+            default:
+                break;
         }
-
-        //Se for uma "gosma", adiciona ao contador e destroi
-        if (other.CompareTag("Slime"))
-        {
-            slime++;
-            Destroy(other.gameObject);
-            slimeText.text = slime.ToString();
-        }
+        return false;
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -283,6 +315,7 @@ public class PlayerController : MonoBehaviour
         {
             isDying = true;
             animator.SetBool("isDying", isDying);
+            animator.SetBool("isAttacking", false);
         }
     }
 
@@ -296,9 +329,13 @@ public class PlayerController : MonoBehaviour
 
     private bool recuperateLife(int n)
     {
-        if (n > 0)
+        if (n + currentLife > maxLifes)
         {
-            currentLife = n;
+            currentLife = maxLifes;
+        }
+        else if (n + currentLife > 0)
+        {
+            currentLife += n;
         }
         else
         {
@@ -310,6 +347,11 @@ public class PlayerController : MonoBehaviour
 
     private void eat(FoodEnum food)
     {
+        if (currentLife == maxLifes)
+        {
+            Debug.Log("Player já está com a vida cheia!");
+            return;
+        }
         Debug.Log("Comendo: " + food.ToString());
         if (food == FoodEnum.Burger && burger > 0)
         {
@@ -384,11 +426,8 @@ public class PlayerController : MonoBehaviour
         {
             for (int i = 0; i < enemies.Length; i++)
             {
-                if (enemies[i] is BoxCollider2D)
-                {
-                    enemies[i].GetComponentInParent<Slime>().levarDano(damage);
-                    enemies[i].GetComponentInParent<Slime>().GetKnockedback(transform, knockedbackForce, stunTime: 1f);
-                }
+                enemies[i].GetComponentInParent<IEnemy>().levarDano(damage);
+                enemies[i].GetComponentInParent<IEnemy>().GetKnockedback(transform, knockedbackForce, stunTime: 1f);
             }
         }
     }
