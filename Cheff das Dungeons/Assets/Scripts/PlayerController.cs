@@ -74,10 +74,7 @@ public class PlayerController : MonoBehaviour
 
     public bool isTeleporting = false;
 
-<<<<<<< HEAD
-=======
     private bool canTakeDamage = true;
->>>>>>> origin/develop
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -111,13 +108,13 @@ public class PlayerController : MonoBehaviour
             handleCheckpointInteraction();
         }
 
-        if (inSign)
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                GameManager.Instance.Respaw();
-            }
-        }
+        // if (inSign)
+        // {
+        //     if (Input.GetKeyDown(KeyCode.E))
+        //     {
+        //         GameManager.Instance.Respaw();
+        //     }
+        // }
 
         if (flashRedTimer > 0f)
         {

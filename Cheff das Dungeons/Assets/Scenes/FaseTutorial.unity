@@ -7912,7 +7912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b727711d6ccf746b0d4b890159ecea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastCheckpointPos: {x: 0, y: 0, z: 0}
+  lastCheckpointPos: {x: 0, y: -6.41, z: 0}
   sceneName: 
   persistentObjects:
   - {fileID: 1981230147}

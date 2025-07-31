@@ -52,7 +52,10 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName == null)
+        {
+            sceneName = SceneManager.GetActiveScene().name;
+        }
         // Se não existe player, crie um novo
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null && playerPrefab != null)

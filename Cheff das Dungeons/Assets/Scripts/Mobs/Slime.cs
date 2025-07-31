@@ -403,8 +403,8 @@ public class Slime : MonoBehaviour, ITriggerListener, IEnemy
         int dropChance = rand.Next(0, 100);
         if (dropChance < 55) // 0-54
         {
-            Debug.Log("Slime dropou uma garrafa de carne!");
-            Instantiate(meatDropPrefab, transform.position, Quaternion.identity);
+            Debug.Log("Slime dropou uma garrafa de slime!");
+            Instantiate(slimeDropPrefab, transform.position, Quaternion.identity);
         }
         else if (dropChance >= 55 && dropChance <= 56) // 55-56
         {

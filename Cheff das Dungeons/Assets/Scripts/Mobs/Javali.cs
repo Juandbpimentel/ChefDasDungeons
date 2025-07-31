@@ -417,7 +417,7 @@ public class Javali : MonoBehaviour, ITriggerListener, IEnemy
         if (dropChance < 55) // 0-54
         {
             Debug.Log("O Javali dropou uma carne!");
-            Instantiate(eggDropPrefab, transform.position, Quaternion.identity);
+            Instantiate(meatDropPrefab, transform.position, Quaternion.identity);
         }
         else if (dropChance >= 55 && dropChance <= 56) // 55-56
         {
