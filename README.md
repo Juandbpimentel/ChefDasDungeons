@@ -1,93 +1,369 @@
-# projeto-chef-das-dungeons
+# 🍳 Chef das Dungeons
 
+<div align="center">
 
+![Unity](https://img.shields.io/badge/Unity-2D-black?style=for-the-badge&logo=unity)
+![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow?style=for-the-badge)
 
-## Getting started
+**Um jogo de ação 2D onde você é um chef aventureiro que precisa coletar ingredientes de monstros para preparar comidas que restauram sua vida!**
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+[🎮 Jogar](#como-jogar) • [🛠️ Instalação](#instalação) • [📚 Documentação](#documentação-técnica) • [🤝 Contribuir](#como-contribuir)
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+</div>
 
-## Add your files
+---
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+## 📖 Sobre o Jogo
+
+**Chef das Dungeons** é um jogo de ação e sobrevivência 2D desenvolvido em Unity onde você controla um chef corajoso explorando masmorras perigosas. Derrote inimigos para coletar ingredientes, prepare comidas deliciosas em checkpoints e use-as para recuperar sua vida enquanto enfrenta hordas de monstros!
+
+### ✨ Características Principais
+
+- 🗡️ **Sistema de Combate Dinâmico**: Ataque corpo a corpo com knockback e sistema de stun
+- 🍖 **Coleta de Ingredientes**: Cada inimigo droppa ingredientes diferentes
+- 👨‍🍳 **Sistema de Crafting**: Combine ingredientes para criar comidas poderosas
+- 💚 **Sistema de Vida**: Gerencie sua saúde comendo as comidas preparadas
+- ⚡ **Movimento Ágil**: Dash para esquivar de ataques
+- 💾 **Checkpoints**: Sistema de salvamento e respawn
+- 🤖 **IA Inteligente**: Inimigos com NavMesh e comportamentos únicos
+
+---
+
+## 🎮 Como Jogar
+
+### Controles
+
+| Tecla | Ação |
+|-------|------|
+| **WASD / Setas** | Movimento |
+| **J** | Atacar |
+| **Espaço** | Dash |
+| **E** | Abrir/Fechar menu de crafting (no checkpoint) |
+| **1, 2, 3** | Craftar comidas OU consumir comidas |
+
+### Sistema de Crafting
+
+Ao chegar em um **Checkpoint**, pressione **E** para abrir o menu de crafting:
+
+| Comida | Ingredientes | Cura | Tecla |
+|--------|--------------|------|-------|
+| 🍳 **Ovo Frito** | 1x Ovo | ❤️ 1 vida | **3** |
+| 🍲 **Ensopado** | 1x Carne + 1x Slime | ❤️❤️ 2 vidas | **2** |
+| 🍔 **Hambúrguer** | 1x Ovo + 1x Carne + 1x Slime | ❤️❤️❤️ 3 vidas | **1** |
+
+### Ingredientes
+
+- 🥚 **Ovo (Egg)**: Dropado por Javalis
+- 🥩 **Carne (Meat)**: Dropado por Slimes e outros inimigos
+- 🟢 **Slime**: Dropado por Slimes
+
+---
+
+## 🛠️ Instalação
+
+### Requisitos
+
+- **Unity** (versão compatível com o projeto)
+- **Git** para clonar o repositório
+- Sistema operacional: **Windows**, **macOS** ou **Linux**
+
+### Passos para Instalação
+
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/Juandbpimentel/ChefDasDungeons.git
+   cd ChefDasDungeons
+   ```
+
+2. **Abra o projeto no Unity Hub:**
+   - Abra o Unity Hub
+   - Clique em "Add" e selecione a pasta `Cheff das Dungeons`
+   - Certifique-se de usar a versão correta do Unity
+
+3. **Execute o jogo:**
+   - Abra a cena principal em `Assets/Scenes/`
+   - Pressione o botão **Play** no editor Unity
+
+---
+
+## 📚 Documentação Técnica
+
+### 🏗️ Arquitetura do Projeto
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/trabalho-de-jogos/projeto-chef-das-dungeons.git
-git branch -M main
-git push -uf origin main
+ChefDasDungeons/
+├── Cheff das Dungeons/
+│   ├── Assets/
+│   │   ├── Scripts/           # Scripts C# do jogo
+│   │   │   ├── PlayerController.cs
+│   │   │   ├── GameManager.cs
+│   │   │   ├── Checkpoint.cs
+│   │   │   ├── Mobs/          # Scripts de inimigos
+│   │   │   │   ├── Slime.cs
+│   │   │   │   ├── Javali.cs
+│   │   │   │   └── Arqueiro.cs
+│   │   │   └── Interfaces/    # Interfaces do jogo
+│   │   │       ├── IEnemy.cs
+│   │   │       └── ITriggerListener.cs
+│   │   ├── Sprites/           # Sprites e assets visuais
+│   │   ├── Scenes/            # Cenas do Unity
+│   │   └── Libs/              # Bibliotecas (TextMesh Pro)
 ```
 
-## Integrate with your tools
+### 🎯 Scripts Principais
 
-- [ ] [Set up project integrations](https://gitlab.com/trabalho-de-jogos/projeto-chef-das-dungeons/-/settings/integrations)
+#### 1. **PlayerController.cs**
 
-## Collaborate with your team
+Controla todas as ações do jogador.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+**Principais Responsabilidades:**
+- Movimento e dash do personagem
+- Sistema de combate (ataque, dano, knockback)
+- Sistema de vida e morte
+- Gerenciamento de inventário de ingredientes e comidas
+- Interação com checkpoints
+- Sistema de crafting e consumo de comidas
 
-## Test and Deploy
+**Variáveis Importantes:**
+```csharp
+public int maxLifes = 5;           // Vida máxima
+public int currentLife;            // Vida atual
+public float speed = 3f;           // Velocidade de movimento
+public int damage = 1;             // Dano do ataque
+public float cooldownAttack = 0.8f; // Cooldown entre ataques
+```
 
-Use the built-in continuous integration in GitLab.
+**Métodos Principais:**
+- `ControlPlayerMoviment()`: Controla movimento WASD
+- `Attack()`: Inicia ataque
+- `DealDamage()`: Aplica dano aos inimigos
+- `Knockback()`: Recebe knockback de inimigos
+- `makeBurger()`, `makeStew()`, `makeFried_egg()`: Crafting
+- `eat()`: Consome comidas para recuperar vida
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+#### 2. **GameManager.cs**
 
-***
+Gerencia o estado global do jogo.
 
-# Editing this README
+**Padrão Singleton:**
+```csharp
+public static GameManager Instance;
+```
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+**Responsabilidades:**
+- Gerenciar checkpoints (última posição salva)
+- Sistema de respawn
+- Persistência de objetos entre cenas
+- Carregamento de cenas
 
-## Suggestions for a good README
+**Métodos Principais:**
+- `Respaw()`: Respawna o jogador no último checkpoint
+- `OnSceneLoaded()`: Gerencia transições de cena
+- `MarkPersistentObjects()`: Marca objetos que persistem entre cenas
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+#### 3. **Checkpoint.cs**
 
-## Name
-Choose a self-explaining name for your project.
+Sistema de checkpoints e crafting.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+**Funcionalidades:**
+- Salva posição do jogador ao entrar
+- Interface de crafting (mostra/esconde opções)
+- Valida ingredientes disponíveis
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+**Métodos Principais:**
+```csharp
+OnTriggerEnter2D()  // Salva checkpoint
+enableDisableFoods() // Mostra receitas disponíveis
+```
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+### 👾 Sistema de Inimigos
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+Todos os inimigos implementam a interface **IEnemy**:
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+```csharp
+public interface IEnemy
+{
+    void levarDano(int dano);
+    void GetKnockedback(Transform playerTransform, float force, float stunTime);
+    void generateDrop();
+}
+```
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+#### **Inimigos Implementados:**
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+1. **Slime** 🟢
+   - Vida: 3 HP
+   - Ataque corpo a corpo
+   - Drop: Principalmente carne (55%), pode dropar comidas prontas
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+2. **Javali** 🐗
+   - Vida: 3 HP
+   - Ataque de investida
+   - Drop: Principalmente ovos (55%), pode dropar comidas prontas
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+3. **Arqueiro** 🏹
+   - Vida: 3 HP
+   - Ataque à distância com flechas
+   - Foge quando o jogador se aproxima
+   - Drop: Variado
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+**Sistema de IA:**
+- Usa **Unity NavMesh** para navegação
+- Detecta linha de visão com Raycasts
+- Estados: Idle, Walking, Attacking, Dying
+- Áreas de trigger para detecção (InteractionArea, AttackArea)
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+**Sistema de Drop:**
 
-## License
-For open source projects, say how it is licensed.
+Exemplo do Slime:
+```csharp
+// Chances de drop:
+// 0-54%   (55%) → Carne
+// 55-56%  (2%)  → Ovo Frito
+// 57-64%  (8%)  → Ensopado
+// 65-70%  (6%)  → Hambúrguer
+// 71-99%  (29%) → Nada
+```
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+### 🎨 Sistema de Animação
+
+**Sprites em Grid:**
+- Player e Esqueleto: Grade 48x48
+- Slime: Grade 32x32
+
+**Animações (baseadas em linhas do spritesheet):**
+```
+Player:
+[0-2]  → Idle
+[3-5]  → Move
+[6-8]  → Attack
+[9]    → Death
+
+Enemies:
+[0-2]  → Idle
+[3-5]  → Move
+[6-8]  → Attack
+[9-11] → Damaged
+[12]   → Death
+```
+
+### 🔧 Dependências
+
+- **TextMesh Pro**: Sistema de texto avançado do Unity
+- **Unity AI Navigation (NavMesh)**: Sistema de navegação para IA dos inimigos
+- **Unity 2D Physics**: Sistema de física 2D
+
+---
+
+## 🤝 Como Contribuir
+
+Contribuições são muito bem-vindas! Siga os passos abaixo:
+
+### 📋 Pré-requisitos
+
+1. Fork este repositório
+2. Clone seu fork localmente
+3. Certifique-se de ter Unity instalado
+
+### 🔀 Fluxo de Contribuição
+
+1. **Crie uma branch para sua feature:**
+   ```bash
+   git checkout -b feature/minha-nova-feature
+   ```
+
+2. **Faça suas alterações e commit:**
+   ```bash
+   git add .
+   git commit -m "feat: Adiciona nova mecânica de X"
+   ```
+
+3. **Push para seu fork:**
+   ```bash
+   git push origin feature/minha-nova-feature
+   ```
+
+4. **Abra um Pull Request** no repositório original
+
+### 📝 Convenções de Código
+
+- **Nomenclatura:**
+  - Classes: `PascalCase` (ex: `PlayerController`)
+  - Métodos públicos: `PascalCase` (ex: `DealDamage()`)
+  - Métodos privados: `camelCase` (ex: `handleCheckpointInteraction()`)
+  - Variáveis: `camelCase` (ex: `currentLife`)
+
+- **Comentários:**
+  - Adicione comentários em português para código complexo
+  - Use `//` para comentários de linha única
+  - Use `/* */` para blocos de comentário
+
+- **Organização:**
+  - Mantenha scripts organizados por funcionalidade
+  - Inimigos em `/Scripts/Mobs/`
+  - Interfaces em `/Scripts/Interfaces/`
+
+### 🐛 Reportando Bugs
+
+Encontrou um bug? Abra uma [Issue](https://github.com/Juandbpimentel/ChefDasDungeons/issues) com:
+
+- **Título descritivo**
+- **Passos para reproduzir**
+- **Comportamento esperado vs atual**
+- **Screenshots** (se aplicável)
+- **Versão do Unity**
+
+### 💡 Sugestões de Melhorias
+
+Algumas áreas que precisam de atenção:
+
+- [ ] Sistema de save/load persistente
+- [ ] Mais tipos de inimigos
+- [ ] Novas receitas de comidas
+- [ ] Sistema de power-ups temporários
+- [ ] Boss fights
+- [ ] Múltiplas fases/dungeons
+- [ ] Sistema de sons e música
+- [ ] Menu principal e UI melhorada
+- [ ] Sistema de dificuldade progressiva
+- [ ] Conquistas/achievements
+
+### 🎨 Assets e Arte
+
+- Sprites devem seguir a paleta de cores existente
+- Mantenha o estilo pixel art
+- Organize sprites em pastas apropriadas
+- Credite assets de terceiros
+
+---
+
+## 📜 Licença
+
+Este projeto está sob a licença [MIT](LICENSE) - veja o arquivo LICENSE para detalhes.
+
+---
+
+## 👥 Autor
+
+**Juan Pimentel** - [@Juandbpimentel](https://github.com/Juandbpimentel)
+**Wilhelm Steins** - [@wilhelmSt](https://github.com/wilhelmSt)
+**Sarah Pimentel** - [@Sarah-Soares](https://github.com/Sarah-Soares)
+
+---
+
+## 🙏 Agradecimentos
+
+- Assets de sprites da comunidade
+- Unity Technologies pela engine
+- Comunidade de desenvolvedores indie
+
+---
+
+<div align="center">
+
+**Feito com ❤️ e muita 🍳 por Juan Pimentel, Wilhelm Steins, Sarah Pimentel**
+
+⭐ Se você gostou do projeto, considere dar uma estrela!
+
+</div>
