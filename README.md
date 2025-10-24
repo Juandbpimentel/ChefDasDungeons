@@ -8,7 +8,7 @@
 
 **Um jogo de ação 2D onde você é um chef aventureiro que precisa coletar ingredientes de monstros para preparar comidas que restauram sua vida!**
 
-[🎮 Jogar](##Como-jogar) • [🛠️ Instalação](##instalação) • [📚 Documentação](##documentação-técnica) • [🤝 Contribuir](##como-contribuir)
+[🎮 Jogar](#Como-jogar) • [🛠️ Instalação](##Instalação) • [📚 Documentação](##Documentação-Técnica) • [🤝 Contribuir](##Como-Contribuir)
 
 </div>
 
