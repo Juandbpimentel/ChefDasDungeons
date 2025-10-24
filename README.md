@@ -349,6 +349,7 @@ Este projeto está sob a licença [MIT](LICENSE) - veja o arquivo LICENSE para d
 **Juan Pimentel** - [@Juandbpimentel](https://github.com/Juandbpimentel)
 **Wilhelm Steins** - [@wilhelmSt](https://github.com/wilhelmSt)
 **Sarah Pimentel** - [@Sarah-Soares](https://github.com/Sarah-Soares)
+**Matheus Mendes** - [@matheuskid](https://github.com/matheuskid)
 
 ---
 
@@ -362,7 +363,7 @@ Este projeto está sob a licença [MIT](LICENSE) - veja o arquivo LICENSE para d
 
 <div align="center">
 
-**Feito com ❤️ e muita 🍳 por Juan Pimentel, Wilhelm Steins, Sarah Pimentel**
+**Feito com ❤️ e muita 🍳 por Juan Pimentel, Wilhelm Steins, Sarah Pimentel e Matheus Mendes**
 
 ⭐ Se você gostou do projeto, considere dar uma estrela!
 
